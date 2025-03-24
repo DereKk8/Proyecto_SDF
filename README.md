@@ -29,10 +29,15 @@ pip install pyzmq
 ## **📌 Estructura del Proyecto**
 
 📂 Proyecto_SDF/
+
 ├── programa_academico.py  ➝ Cliente (envía solicitudes de asignación)
+
 ├── facultad.py  ➝ Servidor (procesa solicitudes y asigna aulas)
+
 ├── config.py  ➝ Configuraciones generales (puertos, IPs, archivos)
+
 ├── facultades.txt  ➝ Base de datos con facultades y programas académicos
+
 ├── README.md  ➝ Este archivo con documentación del sistema
 
 ## **📌 Configuración**
