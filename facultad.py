@@ -1,10 +1,26 @@
 import zmq
 import json
 import sys
-from config import ZMQ_FACULTAD_1, ZMQ_FACULTAD_2
+from config import ZMQ_FACULTAD_1, ZMQ_FACULTAD_2, FACULTADES_FILE
 
-def procesar_solicitud(solicitud):
-    """Simula la asignación de aulas en función de la disponibilidad."""
+def cargar_facultades():
+    """Carga las facultades y programas académicos desde el archivo de texto."""
+    facultades = {}
+    with open(FACULTADES_FILE, "r", encoding="utf-8") as file:
+        for line in file:
+            data = line.strip().split(", ")
+            facultad = data[0]
+            programas = data[1:]
+            facultades[facultad] = programas
+    return facultades
+
+def procesar_solicitud(solicitud, facultades):
+    """Simula la asignación de aulas en función de la disponibilidad y valida la facultad."""
+    facultad = solicitud["facultad"]
+    
+    if facultad not in facultades:
+        return {"error": f"La facultad '{facultad}' no existe en el sistema"}
+
     max_salones = 10
     max_laboratorios = 4
 
@@ -12,6 +28,7 @@ def procesar_solicitud(solicitud):
     laboratorios_asignados = min(solicitud["laboratorios"], max_laboratorios)
 
     return {
+        "facultad": facultad,
         "programa": solicitud["programa"],
         "semestre": solicitud["semestre"],
         "salones_asignados": salones_asignados,
@@ -19,6 +36,8 @@ def procesar_solicitud(solicitud):
     }
 
 def main(endpoint):
+    facultades = cargar_facultades()
+
     context = zmq.Context()
     socket = context.socket(zmq.REP)
     socket.bind(endpoint)
@@ -26,16 +45,13 @@ def main(endpoint):
     print(f"[Facultad] Servidor iniciado en {endpoint}. Esperando solicitudes...")
 
     while True:
-        # Recibir solicitud de un programa académico
         mensaje = socket.recv_string()
         solicitud = json.loads(mensaje)
         
         print(f"[Facultad] Solicitud recibida: {solicitud}")
 
-        # Procesar la solicitud y asignar aulas
-        respuesta = procesar_solicitud(solicitud)
-        
-        # Enviar la respuesta al programa académico
+        respuesta = procesar_solicitud(solicitud, facultades)
+
         socket.send_string(json.dumps(respuesta))
         print(f"[Facultad] Respuesta enviada: {respuesta}")
 

@@ -1,0 +1,10 @@
+Facultad de Ciencias Sociales, Psicología, Sociología, Trabajo Social, Antropología, Comunicación
+Facultad de Ciencias Naturales, Biología, Química, Física, Geología, Ciencias Ambientales
+Facultad de Ingeniería, Ingeniería Civil, Ingeniería Electrónica, Ingeniería de Sistemas, Ingeniería Mecánica, Ingeniería Industrial
+Facultad de Medicina, Medicina General, Enfermería, Odontología, Farmacia, Terapia Física
+Facultad de Derecho, Derecho Penal, Derecho Civil, Derecho Internacional, Derecho Laboral, Derecho Constitucional
+Facultad de Artes, Bellas Artes, Música, Teatro, Danza, Diseño Gráfico
+Facultad de Educación, Educación Primaria, Educación Secundaria, Educación Especial, Psicopedagogía, Administración Educativa
+Facultad de Ciencias Económicas, Administración de Empresas, Contabilidad, Economía, Mercadotecnia, Finanzas
+Facultad de Arquitectura, Arquitectura, Urbanismo, Diseño de Interiores, Paisajismo, Restauración de Patrimonio
+Facultad de Tecnología, Desarrollo de Software, Redes y Telecomunicaciones, Ciberseguridad, Inteligencia Artificial, Big Data
