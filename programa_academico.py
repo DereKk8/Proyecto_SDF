@@ -112,6 +112,8 @@ def mostrar_asignacion(asignacion):
     print(f"📚 Semestre: {asignacion['semestre']}")
     print(f"🏫 Salones asignados: {asignacion['salones_asignados']}")
     print(f"🔬 Laboratorios asignados: {asignacion['laboratorios_asignados']}")
+    if "notificacion" in asignacion:
+        print(f"\n⚠️ {asignacion['notificacion']}")
     print("#" * 50)
 
 # =============================================================================
@@ -119,25 +121,14 @@ def mostrar_asignacion(asignacion):
 # =============================================================================
 
 def crear_solicitud(facultad, programa, semestre, salones, laboratorios):
-    """
-    Crea un diccionario con la información de la solicitud.
-    
-    Args:
-        facultad (str): Nombre de la facultad
-        programa (str): Nombre del programa
-        semestre (int): Número de semestre
-        salones (int): Número de salones solicitados
-        laboratorios (int): Número de laboratorios solicitados
-    
-    Returns:
-        dict: Diccionario con la información de la solicitud
-    """
+    """Crea una solicitud con los nuevos campos requeridos."""
     return {
         "facultad": facultad,
         "programa": programa,
         "semestre": semestre,
         "salones": salones,
-        "laboratorios": laboratorios
+        "laboratorios": laboratorios,
+        "capacidad_min": 30  # Valor por defecto o solicitado al usuario
     }
 
 def procesar_solicitud_colectiva(seleccionadas):
