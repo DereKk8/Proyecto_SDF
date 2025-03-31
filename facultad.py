@@ -2,7 +2,8 @@ import zmq
 import json
 import sys
 import os
-from config import ZMQ_FACULTAD_1, ZMQ_FACULTAD_2, FACULTADES_FILE
+from config import FACULTAD_1_URL, FACULTAD_2_URL, FACULTADES_FILE, DTI_URL
+from datetime import datetime
 
 def cargar_facultades():
     """Carga las facultades y programas académicos desde el archivo de texto con validación."""
@@ -27,30 +28,40 @@ def cargar_facultades():
     return facultades
 
 def procesar_solicitud(solicitud, facultades):
-    """Procesa la solicitud validando la existencia de la facultad y los parámetros."""
+    """Procesa la solicitud y la reenvía al DTI."""
     try:
-        if not isinstance(solicitud, dict) or "facultad" not in solicitud or "programa" not in solicitud:
-            return {"error": "Solicitud malformada. Faltan campos requeridos."}
+        if not isinstance(solicitud, dict):
+            return {"error": "Solicitud malformada"}
 
-        facultad = solicitud["facultad"]
+        # Validar que la facultad existe
+        facultad = solicitud.get("facultad")
         if facultad not in facultades:
-            return {"error": f"La facultad '{facultad}' no existe en el sistema."}
+            return {"error": f"La facultad '{facultad}' no existe"}
 
-        max_salones = 10
-        max_laboratorios = 4
-
-        salones_asignados = min(int(solicitud.get("salones", 0)), max_salones)
-        laboratorios_asignados = min(int(solicitud.get("laboratorios", 0)), max_laboratorios)
-
-        return {
-            "facultad": facultad,
-            "programa": solicitud["programa"],
-            "semestre": solicitud["semestre"],
-            "salones_asignados": salones_asignados,
-            "laboratorios_asignados": laboratorios_asignados
+        # Preparar solicitud para DTI
+        solicitud_dti = {
+            "tipo_solicitud": "ASIGNACION",
+            **solicitud,
+            "fecha_solicitud": datetime.now().isoformat()
         }
-    except (ValueError, KeyError, TypeError):
-        return {"error": "Error en los datos enviados en la solicitud."}
+
+        # Enviar al DTI y esperar respuesta
+        contexto = zmq.Context()
+        socket_dti = contexto.socket(zmq.REQ)
+        socket_dti.connect(DTI_URL)
+        
+        try:
+            socket_dti.send_string(json.dumps(solicitud_dti))
+            respuesta = socket_dti.recv_string()
+            return json.loads(respuesta)
+        except Exception as e:
+            return {"error": f"Error en comunicación con DTI: {str(e)}"}
+        finally:
+            socket_dti.close()
+            contexto.term()
+
+    except Exception as e:
+        return {"error": f"Error en procesamiento: {str(e)}"}
 
 def main(endpoint):
     facultades = cargar_facultades()
@@ -97,5 +108,5 @@ if __name__ == "__main__":
         sys.exit(1)
 
     facultad_id = sys.argv[1]
-    endpoint = ZMQ_FACULTAD_1 if facultad_id == "1" else ZMQ_FACULTAD_2
+    endpoint = FACULTAD_1_URL if facultad_id == "1" else FACULTAD_2_URL
     main(endpoint)
