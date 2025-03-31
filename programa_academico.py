@@ -88,6 +88,7 @@ def main():
             seleccionadas = seleccionar_facultades_y_programas(facultades)
             if not seleccionadas:
                 continue
+            semestre = solicitar_numero("Ingrese el semestre: ", 1, 10)
             salones = solicitar_numero("Ingrese el número de salones: ", 1)
             laboratorios = solicitar_numero("Ingrese el número de laboratorios: ", 0)
             solicitudes = []
@@ -96,7 +97,7 @@ def main():
                     solicitudes.append({
                         "facultad": facultad,
                         "programa": programa,
-                        "semestre": 2,
+                        "semestre": semestre,
                         "salones": salones,
                         "laboratorios": laboratorios
                     })
