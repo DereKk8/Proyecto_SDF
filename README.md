@@ -1,160 +1,227 @@
 # Sistema Distribuido de Asignación de Aulas 🎓🏫
 
-Este sistema implementa un **Sistema Distribuido de Asignación de Aulas y Laboratorios** utilizando **Python** y **ZeroMQ**.  
-Permite que **programas académicos** envíen solicitudes a **servidores de facultad**, los cuales procesan las solicitudes y asignan aulas de manera equitativa.  
+Sistema distribuido para asignación de aulas y laboratorios implementado con Python y ZeroMQ. Utiliza un patrón de comunicación Request-Reply entre tres componentes principales: Programas Académicos (clientes), Facultades (intermediarios) y DTI (servidor central).
 
----
+## 📌 Arquitectura del Sistema
 
-## **📌 Características del sistema**
-✅ **Comunicación Distribuida:** Implementa **Request-Reply Síncrono** con **ZeroMQ**.  
-✅ **Balanceo de Carga:** Distribuye solicitudes entre **dos servidores de facultad** usando **Round-Robin**.  
-✅ **Gestión de Errores:** Manejo de errores en **entrada de usuario**, **conexiones** y **formatos de datos**.  
-✅ **Interfaz de Consola Intuitiva:** **Menús interactivos**, validaciones y formato claro de respuestas.  
+### Componentes Principales
 
----
+1. **Programa Académico (`programa_academico.py`)**
+   - Cliente que genera y envía solicitudes
+   - Implementa patrón ZMQ REQ
+   - Maneja interfaz de usuario y validaciones
+   - Conecta con servidores de facultad mediante Round-Robin
 
-## **📌 Requisitos**
-Antes de ejecutar el sistema, asegúrate de tener instalado:
+2. **Facultad (`facultad.py`)**
+   - Servidor intermediario
+   - Recibe solicitudes de programas académicos (ZMQ REP)
+   - Reenvía solicitudes al DTI (ZMQ REQ)
+   - Valida facultades y programas
 
-- **Python 3.8+**
-- **ZeroMQ** (`pyzmq`)
-- **Archivos de configuración (`config.py` y `facultades.txt`) correctamente configurados**
+3. **DTI (`DTI_servidor.py`)**
+   - Servidor central de asignación
+   - Gestiona base de datos de aulas
+   - Procesa solicitudes de asignación
+   - Mantiene registro de operaciones
+   - Permite limpieza del sistema
 
-### **📌 Instalación de Dependencias**
-Ejecuta el siguiente comando para instalar **ZeroMQ**:
+## 📌 Configuración del Sistema
+
+El archivo `config.py` centraliza todas las configuraciones:
+
+```python
+# IP y puerto del Servidor DTI (Central)
+DTI_IP = "127.0.0.1"
+DTI_PUERTO = "5570"
+DTI_URL = f"tcp://{DTI_IP}:{DTI_PUERTO}"
+
+# Servidores de Facultad
+FACULTAD_1_URL = "tcp://127.0.0.1:5555"
+FACULTAD_2_URL = "tcp://127.0.0.1:5556"
+
+# Lista de URLs de facultades
+FACULTAD_SERVERS = [FACULTAD_1_URL, FACULTAD_2_URL]
+
+# Archivos del sistema
+FACULTADES_FILE = "facultades.txt"
+AULAS_REGISTRO_FILE = "aulas_registro.txt"
+ASIGNACIONES_LOG_FILE = "asignaciones_log.txt"
+```
+
+### Estructura de Archivos
+
+1. **`facultades.txt`**
+   ```
+   Facultad1, Programa1, Programa2, Programa3
+   Facultad2, Programa1, Programa2
+   ```
+
+2. **`aulas_registro.txt`**
+   ```csv
+   id,tipo,estado,capacidad,facultad,programa,fecha_solicitud,fecha_asignacion
+   S001,salón,disponible,40,,,,
+   L001,laboratorio,disponible,30,,,,
+   ```
+
+3. **`asignaciones_log.txt`**
+   ```
+   2024-03-14 10:30:00 - INFO - Asignación exitosa: Facultad X, Programa Y
+   ```
+
+## 📌 Funcionalidades Detalladas
+
+### 1. Gestión de Aulas
+
+```python
+@dataclass
+class Aula:
+    id: str
+    tipo: TipoAula
+    estado: EstadoAula
+    capacidad: int
+    facultad: str = ""
+    programa: str = ""
+    fecha_solicitud: str = ""
+    fecha_asignacion: str = ""
+```
+
+### 2. Estructura de Solicitudes
+
+```python
+# Solicitud de Programa Académico
+solicitud = {
+    "facultad": str,
+    "programa": str,
+    "semestre": int,
+    "salones": int,
+    "laboratorios": int,
+    "capacidad_min": int
+}
+
+# Respuesta del DTI
+respuesta = {
+    "facultad": str,
+    "programa": str,
+    "semestre": int,
+    "salones_asignados": list,
+    "laboratorios_asignados": list,
+    "notificacion": str  # opcional
+}
+```
+
+### 3. Comando de Limpieza (DTI)
+- Escribir "limpiar" en la consola del DTI para:
+  - Reiniciar estado de todas las aulas
+  - Borrar registros de asignaciones
+  - Limpiar logs
+  - Reconvertir aulas móviles a salones
+
+## 📌 Instalación y Ejecución
+
+### Requisitos
+- Python 3.8+
+- ZeroMQ
 ```bash
 pip install pyzmq
 ```
 
-## **📌 Estructura del Proyecto**
+### Pasos de Ejecución
 
-📂 Proyecto_SDF/
-
-├── programa_academico.py  ➝ Cliente (envía solicitudes de asignación)
-
-├── facultad.py  ➝ Servidor (procesa solicitudes y asigna aulas)
-
-├── config.py  ➝ Configuraciones generales (puertos, IPs, archivos)
-
-├── facultades.txt  ➝ Base de datos con facultades y programas académicos
-
-├── README.md  ➝ Este archivo con documentación del sistema
-
-## **📌 Configuración**
-
-Antes de ejecutar el sistema, verifica que el archivo `config.py` esté correctamente configurado:
-
-```python
-# Rutas de los servidores de facultad
-ZMQ_FACULTAD_1 = "tcp://127.0.0.1:5555"
-ZMQ_FACULTAD_2 = "tcp://127.0.0.1:5556"
-
-# Lista de servidores de facultad para balanceo de carga
-FACULTAD_SERVERS = [ZMQ_FACULTAD_1, ZMQ_FACULTAD_2]
-
-# Archivo con las facultades y programas académicos
-FACULTADES_FILE = "facultades.txt"
-```
-
-## **📌 Cómo Ejecutar el Sistema**
-
-### 1. Iniciar los Servidores de Facultad
-
-Cada servidor se ejecuta en una terminal separada:
-
+1. **Iniciar Servidor DTI**
 ```bash
-python facultad.py 1
-python facultad.py 2
+python DTI_servidor.py
 ```
 
-Salida esperada:
+2. **Iniciar Servidores de Facultad**
+```bash
+python facultad.py 1  # Primera facultad
+python facultad.py 2  # Segunda facultad
 ```
-✅ [Facultad] Servidor iniciado en tcp://127.0.0.1:5555. Esperando solicitudes...
-✅ [Facultad] Servidor iniciado en tcp://127.0.0.1:5556. Esperando solicitudes...
-```
 
-### 2. Ejecutar un Programa Académico
-
-Desde otra terminal, ejecuta el cliente:
-
+3. **Ejecutar Programa Académico**
 ```bash
 python programa_academico.py
 ```
 
-## **📌 Flujo de Solicitudes**
+## 📌 Flujo de Comunicación
 
-### Selección de Facultad y Programas
+1. **Programa Académico → Facultad**
+   - Conexión REQ-REP
+   - Balanceo Round-Robin entre facultades
+   - Validación de entrada de usuario
 
-El usuario selecciona una facultad y uno o más programas académicos.
+2. **Facultad → DTI**
+   - Validación de facultad y programas
+   - Reenvío de solicitud al DTI
+   - Espera de respuesta
 
-### Ingreso de Datos de Solicitud
+3. **DTI → Facultad → Programa**
+   - Procesamiento de solicitud
+   - Asignación de aulas
+   - Actualización de registros
+   - Respuesta en cascada
 
-Para cada programa académico, el usuario ingresa:
-- Semestre
-- Número de salones
-- Número de laboratorios
+## 📌 Manejo de Errores
 
-## **📌 Manejo de Errores**
+### Niveles de Error
+1. **Validación de Entrada**
+   ```python
+   def solicitar_numero(mensaje, minimo=1, maximo=None):
+       while True:
+           try:
+               valor = int(input(mensaje))
+               if maximo and (valor < minimo or valor > maximo):
+                   print(f"\n❌ Error: Ingrese un número entre {minimo} y {maximo}.")
+               else:
+                   return valor
+           except ValueError:
+               print("\n❌ Error: Debe ingresar un número válido.")
+   ```
 
-El sistema maneja diferentes tipos de errores:
+2. **Comunicación ZMQ**
+   ```python
+   try:
+       socket.send_string(json.dumps(solicitud))
+       respuesta = socket.recv_string()
+   except zmq.ZMQError:
+       print("\n❌ Error: Fallo en la comunicación con el servidor.")
+   ```
 
-| Error | Mensaje en pantalla |
-|-------|---------------------|
-| Archivo facultades.txt no encontrado | ❌ Error: No se encontró el archivo 'facultades.txt'. |
-| Entrada inválida (texto en vez de número) | ❌ Error: Debe ingresar un número válido. |
-| Facultad o programa inexistente | ❌ Error: Debe ingresar un número dentro del rango. |
-| Respuesta malformada del servidor | ❌ Error: Respuesta malformada del servidor. |
-| Servidor de facultad no disponible | ❌ Error: Fallo en la comunicación con el servidor. |
+3. **Procesamiento de Datos**
+   ```python
+   try:
+       asignacion = json.loads(respuesta)
+   except json.JSONDecodeError:
+       print("\n❌ Error: Respuesta malformada del servidor.")
+   ```
 
-## **📌 Ejemplo Completo**
+## 📌 Características Avanzadas
 
-```
-==================================================
-Facultades disponibles:
-==================================================
-1. Facultad de Ingeniería
-2. Facultad de Medicina
-Ingrese el número de la facultad: 1
+### 1. Aulas Móviles
+- Conversión automática de salones a laboratorios
+- Notificación al usuario
+- Registro en logs
 
-==================================================
-Programas académicos en Facultad de Ingeniería:
-==================================================
-1. Ingeniería Civil
-2. Ingeniería de Sistemas
-Ingrese los números de los programas académicos separados por comas: 2
+### 2. Estadísticas en Tiempo Real
+- Total de aulas por tipo
+- Estado de ocupación
+- Uso de aulas móviles
 
---------------------------------------------------
-Ingresando datos para el programa: Ingeniería de Sistemas
---------------------------------------------------
-Ingrese el semestre: 5
-Ingrese el número de salones: 8
-Ingrese el número de laboratorios: 3
+### 3. Persistencia de Datos
+- Registro continuo de asignaciones
+- Archivo de logs detallado
+- Base de datos de aulas actualizada
 
-##################################################
-✅ Solicitud procesada para el programa: Ingeniería de Sistemas
-📌 Facultad: Facultad de Ingeniería
-📚 Semestre: 5
-🏫 Salones asignados: 8
-🔬 Laboratorios asignados: 3
-##################################################
-```
+## 📌 Notas de Desarrollo
 
-## **📌 Contribuciones**
+- Uso de dataclasses para estructuras de datos
+- Implementación de enumeraciones para tipos y estados
+- Manejo de concurrencia en DTI
+- Sistema de logging estructurado
 
-Si deseas contribuir al proyecto, puedes hacer un fork del repositorio, realizar cambios y enviar un pull request.
+## 📌 Contribuciones y Mejoras Futuras
 
-## **📌 Notas Finales**
-
-📌 **Tecnologías usadas:** Python, ZeroMQ.
-📌 **Sistema distribuido:** 2 servidores de facultad, múltiples clientes.
-📌 **Escalabilidad:** Se pueden agregar más servidores si es necesario.
-
-🚀 ¡Listo! Ahora el sistema está funcionando correctamente.
-
-## **📌 ¿Qué incluye este README?**
-✅ **Explicación del sistema y tecnologías utilizadas**  
-✅ **Instrucciones de instalación y ejecución**  
-✅ **Ejemplo detallado de uso**  
-✅ **Manejo de errores y flujo de solicitudes**  
-
-Si tienes dudas o sugerencias, ¡házmelo saber! 😃
+- Implementación de GUI
+- Soporte para más tipos de aulas
+- Sistema de reservas anticipadas
+- Estadísticas avanzadas

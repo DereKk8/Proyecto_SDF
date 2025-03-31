@@ -1,1 +1,1 @@
-2025-03-31 17:04:57 - INFO - Sistema limpiado completamente
+2025-03-31 17:45:49 - INFO - Sistema limpiado completamente
