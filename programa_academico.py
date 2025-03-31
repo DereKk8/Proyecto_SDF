@@ -3,8 +3,17 @@ import json
 import os
 from config import FACULTAD_SERVERS, FACULTADES_FILE
 
+# =============================================================================
+# Funciones de carga y validación de datos
+# =============================================================================
+
 def cargar_facultades():
-    """Carga las facultades y programas académicos desde el archivo de texto con validaciones."""
+    """
+    Carga las facultades y programas académicos desde el archivo de texto.
+    
+    Returns:
+        dict: Diccionario con las facultades y sus programas académicos.
+    """
     facultades = {}
     if not os.path.exists(FACULTADES_FILE):
         print(f"\n❌ Error: No se encontró el archivo '{FACULTADES_FILE}'.")
@@ -25,8 +34,22 @@ def cargar_facultades():
 
     return facultades
 
+# =============================================================================
+# Funciones de interacción con el usuario
+# =============================================================================
+
 def solicitar_numero(mensaje, minimo=1, maximo=None):
-    """Solicita un número al usuario, asegurando que sea válido."""
+    """
+    Solicita un número al usuario con validación de rango.
+    
+    Args:
+        mensaje (str): Mensaje a mostrar al usuario
+        minimo (int): Valor mínimo permitido
+        maximo (int, optional): Valor máximo permitido
+    
+    Returns:
+        int: Número válido ingresado por el usuario
+    """
     while True:
         try:
             valor = int(input(mensaje))
@@ -38,7 +61,15 @@ def solicitar_numero(mensaje, minimo=1, maximo=None):
             print("\n❌ Error: Debe ingresar un número válido.")
 
 def seleccionar_facultades_y_programas(facultades):
-    """Permite seleccionar una o más facultades y sus programas."""
+    """
+    Permite al usuario seleccionar facultades y programas.
+    
+    Args:
+        facultades (dict): Diccionario de facultades y programas
+    
+    Returns:
+        list: Lista de tuplas (facultad, programas) seleccionadas
+    """
     if not facultades:
         print("\n❌ No hay facultades disponibles.")
         return []
@@ -60,8 +91,17 @@ def seleccionar_facultades_y_programas(facultades):
     
     return seleccionadas
 
+# =============================================================================
+# Funciones de visualización
+# =============================================================================
+
 def mostrar_asignacion(asignacion):
-    """Muestra la asignación de aulas."""
+    """
+    Muestra la asignación de aulas de manera formateada.
+    
+    Args:
+        asignacion (dict): Diccionario con la información de asignación
+    """
     if "error" in asignacion:
         print("\n❌ Error en la asignación:", asignacion["error"])
         return
@@ -74,7 +114,103 @@ def mostrar_asignacion(asignacion):
     print(f"🔬 Laboratorios asignados: {asignacion['laboratorios_asignados']}")
     print("#" * 50)
 
+# =============================================================================
+# Funciones de procesamiento de solicitudes
+# =============================================================================
+
+def crear_solicitud(facultad, programa, semestre, salones, laboratorios):
+    """
+    Crea un diccionario con la información de la solicitud.
+    
+    Args:
+        facultad (str): Nombre de la facultad
+        programa (str): Nombre del programa
+        semestre (int): Número de semestre
+        salones (int): Número de salones solicitados
+        laboratorios (int): Número de laboratorios solicitados
+    
+    Returns:
+        dict: Diccionario con la información de la solicitud
+    """
+    return {
+        "facultad": facultad,
+        "programa": programa,
+        "semestre": semestre,
+        "salones": salones,
+        "laboratorios": laboratorios
+    }
+
+def procesar_solicitud_colectiva(seleccionadas):
+    """
+    Procesa una solicitud colectiva para múltiples programas.
+    
+    Args:
+        seleccionadas (list): Lista de tuplas (facultad, programas) seleccionadas
+    
+    Returns:
+        list: Lista de solicitudes procesadas
+    """
+    semestre = solicitar_numero("Ingrese el semestre: ", 1, 10)
+    salones = solicitar_numero("Ingrese el número de salones: ", 1)
+    laboratorios = solicitar_numero("Ingrese el número de laboratorios: ", 0)
+    
+    solicitudes = []
+    for facultad, programas in seleccionadas:
+        for programa in programas:
+            solicitudes.append(crear_solicitud(facultad, programa, semestre, salones, laboratorios))
+    return solicitudes
+
+def procesar_solicitud_individual(seleccionadas):
+    """
+    Procesa solicitudes individuales para cada programa.
+    
+    Args:
+        seleccionadas (list): Lista de tuplas (facultad, programas) seleccionadas
+    
+    Returns:
+        list: Lista de solicitudes procesadas
+    """
+    solicitudes = []
+    for facultad, programas in seleccionadas:
+        for programa in programas:
+            print("\n" + "-" * 50)
+            print(f"Ingresando datos para el programa: {programa}")
+            print("-" * 50)
+            semestre = solicitar_numero("Ingrese el semestre: ", 1, 10)
+            salones = solicitar_numero("Ingrese el número de salones: ", 1)
+            laboratorios = solicitar_numero("Ingrese el número de laboratorios: ", 0)
+            solicitudes.append(crear_solicitud(facultad, programa, semestre, salones, laboratorios))
+    return solicitudes
+
+def enviar_solicitudes(solicitudes, sockets):
+    """
+    Envía las solicitudes a los servidores y procesa las respuestas.
+    
+    Args:
+        solicitudes (list): Lista de solicitudes a procesar
+        sockets (list): Lista de sockets ZMQ conectados
+    """
+    server_index = 0
+    for solicitud in solicitudes:
+        socket = sockets[server_index]
+        try:
+            socket.send_string(json.dumps(solicitud))
+            respuesta = socket.recv_string()
+            asignacion = json.loads(respuesta)
+            mostrar_asignacion(asignacion)
+        except json.JSONDecodeError:
+            print("\n❌ Error: Respuesta malformada del servidor.")
+        except zmq.ZMQError:
+            print("\n❌ Error: Fallo en la comunicación con el servidor.")
+        
+        server_index = (server_index + 1) % len(sockets)
+
+# =============================================================================
+# Función principal
+# =============================================================================
+
 def main():
+    """Función principal que coordina el flujo del programa."""
     facultades = cargar_facultades()
     context = zmq.Context()
     sockets = [context.socket(zmq.REQ) for _ in FACULTAD_SERVERS]
@@ -83,59 +219,16 @@ def main():
 
     while True:
         solicitud_colectiva = input("\n¿Desea realizar una solicitud colectiva? (s/n): ").strip().lower() == 's'
+        seleccionadas = seleccionar_facultades_y_programas(facultades)
         
-        if solicitud_colectiva:
-            seleccionadas = seleccionar_facultades_y_programas(facultades)
-            if not seleccionadas:
-                continue
-            semestre = solicitar_numero("Ingrese el semestre: ", 1, 10)
-            salones = solicitar_numero("Ingrese el número de salones: ", 1)
-            laboratorios = solicitar_numero("Ingrese el número de laboratorios: ", 0)
-            solicitudes = []
-            for facultad, programas in seleccionadas:
-                for programa in programas:
-                    solicitudes.append({
-                        "facultad": facultad,
-                        "programa": programa,
-                        "semestre": semestre,
-                        "salones": salones,
-                        "laboratorios": laboratorios
-                    })
-        else:
-            seleccionadas = seleccionar_facultades_y_programas(facultades)
-            if not seleccionadas:
-                continue
-            solicitudes = []
-            for facultad, programas in seleccionadas:
-                for programa in programas:
-                    print("\n" + "-" * 50)
-                    print(f"Ingresando datos para el programa: {programa}")
-                    print("-" * 50)
-                    semestre = solicitar_numero("Ingrese el semestre: ", 1, 10)
-                    salones = solicitar_numero("Ingrese el número de salones: ", 1)
-                    laboratorios = solicitar_numero("Ingrese el número de laboratorios: ", 0)
-                    solicitudes.append({
-                        "facultad": facultad,
-                        "programa": programa,
-                        "semestre": semestre,
-                        "salones": salones,
-                        "laboratorios": laboratorios
-                    })
-
-        server_index = 0
-        for solicitud in solicitudes:
-            socket = sockets[server_index]
-            try:
-                socket.send_string(json.dumps(solicitud))
-                respuesta = socket.recv_string()
-                asignacion = json.loads(respuesta)
-                mostrar_asignacion(asignacion)
-            except json.JSONDecodeError:
-                print("\n❌ Error: Respuesta malformada del servidor.")
-            except zmq.ZMQError:
-                print("\n❌ Error: Fallo en la comunicación con el servidor.")
+        if not seleccionadas:
+            continue
             
-            server_index = (server_index + 1) % len(sockets)
+        solicitudes = (procesar_solicitud_colectiva(seleccionadas) 
+                      if solicitud_colectiva 
+                      else procesar_solicitud_individual(seleccionadas))
+        
+        enviar_solicitudes(solicitudes, sockets)
 
         if input("\n¿Desea realizar otra solicitud? (s/n): ").strip().lower() != 's':
             break
