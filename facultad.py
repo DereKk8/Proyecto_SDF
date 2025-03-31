@@ -2,7 +2,7 @@ import zmq
 import json
 import sys
 import os
-from config import ZMQ_FACULTAD_1, ZMQ_FACULTAD_2, FACULTADES_FILE
+from config import FACULTAD_1_URL, FACULTAD_2_URL, FACULTADES_FILE
 
 def cargar_facultades():
     """Carga las facultades y programas académicos desde el archivo de texto con validación."""
@@ -97,5 +97,5 @@ if __name__ == "__main__":
         sys.exit(1)
 
     facultad_id = sys.argv[1]
-    endpoint = ZMQ_FACULTAD_1 if facultad_id == "1" else ZMQ_FACULTAD_2
+    endpoint = FACULTAD_1_URL if facultad_id == "1" else FACULTAD_2_URL
     main(endpoint)
