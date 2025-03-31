@@ -296,5 +296,6 @@ def main():
         socket.close()
         contexto.term()
 
+
 if __name__ == "__main__":
     main()
