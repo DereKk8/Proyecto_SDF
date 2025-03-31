@@ -37,11 +37,11 @@ def solicitar_numero(mensaje, minimo=1, maximo=None):
         except ValueError:
             print("\n❌ Error: Debe ingresar un número válido.")
 
-def seleccionar_facultad_y_programas(facultades):
-    """Permite al usuario seleccionar una facultad y uno o más programas académicos con validación de entrada."""
+def seleccionar_facultades_y_programas(facultades):
+    """Permite seleccionar una o más facultades y sus programas."""
     if not facultades:
-        print("\n❌ No hay facultades disponibles para seleccionar.")
-        return None, None
+        print("\n❌ No hay facultades disponibles.")
+        return []
 
     print("\n" + "=" * 50)
     print("Facultades disponibles:")
@@ -49,37 +49,25 @@ def seleccionar_facultad_y_programas(facultades):
     for i, facultad in enumerate(facultades.keys(), 1):
         print(f"{i}. {facultad}")
 
-    facultad_index = solicitar_numero("\nIngrese el número de la facultad: ", 1, len(facultades)) - 1
-    facultad_seleccionada = list(facultades.keys())[facultad_index]
-
-    print("\n" + "=" * 50)
-    print(f"Programas académicos en {facultad_seleccionada}:")
-    print("=" * 50)
-    programas = facultades[facultad_seleccionada]
-    for i, programa in enumerate(programas, 1):
-        print(f"{i}. {programa}")
-
-    while True:
+    indices = input("\nIngrese los números de las facultades separados por comas: ").split(",")
+    seleccionadas = []
+    for i in indices:
         try:
-            programa_indices = input("\nIngrese los números de los programas académicos separados por comas: ")
-            programas_seleccionados = [programas[int(i) - 1] for i in programa_indices.split(",") if i.strip().isdigit()]
-            if programas_seleccionados:
-                break
-            else:
-                print("\n❌ Error: Debe ingresar al menos un programa válido.")
+            facultad = list(facultades.keys())[int(i) - 1]
+            seleccionadas.append((facultad, facultades[facultad]))
         except (ValueError, IndexError):
-            print("\n❌ Error: Debe ingresar números válidos de la lista.")
-
-    return facultad_seleccionada, programas_seleccionados
+            print(f"\n⚠️ Advertencia: Número inválido ({i}).")
+    
+    return seleccionadas
 
 def mostrar_asignacion(asignacion):
-    """Muestra la asignación de aulas de forma más legible."""
+    """Muestra la asignación de aulas."""
     if "error" in asignacion:
         print("\n❌ Error en la asignación:", asignacion["error"])
         return
     
     print("\n" + "#" * 50)
-    print(f"✅ Solicitud procesada para el programa: {asignacion['programa']}")
+    print(f"✅ Programa: {asignacion['programa']}")
     print(f"📌 Facultad: {asignacion['facultad']}")
     print(f"📚 Semestre: {asignacion['semestre']}")
     print(f"🏫 Salones asignados: {asignacion['salones_asignados']}")
@@ -89,55 +77,66 @@ def mostrar_asignacion(asignacion):
 def main():
     facultades = cargar_facultades()
     context = zmq.Context()
-    
-    # Inicializamos los sockets para los dos servidores
     sockets = [context.socket(zmq.REQ) for _ in FACULTAD_SERVERS]
     for i, socket in enumerate(sockets):
         socket.connect(FACULTAD_SERVERS[i])
 
-    server_index = 0  # Alternar servidores
-
     while True:
-        facultad, programas = seleccionar_facultad_y_programas(facultades)
-        if facultad is None:
-            break  # No hay facultades disponibles
-
-        solicitudes = []
-        for programa in programas:
-            print("\n" + "-" * 50)
-            print(f"Ingresando datos para el programa: {programa}")
-            print("-" * 50)
-            semestre = solicitar_numero("Ingrese el semestre: ", 1, 10)
+        solicitud_colectiva = input("\n¿Desea realizar una solicitud colectiva? (s/n): ").strip().lower() == 's'
+        
+        if solicitud_colectiva:
+            seleccionadas = seleccionar_facultades_y_programas(facultades)
+            if not seleccionadas:
+                continue
             salones = solicitar_numero("Ingrese el número de salones: ", 1)
             laboratorios = solicitar_numero("Ingrese el número de laboratorios: ", 0)
+            solicitudes = []
+            for facultad, programas in seleccionadas:
+                for programa in programas:
+                    solicitudes.append({
+                        "facultad": facultad,
+                        "programa": programa,
+                        "semestre": 2,
+                        "salones": salones,
+                        "laboratorios": laboratorios
+                    })
+        else:
+            seleccionadas = seleccionar_facultades_y_programas(facultades)
+            if not seleccionadas:
+                continue
+            solicitudes = []
+            for facultad, programas in seleccionadas:
+                for programa in programas:
+                    print("\n" + "-" * 50)
+                    print(f"Ingresando datos para el programa: {programa}")
+                    print("-" * 50)
+                    semestre = solicitar_numero("Ingrese el semestre: ", 1, 10)
+                    salones = solicitar_numero("Ingrese el número de salones: ", 1)
+                    laboratorios = solicitar_numero("Ingrese el número de laboratorios: ", 0)
+                    solicitudes.append({
+                        "facultad": facultad,
+                        "programa": programa,
+                        "semestre": semestre,
+                        "salones": salones,
+                        "laboratorios": laboratorios
+                    })
 
-            solicitud = {
-                "facultad": facultad,
-                "programa": programa,
-                "semestre": semestre,
-                "salones": salones,
-                "laboratorios": laboratorios
-            }
-            solicitudes.append(solicitud)
-
+        server_index = 0
         for solicitud in solicitudes:
-            socket = sockets[server_index]  # Alternar servidores
+            socket = sockets[server_index]
             try:
                 socket.send_string(json.dumps(solicitud))
                 respuesta = socket.recv_string()
                 asignacion = json.loads(respuesta)
-                mostrar_asignacion(asignacion)  # Mostrar asignación con formato legible
+                mostrar_asignacion(asignacion)
             except json.JSONDecodeError:
                 print("\n❌ Error: Respuesta malformada del servidor.")
-                continue
             except zmq.ZMQError:
                 print("\n❌ Error: Fallo en la comunicación con el servidor.")
-                continue
+            
+            server_index = (server_index + 1) % len(sockets)
 
-            server_index = (server_index + 1) % len(sockets)  # Cambiar al siguiente servidor
-
-        continuar = input("\n¿Desea realizar otra solicitud? (s/n): ").strip().lower()
-        if continuar != 's':
+        if input("\n¿Desea realizar otra solicitud? (s/n): ").strip().lower() != 's':
             break
 
 if __name__ == "__main__":
