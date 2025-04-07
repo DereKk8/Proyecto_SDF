@@ -1,1 +1,214 @@
-2025-03-31 17:04:57 - INFO - Sistema limpiado completamente
+2025-04-07 17:28:23 - INFO - Sistema limpiado completamente
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Ciencias Sociales
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Sociales
+Programa: Psicología
+Salones: ['S001', 'S002', 'S003', 'S004', 'S005', 'S006', 'S007', 'S008', 'S009', 'S010']
+Laboratorios: ['L001', 'L002', 'L003', 'L004']
+Aulas móviles: []
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Sociales
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Ciencias Sociales
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Sociales
+Programa: Sociología
+Salones: ['S011', 'S012', 'S013', 'S014', 'S015', 'S016', 'S017', 'S018', 'S019', 'S020']
+Laboratorios: ['L005', 'L006', 'L007', 'L008']
+Aulas móviles: []
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Sociales
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Ciencias Sociales
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Sociales
+Programa: Trabajo Social
+Salones: ['S021', 'S022', 'S023', 'S024', 'S025', 'S026', 'S027', 'S028', 'S029', 'S030']
+Laboratorios: ['L009', 'L010', 'L011', 'L012']
+Aulas móviles: []
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Sociales
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Ciencias Sociales
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Sociales
+Programa: Antropología
+Salones: ['S031', 'S032', 'S033', 'S034', 'S035', 'S036', 'S037', 'S038', 'S039', 'S040']
+Laboratorios: ['L013', 'L014', 'L015', 'L016']
+Aulas móviles: []
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Sociales
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Ciencias Sociales
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Sociales
+Programa: Comunicación
+Salones: ['S041', 'S042', 'S043', 'S044', 'S045', 'S046', 'S047', 'S048', 'S049', 'S050']
+Laboratorios: ['L017', 'L018', 'L019', 'L020']
+Aulas móviles: []
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Sociales
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Ciencias Naturales
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Naturales
+Programa: Biología
+Salones: ['S051', 'S052', 'S053', 'S054', 'S055', 'S056', 'S057', 'S058', 'S059', 'S060']
+Laboratorios: ['L021', 'L022', 'L023', 'L024']
+Aulas móviles: []
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Naturales
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Ciencias Naturales
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Naturales
+Programa: Química
+Salones: ['S061', 'S062', 'S063', 'S064', 'S065', 'S066', 'S067', 'S068', 'S069', 'S070']
+Laboratorios: ['L025', 'L026', 'L027', 'L028']
+Aulas móviles: []
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Naturales
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Ciencias Naturales
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Naturales
+Programa: Física
+Salones: ['S071', 'S072', 'S073', 'S074', 'S075', 'S076', 'S077', 'S078', 'S079', 'S080']
+Laboratorios: ['L029', 'L030', 'L031', 'L032']
+Aulas móviles: []
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Naturales
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Ciencias Naturales
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Naturales
+Programa: Geología
+Salones: ['S081', 'S082', 'S083', 'S084', 'S085', 'S086', 'S087', 'S088', 'S089', 'S090']
+Laboratorios: ['L033', 'L034', 'L035', 'L036']
+Aulas móviles: []
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Naturales
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Ciencias Naturales
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Naturales
+Programa: Ciencias Ambientales
+Salones: ['S091', 'S092', 'S093', 'S094', 'S095', 'S096', 'S097', 'S098', 'S099', 'S100']
+Laboratorios: ['L037', 'L038', 'L039', 'L040']
+Aulas móviles: []
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Naturales
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Ingeniería
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Ingeniería
+Programa: Ingeniería Civil
+Salones: ['S101', 'S102', 'S103', 'S104', 'S105', 'S106', 'S107', 'S108', 'S109', 'S110']
+Laboratorios: ['L041', 'L042', 'L043', 'L044']
+Aulas móviles: []
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Ingeniería
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Ingeniería
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Ingeniería
+Programa: Ingeniería Electrónica
+Salones: ['S111', 'S112', 'S113', 'S114', 'S115', 'S116', 'S117', 'S118', 'S119', 'S120']
+Laboratorios: ['L045', 'L046', 'L047', 'L048']
+Aulas móviles: []
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Ingeniería
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Ingeniería
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Ingeniería
+Programa: Ingeniería de Sistemas
+Salones: ['S121', 'S122', 'S123', 'S124', 'S125', 'S126', 'S127', 'S128', 'S129', 'S130']
+Laboratorios: ['L049', 'L050', 'L051', 'L052']
+Aulas móviles: []
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Ingeniería
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Ingeniería
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Ingeniería
+Programa: Ingeniería Mecánica
+Salones: ['S131', 'S132', 'S133', 'S134', 'S135', 'S136', 'S137', 'S138', 'S139', 'S140']
+Laboratorios: ['L053', 'L054', 'L055', 'L056']
+Aulas móviles: []
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Ingeniería
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Ingeniería
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Ingeniería
+Programa: Ingeniería Industrial
+Salones: ['S141', 'S142', 'S143', 'S144', 'S145', 'S146', 'S147', 'S148', 'S149', 'S150']
+Laboratorios: ['L057', 'L058', 'L059', 'L060']
+Aulas móviles: []
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Ingeniería
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Medicina
+2025-04-07 17:28:32 - INFO - Salón S161 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Salón S162 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Salón S163 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Salón S164 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Medicina
+Programa: Medicina General
+Salones: ['S151', 'S152', 'S153', 'S154', 'S155', 'S156', 'S157', 'S158', 'S159', 'S160']
+Laboratorios: []
+Aulas móviles: ['S161', 'S162', 'S163', 'S164']
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Medicina
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Medicina
+2025-04-07 17:28:32 - INFO - Salón S175 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Salón S176 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Salón S177 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Salón S178 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Medicina
+Programa: Enfermería
+Salones: ['S165', 'S166', 'S167', 'S168', 'S169', 'S170', 'S171', 'S172', 'S173', 'S174']
+Laboratorios: []
+Aulas móviles: ['S175', 'S176', 'S177', 'S178']
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Medicina
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Medicina
+2025-04-07 17:28:32 - INFO - Salón S189 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Salón S190 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Salón S191 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Salón S192 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Medicina
+Programa: Odontología
+Salones: ['S179', 'S180', 'S181', 'S182', 'S183', 'S184', 'S185', 'S186', 'S187', 'S188']
+Laboratorios: []
+Aulas móviles: ['S189', 'S190', 'S191', 'S192']
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Medicina
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Medicina
+2025-04-07 17:28:32 - INFO - Salón S203 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Salón S204 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Salón S205 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Salón S206 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Medicina
+Programa: Farmacia
+Salones: ['S193', 'S194', 'S195', 'S196', 'S197', 'S198', 'S199', 'S200', 'S201', 'S202']
+Laboratorios: []
+Aulas móviles: ['S203', 'S204', 'S205', 'S206']
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Medicina
+2025-04-07 17:28:32 - INFO - Solicitud recibida de facultad: Facultad de Medicina
+2025-04-07 17:28:32 - INFO - Salón S217 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Salón S218 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Salón S219 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Salón S220 convertido en aula móvil
+2025-04-07 17:28:32 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:28:32 - INFO - Asignación exitosa:
+Facultad: Facultad de Medicina
+Programa: Terapia Física
+Salones: ['S207', 'S208', 'S209', 'S210', 'S211', 'S212', 'S213', 'S214', 'S215', 'S216']
+Laboratorios: []
+Aulas móviles: ['S217', 'S218', 'S219', 'S220']
+2025-04-07 17:28:32 - INFO - Respuesta enviada a facultad: Facultad de Medicina
+2025-04-07 17:32:06 - INFO - Solicitud recibida de facultad: Facultad de Ciencias Sociales
+2025-04-07 17:32:06 - INFO - Salón S223 convertido en aula móvil
+2025-04-07 17:32:06 - INFO - Salón S224 convertido en aula móvil
+2025-04-07 17:32:06 - INFO - Salón S225 convertido en aula móvil
+2025-04-07 17:32:06 - INFO - Salón S226 convertido en aula móvil
+2025-04-07 17:32:06 - INFO - Base de datos de aulas actualizada
+2025-04-07 17:32:06 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Sociales
+Programa: Psicología
+Salones: ['S221', 'S222']
+Laboratorios: []
+Aulas móviles: ['S223', 'S224', 'S225', 'S226']
+2025-04-07 17:32:06 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Sociales
