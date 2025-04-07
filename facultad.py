@@ -15,8 +15,6 @@ Archivos necesarios:
     - config.py: Contiene las URLs y configuraciones
     - facultades.txt: Lista de facultades y sus programas
 
-Autor: [Tu nombre]
-Fecha: [Fecha]
 """
 
 import zmq      # Para comunicación entre procesos
