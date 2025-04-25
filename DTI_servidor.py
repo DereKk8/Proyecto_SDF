@@ -13,8 +13,6 @@ Características principales:
 - Comando de limpieza del sistema
 - Estadísticas en tiempo real
 
-Autor: [Tu nombre]
-Fecha: [Fecha de última modificación]
 """
 
 import zmq  # Para comunicación distribuida
