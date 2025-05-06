@@ -2,6 +2,57 @@
 
 Sistema distribuido para asignación de aulas y laboratorios implementado con Python y ZeroMQ. Utiliza un patrón de comunicación Request-Reply entre tres componentes principales: Programas Académicos (clientes), Facultades (intermediarios) y DTI (servidor central).
 
+## 📋 TODOs y Plan de Desarrollo
+
+A continuación se presenta la lista de tareas pendientes ordenadas por prioridad para el desarrollo incremental del sistema:
+
+### Fase 1: Funcionalidad Base y Simulación
+- [ ] **Módulo del cliente con solicitudes "mock"**
+  - [ ] Implementar generador de solicitudes aleatorias
+  - [ ] Crear cliente de prueba para simulación de carga
+  - [ ] Añadir parámetros configurables (frecuencia, volumen, tipos)
+  - [ ] Registrar métricas básicas (tiempo de respuesta, tasa de éxito)
+
+- [ ] **Hilos para manejo de concurrencia**
+  - [ ] Refactorizar DTI para procesar múltiples solicitudes simultáneas
+  - [ ] Implementar locks para acceso seguro a recursos compartidos
+  - [ ] Añadir cola de procesamiento para solicitudes entrantes
+  - [ ] Crear mecanismo de timeout para solicitudes bloqueadas
+
+### Fase 2: Mejoras de Arquitectura
+- [ ] **Implementación del patrón "Load Balancing Broker" ZeroMQ**
+  - [ ] Desarrollar intermediario con balanceo de carga
+  - [ ] Permitir selección de modelo de comunicación en tiempo de ejecución:
+    - [ ] Modelo actual (REQ - REPLY)
+    - [ ] Modelo broker centralizado
+  - [ ] Añadir interfaz para selección de modelo de comunicación
+
+- [ ] **Tolerancia a fallos del Servidor Central (Nodo 5)**
+  - [ ] Implementar mecanismo de heartbeat para detección de fallos
+  - [ ] Desarrollar proceso de recuperación automática
+  - [ ] Crear sistema de respaldo y sincronización de estado
+
+### Fase 3: Monitoreo y Optimización
+- [ ] **Health check en un nodo adicional (Nodo 5)**
+  - [ ] Desarrollar nodo de monitoreo independiente
+  - [ ] Implementar verificación periódica de todos los componentes
+  - [ ] Crear panel de estado del sistema en tiempo real
+  - [ ] Añadir sistema de alertas para problemas detectados
+
+- [ ] **Métricas de desempeño**
+  - [ ] Desarrollar sistema completo de recolección de métricas:
+    - [ ] Tiempo de respuesta promedio (del servidor a las Facultades)
+    - [ ] Tiempo de respuesta mínimo y máximo (del servidor a las Facultades)
+    - [ ] Tiempo promedio desde que los programas hacen los requerimientos hasta que son atendidos
+    - [ ] Por Programa: número de requerimientos atendidos satisfactoriamente
+    - [ ] Por Programa: número de requerimientos rechazados por la Facultad
+    - [ ] Throughput del sistema (solicitudes/segundo)
+    - [ ] Tasas de utilización de recursos por nodo
+    - [ ] Tiempo de recuperación ante fallos
+  - [ ] Implementar visualización de métricas históricas
+  - [ ] Crear reportes automáticos de rendimiento
+  - [ ] Añadir detección de cuellos de botella
+
 ## 📌 Arquitectura del Sistema
 
 ### Componentes Principales
