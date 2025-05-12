@@ -3,6 +3,10 @@ import json
 import os
 from config import FACULTAD_SERVERS, FACULTADES_FILE
 import logging
+import argparse
+import random
+import time
+import threading
 
 # =============================================================================
 # Funciones de carga y validación de datos
@@ -250,8 +254,76 @@ def enviar_solicitudes(solicitudes, sockets):
         # Rotar al siguiente servidor
         server_index = (server_index + 1) % len(sockets)
 
+def simulacion_mock(patron):
+    """
+    Ejecuta la simulación mock según el patrón A o B.
+    """
+    facultades_dict = cargar_facultades()
+    if len(facultades_dict) < 5:
+        print("\n❌ Se requieren al menos 5 facultades para la simulación.")
+        return
+    
+
+    # Seleccionar 5 facultades aleatoriamente
+    facultades_seleccionadas = random.sample(list(facultades_dict.keys()), 5)
+    solicitudes = []
+    for facultad in facultades_seleccionadas:
+        for programa in facultades_dict[facultad]:
+            if patron == 'A':
+                salones, laboratorios = 7, 2
+            else:
+                salones, laboratorios = 10, 4
+            solicitudes.append({
+                'facultad': facultad,
+                'programa': programa,
+                'semestre': random.randint(1, 10),
+                'salones': salones,
+                'laboratorios': laboratorios,
+                'capacidad_min': 30
+            })
+
+    def proceso_programa(solicitud):
+        # Retardo aleatorio entre 0.1 y 2 segundos
+        time.sleep(random.uniform(0.1, 2.0))
+        context = zmq.Context()
+        # Round-robin entre servidores de facultad
+        server_url = random.choice(FACULTAD_SERVERS)
+        socket = context.socket(zmq.REQ)
+        socket.connect(server_url)
+        try:
+            socket.setsockopt(zmq.RCVTIMEO, 5000)
+            socket.setsockopt(zmq.SNDTIMEO, 5000)
+            socket.send_string(json.dumps(solicitud))
+            respuesta = socket.recv_string()
+            try:
+                asignacion = json.loads(respuesta)
+                mostrar_asignacion(asignacion)
+            except json.JSONDecodeError:
+                print(f"\n❌ Respuesta malformada para {solicitud['facultad']} - {solicitud['programa']}: {respuesta}")
+        except zmq.ZMQError as e:
+            print(f"\n❌ Error de comunicación para {solicitud['facultad']} - {solicitud['programa']}: {str(e)}")
+        finally:
+            socket.close()
+            context.term()
+
+    hilos = []
+    for solicitud in solicitudes:
+        t = threading.Thread(target=proceso_programa, args=(solicitud,))
+        t.start()
+        hilos.append(t)
+    for t in hilos:
+        t.join()
+
 def main():
     """Función principal que coordina el flujo del programa."""
+    parser = argparse.ArgumentParser(description="Simulador de Programa Académico")
+    parser.add_argument('--simulacion', choices=['A', 'B'], help='Ejecutar simulación mock con patrón A o B')
+    args = parser.parse_args()
+
+    if args.simulacion:
+        simulacion_mock(args.simulacion)
+        return
+
     # Configurar logging
     logging.basicConfig(
         filename='programa_academico.log',

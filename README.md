@@ -7,11 +7,12 @@ Sistema distribuido para asignación de aulas y laboratorios implementado con Py
 A continuación se presenta la lista de tareas pendientes ordenadas por prioridad para el desarrollo incremental del sistema:
 
 ### Fase 1: Funcionalidad Base y Simulación
+
 - [ ] **Módulo del cliente con solicitudes "mock"**
+
   - [ ] Implementar generador de solicitudes aleatorias
   - [ ] Crear cliente de prueba para simulación de carga
   - [ ] Añadir parámetros configurables (frecuencia, volumen, tipos)
-  - [ ] Registrar métricas básicas (tiempo de respuesta, tasa de éxito)
 
 - [ ] **Hilos para manejo de concurrencia**
   - [ ] Refactorizar DTI para procesar múltiples solicitudes simultáneas
@@ -20,7 +21,9 @@ A continuación se presenta la lista de tareas pendientes ordenadas por priorida
   - [ ] Crear mecanismo de timeout para solicitudes bloqueadas
 
 ### Fase 2: Mejoras de Arquitectura
+
 - [ ] **Implementación del patrón "Load Balancing Broker" ZeroMQ**
+
   - [ ] Desarrollar intermediario con balanceo de carga
   - [ ] Permitir selección de modelo de comunicación en tiempo de ejecución:
     - [ ] Modelo actual (REQ - REPLY)
@@ -33,7 +36,9 @@ A continuación se presenta la lista de tareas pendientes ordenadas por priorida
   - [ ] Crear sistema de respaldo y sincronización de estado
 
 ### Fase 3: Monitoreo y Optimización
+
 - [ ] **Health check en un nodo adicional (Nodo 5)**
+
   - [ ] Desarrollar nodo de monitoreo independiente
   - [ ] Implementar verificación periódica de todos los componentes
   - [ ] Crear panel de estado del sistema en tiempo real
@@ -58,12 +63,14 @@ A continuación se presenta la lista de tareas pendientes ordenadas por priorida
 ### Componentes Principales
 
 1. **Programa Académico (`programa_academico.py`)**
+
    - Cliente que genera y envía solicitudes
    - Implementa patrón ZMQ REQ
    - Maneja interfaz de usuario y validaciones
    - Conecta con servidores de facultad mediante Round-Robin
 
 2. **Facultad (`facultad.py`)**
+
    - Servidor intermediario
    - Recibe solicitudes de programas académicos (ZMQ REP)
    - Reenvía solicitudes al DTI (ZMQ REQ)
@@ -102,12 +109,14 @@ ASIGNACIONES_LOG_FILE = "asignaciones_log.txt"
 ### Estructura de Archivos
 
 1. **`facultades.txt`**
+
    ```
    Facultad1, Programa1, Programa2, Programa3
    Facultad2, Programa1, Programa2
    ```
 
 2. **`aulas_registro.txt`**
+
    ```csv
    id,tipo,estado,capacidad,facultad,programa,fecha_solicitud,fecha_asignacion
    S001,salón,disponible,40,,,,
@@ -161,6 +170,7 @@ respuesta = {
 ```
 
 ### 3. Comando de Limpieza (DTI)
+
 - Escribir "limpiar" en la consola del DTI para:
   - Reiniciar estado de todas las aulas
   - Borrar registros de asignaciones
@@ -170,8 +180,10 @@ respuesta = {
 ## 📌 Instalación y Ejecución
 
 ### Requisitos
+
 - Python 3.8+
 - ZeroMQ
+
 ```bash
 pip install pyzmq
 ```
@@ -179,29 +191,50 @@ pip install pyzmq
 ### Pasos de Ejecución
 
 1. **Iniciar Servidor DTI**
+
 ```bash
-python DTI_servidor.py
+python3 DTI_servidor.py
 ```
 
 2. **Iniciar Servidores de Facultad**
+
 ```bash
-python facultad.py 1  # Primera facultad
-python facultad.py 2  # Segunda facultad
+python3 facultad.py 1  # Primera facultad
+python3 facultad.py 2  # Segunda facultad
 ```
 
 3. **Ejecutar Programa Académico**
+
 ```bash
-python programa_academico.py
+python3 programa_academico.py
 ```
+
++### Ejecución de la Simulación Mock (Modo Autónomo)
+
+- +El sistema permite simular solicitudes concurrentes de programas académicos de manera autónoma, sin interacción manual, usando hilos para simular concurrencia realista.
+- +Para ejecutar la simulación, usa:
+- +`bash
++python3 programa_academico.py --simulacion A
++`
+  +o +`bash
++python3 programa_academico.py --simulacion B
++`
+- +**¿Qué hace cada modo?**
+- +- `--simulacion A`: Selecciona 5 facultades aleatorias y, para cada programa académico de esas facultades, genera una solicitud mock de 7 salones y 2 laboratorios. Cada solicitud se envía desde un hilo independiente, con un retardo aleatorio entre 0.1 y 2 segundos.
+  +- `--simulacion B`: Igual que el modo A, pero cada solicitud pide 10 salones y 4 laboratorios.
+- +Cada hilo imprime en consola la respuesta recibida para su solicitud, permitiendo observar el comportamiento concurrente y la asignación de recursos en el sistema.
+- +Si no se pasa el argumento `--simulacion`, el programa funciona en modo interactivo tradicional.
 
 ## 📌 Flujo de Comunicación
 
 1. **Programa Académico → Facultad**
+
    - Conexión REQ-REP
    - Balanceo Round-Robin entre facultades
    - Validación de entrada de usuario
 
 2. **Facultad → DTI**
+
    - Validación de facultad y programas
    - Reenvío de solicitud al DTI
    - Espera de respuesta
@@ -215,7 +248,9 @@ python programa_academico.py
 ## 📌 Manejo de Errores
 
 ### Niveles de Error
+
 1. **Validación de Entrada**
+
    ```python
    def solicitar_numero(mensaje, minimo=1, maximo=None):
        while True:
@@ -230,6 +265,7 @@ python programa_academico.py
    ```
 
 2. **Comunicación ZMQ**
+
    ```python
    try:
        socket.send_string(json.dumps(solicitud))
@@ -249,16 +285,19 @@ python programa_academico.py
 ## 📌 Características Avanzadas
 
 ### 1. Aulas Móviles
+
 - Conversión automática de salones a laboratorios
 - Notificación al usuario
 - Registro en logs
 
 ### 2. Estadísticas en Tiempo Real
+
 - Total de aulas por tipo
 - Estado de ocupación
 - Uso de aulas móviles
 
 ### 3. Persistencia de Datos
+
 - Registro continuo de asignaciones
 - Archivo de logs detallado
 - Base de datos de aulas actualizada
