@@ -8,17 +8,15 @@ A continuación se presenta la lista de tareas pendientes ordenadas por priorida
 
 ### Fase 1: Funcionalidad Base y Simulación
 
-- [ ] **Módulo del cliente con solicitudes "mock"**
+- [x] **Módulo del cliente con solicitudes "mock"**
 
-  - [ ] Implementar generador de solicitudes aleatorias
-  - [ ] Crear cliente de prueba para simulación de carga
-  - [ ] Añadir parámetros configurables (frecuencia, volumen, tipos)
+  - [x] Implementar generador de solicitudes aleatorias
+  - [x] Crear cliente de prueba para simulación de carga
+  - [x] Añadir parámetros configurables (frecuencia, volumen, tipos)
 
-- [ ] **Hilos para manejo de concurrencia**
-  - [ ] Refactorizar DTI para procesar múltiples solicitudes simultáneas
-  - [ ] Implementar locks para acceso seguro a recursos compartidos
-  - [ ] Añadir cola de procesamiento para solicitudes entrantes
-  - [ ] Crear mecanismo de timeout para solicitudes bloqueadas
+- [x] **Hilos para manejo de concurrencia**
+  - [x] Refactorizar DTI para procesar múltiples solicitudes simultáneas
+  - [x] Crear mecanismo de timeout para solicitudes bloqueadas
 
 ### Fase 2: Mejoras de Arquitectura
 
