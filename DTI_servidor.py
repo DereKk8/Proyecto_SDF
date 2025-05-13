@@ -188,7 +188,6 @@ class ServidorDTI:
                         logging.info(f"Salón {aula.id} convertido en aula móvil")
 
                 # Guardar cambios
-                thread_id = threading.get_ident()
                 
                 self.guardar_aulas()
                 
