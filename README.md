@@ -17,6 +17,9 @@ A continuación se presenta la lista de tareas pendientes ordenadas por priorida
 - [x] **Hilos para manejo de concurrencia**
   - [x] Refactorizar DTI para procesar múltiples solicitudes simultáneas
   - [x] Crear mecanismo de timeout para solicitudes bloqueadas
+  - ** Bug
+      No hay acceso a recurso de los hilos dice que el recurso no esta disponible.
+
 
 ### Fase 2: Mejoras de Arquitectura
 
