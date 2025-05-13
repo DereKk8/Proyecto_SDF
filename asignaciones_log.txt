@@ -1,0 +1,517 @@
+2025-05-13 15:01:48 - INFO - Sistema limpiado completamente
+2025-05-13 15:02:00 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:00 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:00 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:00 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:00 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:00 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:00 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:00 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:00 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:00 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:00 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:01 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:01 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:01 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:01 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:01 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:01 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:01 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:01 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:01 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:01 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:01 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:01 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:01 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:02 - ERROR - Error procesando solicitud: 'ServidorDTI' object has no attribute 'active_threads'
+2025-05-13 15:02:47 - INFO - Aulas cargadas exitosamente: 440 aulas en total
+2025-05-13 15:02:50 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:50 - INFO - Asignación exitosa:
+Facultad: Facultad de Artes
+Programa: Diseño Gráfico
+Salones: ['S001', 'S002', 'S003', 'S004', 'S005', 'S006', 'S007', 'S008', 'S009', 'S010']
+Laboratorios: ['L001', 'L002', 'L003', 'L004']
+Aulas móviles: []
+2025-05-13 15:02:50 - INFO - Respuesta enviada a facultad: Facultad de Artes
+2025-05-13 15:02:50 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:50 - INFO - Asignación exitosa:
+Facultad: Facultad de Medicina
+Programa: Enfermería
+Salones: ['S011', 'S012', 'S013', 'S014', 'S015', 'S016', 'S017', 'S018', 'S019', 'S020']
+Laboratorios: ['L005', 'L006', 'L007', 'L008']
+Aulas móviles: []
+2025-05-13 15:02:50 - INFO - Respuesta enviada a facultad: Facultad de Medicina
+2025-05-13 15:02:50 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:50 - INFO - Asignación exitosa:
+Facultad: Facultad de Artes
+Programa: Bellas Artes
+Salones: ['S021', 'S022', 'S023', 'S024', 'S025', 'S026', 'S027', 'S028', 'S029', 'S030']
+Laboratorios: ['L009', 'L010', 'L011', 'L012']
+Aulas móviles: []
+2025-05-13 15:02:50 - INFO - Respuesta enviada a facultad: Facultad de Artes
+2025-05-13 15:02:50 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:50 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Sociales
+Programa: Trabajo Social
+Salones: ['S031', 'S032', 'S033', 'S034', 'S035', 'S036', 'S037', 'S038', 'S039', 'S040']
+Laboratorios: ['L013', 'L014', 'L015', 'L016']
+Aulas móviles: []
+2025-05-13 15:02:50 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Sociales
+2025-05-13 15:02:50 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:50 - INFO - Asignación exitosa:
+Facultad: Facultad de Artes
+Programa: Música
+Salones: ['S041', 'S042', 'S043', 'S044', 'S045', 'S046', 'S047', 'S048', 'S049', 'S050']
+Laboratorios: ['L017', 'L018', 'L019', 'L020']
+Aulas móviles: []
+2025-05-13 15:02:50 - INFO - Respuesta enviada a facultad: Facultad de Artes
+2025-05-13 15:02:50 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:50 - INFO - Asignación exitosa:
+Facultad: Facultad de Educación
+Programa: Educación Secundaria
+Salones: ['S051', 'S052', 'S053', 'S054', 'S055', 'S056', 'S057', 'S058', 'S059', 'S060']
+Laboratorios: ['L021', 'L022', 'L023', 'L024']
+Aulas móviles: []
+2025-05-13 15:02:50 - INFO - Respuesta enviada a facultad: Facultad de Educación
+2025-05-13 15:02:50 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:50 - INFO - Asignación exitosa:
+Facultad: Facultad de Medicina
+Programa: Terapia Física
+Salones: ['S061', 'S062', 'S063', 'S064', 'S065', 'S066', 'S067', 'S068', 'S069', 'S070']
+Laboratorios: ['L025', 'L026', 'L027', 'L028']
+Aulas móviles: []
+2025-05-13 15:02:50 - INFO - Respuesta enviada a facultad: Facultad de Medicina
+2025-05-13 15:02:50 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:50 - INFO - Asignación exitosa:
+Facultad: Facultad de Tecnología
+Programa: Desarrollo de Software
+Salones: ['S071', 'S072', 'S073', 'S074', 'S075', 'S076', 'S077', 'S078', 'S079', 'S080']
+Laboratorios: ['L029', 'L030', 'L031', 'L032']
+Aulas móviles: []
+2025-05-13 15:02:50 - INFO - Respuesta enviada a facultad: Facultad de Tecnología
+2025-05-13 15:02:51 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:51 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Sociales
+Programa: Sociología
+Salones: ['S081', 'S082', 'S083', 'S084', 'S085', 'S086', 'S087', 'S088', 'S089', 'S090']
+Laboratorios: ['L033', 'L034', 'L035', 'L036']
+Aulas móviles: []
+2025-05-13 15:02:51 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Sociales
+2025-05-13 15:02:51 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:51 - INFO - Asignación exitosa:
+Facultad: Facultad de Medicina
+Programa: Odontología
+Salones: ['S091', 'S092', 'S093', 'S094', 'S095', 'S096', 'S097', 'S098', 'S099', 'S100']
+Laboratorios: ['L037', 'L038', 'L039', 'L040']
+Aulas móviles: []
+2025-05-13 15:02:51 - INFO - Respuesta enviada a facultad: Facultad de Medicina
+2025-05-13 15:02:51 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:51 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Sociales
+Programa: Psicología
+Salones: ['S101', 'S102', 'S103', 'S104', 'S105', 'S106', 'S107', 'S108', 'S109', 'S110']
+Laboratorios: ['L041', 'L042', 'L043', 'L044']
+Aulas móviles: []
+2025-05-13 15:02:51 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Sociales
+2025-05-13 15:02:51 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:51 - INFO - Asignación exitosa:
+Facultad: Facultad de Educación
+Programa: Psicopedagogía
+Salones: ['S111', 'S112', 'S113', 'S114', 'S115', 'S116', 'S117', 'S118', 'S119', 'S120']
+Laboratorios: ['L045', 'L046', 'L047', 'L048']
+Aulas móviles: []
+2025-05-13 15:02:51 - INFO - Respuesta enviada a facultad: Facultad de Educación
+2025-05-13 15:02:51 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:51 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Sociales
+Programa: Comunicación
+Salones: ['S121', 'S122', 'S123', 'S124', 'S125', 'S126', 'S127', 'S128', 'S129', 'S130']
+Laboratorios: ['L049', 'L050', 'L051', 'L052']
+Aulas móviles: []
+2025-05-13 15:02:51 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Sociales
+2025-05-13 15:02:51 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:51 - INFO - Asignación exitosa:
+Facultad: Facultad de Tecnología
+Programa: Big Data
+Salones: ['S131', 'S132', 'S133', 'S134', 'S135', 'S136', 'S137', 'S138', 'S139', 'S140']
+Laboratorios: ['L053', 'L054', 'L055', 'L056']
+Aulas móviles: []
+2025-05-13 15:02:51 - INFO - Respuesta enviada a facultad: Facultad de Tecnología
+2025-05-13 15:02:51 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:51 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Sociales
+Programa: Antropología
+Salones: ['S141', 'S142', 'S143', 'S144', 'S145', 'S146', 'S147', 'S148', 'S149', 'S150']
+Laboratorios: ['L057', 'L058', 'L059', 'L060']
+Aulas móviles: []
+2025-05-13 15:02:51 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Sociales
+2025-05-13 15:02:51 - INFO - Salón S161 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S162 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S163 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S164 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:51 - INFO - Asignación exitosa:
+Facultad: Facultad de Medicina
+Programa: Medicina General
+Salones: ['S151', 'S152', 'S153', 'S154', 'S155', 'S156', 'S157', 'S158', 'S159', 'S160']
+Laboratorios: []
+Aulas móviles: ['S161', 'S162', 'S163', 'S164']
+2025-05-13 15:02:51 - INFO - Respuesta enviada a facultad: Facultad de Medicina
+2025-05-13 15:02:51 - INFO - Salón S175 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S176 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S177 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S178 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:51 - INFO - Asignación exitosa:
+Facultad: Facultad de Medicina
+Programa: Farmacia
+Salones: ['S165', 'S166', 'S167', 'S168', 'S169', 'S170', 'S171', 'S172', 'S173', 'S174']
+Laboratorios: []
+Aulas móviles: ['S175', 'S176', 'S177', 'S178']
+2025-05-13 15:02:51 - INFO - Respuesta enviada a facultad: Facultad de Medicina
+2025-05-13 15:02:51 - INFO - Salón S189 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S190 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S191 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S192 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:51 - INFO - Asignación exitosa:
+Facultad: Facultad de Tecnología
+Programa: Redes y Telecomunicaciones
+Salones: ['S179', 'S180', 'S181', 'S182', 'S183', 'S184', 'S185', 'S186', 'S187', 'S188']
+Laboratorios: []
+Aulas móviles: ['S189', 'S190', 'S191', 'S192']
+2025-05-13 15:02:51 - INFO - Respuesta enviada a facultad: Facultad de Tecnología
+2025-05-13 15:02:51 - INFO - Salón S203 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S204 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S205 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S206 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:51 - INFO - Asignación exitosa:
+Facultad: Facultad de Tecnología
+Programa: Inteligencia Artificial
+Salones: ['S193', 'S194', 'S195', 'S196', 'S197', 'S198', 'S199', 'S200', 'S201', 'S202']
+Laboratorios: []
+Aulas móviles: ['S203', 'S204', 'S205', 'S206']
+2025-05-13 15:02:51 - INFO - Respuesta enviada a facultad: Facultad de Tecnología
+2025-05-13 15:02:51 - INFO - Salón S217 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S218 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S219 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S220 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:51 - INFO - Asignación exitosa:
+Facultad: Facultad de Artes
+Programa: Danza
+Salones: ['S207', 'S208', 'S209', 'S210', 'S211', 'S212', 'S213', 'S214', 'S215', 'S216']
+Laboratorios: []
+Aulas móviles: ['S217', 'S218', 'S219', 'S220']
+2025-05-13 15:02:51 - INFO - Respuesta enviada a facultad: Facultad de Artes
+2025-05-13 15:02:51 - INFO - Salón S231 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S232 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S233 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Salón S234 convertido en aula móvil
+2025-05-13 15:02:51 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:51 - INFO - Asignación exitosa:
+Facultad: Facultad de Educación
+Programa: Administración Educativa
+Salones: ['S221', 'S222', 'S223', 'S224', 'S225', 'S226', 'S227', 'S228', 'S229', 'S230']
+Laboratorios: []
+Aulas móviles: ['S231', 'S232', 'S233', 'S234']
+2025-05-13 15:02:51 - INFO - Respuesta enviada a facultad: Facultad de Educación
+2025-05-13 15:02:52 - INFO - Salón S245 convertido en aula móvil
+2025-05-13 15:02:52 - INFO - Salón S246 convertido en aula móvil
+2025-05-13 15:02:52 - INFO - Salón S247 convertido en aula móvil
+2025-05-13 15:02:52 - INFO - Salón S248 convertido en aula móvil
+2025-05-13 15:02:52 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:52 - INFO - Asignación exitosa:
+Facultad: Facultad de Educación
+Programa: Educación Primaria
+Salones: ['S235', 'S236', 'S237', 'S238', 'S239', 'S240', 'S241', 'S242', 'S243', 'S244']
+Laboratorios: []
+Aulas móviles: ['S245', 'S246', 'S247', 'S248']
+2025-05-13 15:02:52 - INFO - Respuesta enviada a facultad: Facultad de Educación
+2025-05-13 15:02:52 - INFO - Salón S259 convertido en aula móvil
+2025-05-13 15:02:52 - INFO - Salón S260 convertido en aula móvil
+2025-05-13 15:02:52 - INFO - Salón S261 convertido en aula móvil
+2025-05-13 15:02:52 - INFO - Salón S262 convertido en aula móvil
+2025-05-13 15:02:52 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:52 - INFO - Asignación exitosa:
+Facultad: Facultad de Tecnología
+Programa: Ciberseguridad
+Salones: ['S249', 'S250', 'S251', 'S252', 'S253', 'S254', 'S255', 'S256', 'S257', 'S258']
+Laboratorios: []
+Aulas móviles: ['S259', 'S260', 'S261', 'S262']
+2025-05-13 15:02:52 - INFO - Respuesta enviada a facultad: Facultad de Tecnología
+2025-05-13 15:02:52 - INFO - Salón S273 convertido en aula móvil
+2025-05-13 15:02:52 - INFO - Salón S274 convertido en aula móvil
+2025-05-13 15:02:52 - INFO - Salón S275 convertido en aula móvil
+2025-05-13 15:02:52 - INFO - Salón S276 convertido en aula móvil
+2025-05-13 15:02:52 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:52 - INFO - Asignación exitosa:
+Facultad: Facultad de Educación
+Programa: Educación Especial
+Salones: ['S263', 'S264', 'S265', 'S266', 'S267', 'S268', 'S269', 'S270', 'S271', 'S272']
+Laboratorios: []
+Aulas móviles: ['S273', 'S274', 'S275', 'S276']
+2025-05-13 15:02:52 - INFO - Respuesta enviada a facultad: Facultad de Educación
+2025-05-13 15:02:52 - INFO - Salón S287 convertido en aula móvil
+2025-05-13 15:02:52 - INFO - Salón S288 convertido en aula móvil
+2025-05-13 15:02:52 - INFO - Salón S289 convertido en aula móvil
+2025-05-13 15:02:52 - INFO - Salón S290 convertido en aula móvil
+2025-05-13 15:02:52 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:02:52 - INFO - Asignación exitosa:
+Facultad: Facultad de Artes
+Programa: Teatro
+Salones: ['S277', 'S278', 'S279', 'S280', 'S281', 'S282', 'S283', 'S284', 'S285', 'S286']
+Laboratorios: []
+Aulas móviles: ['S287', 'S288', 'S289', 'S290']
+2025-05-13 15:02:52 - INFO - Respuesta enviada a facultad: Facultad de Artes
+2025-05-13 15:03:47 - INFO - Salón S301 convertido en aula móvil
+2025-05-13 15:03:47 - INFO - Salón S302 convertido en aula móvil
+2025-05-13 15:03:47 - INFO - Salón S303 convertido en aula móvil
+2025-05-13 15:03:47 - INFO - Salón S304 convertido en aula móvil
+2025-05-13 15:03:47 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:47 - INFO - Asignación exitosa:
+Facultad: Facultad de Arquitectura
+Programa: Paisajismo
+Salones: ['S291', 'S292', 'S293', 'S294', 'S295', 'S296', 'S297', 'S298', 'S299', 'S300']
+Laboratorios: []
+Aulas móviles: ['S301', 'S302', 'S303', 'S304']
+2025-05-13 15:03:47 - INFO - Respuesta enviada a facultad: Facultad de Arquitectura
+2025-05-13 15:03:47 - INFO - Salón S315 convertido en aula móvil
+2025-05-13 15:03:47 - INFO - Salón S316 convertido en aula móvil
+2025-05-13 15:03:47 - INFO - Salón S317 convertido en aula móvil
+2025-05-13 15:03:47 - INFO - Salón S318 convertido en aula móvil
+2025-05-13 15:03:47 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:47 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Sociales
+Programa: Trabajo Social
+Salones: ['S305', 'S306', 'S307', 'S308', 'S309', 'S310', 'S311', 'S312', 'S313', 'S314']
+Laboratorios: []
+Aulas móviles: ['S315', 'S316', 'S317', 'S318']
+2025-05-13 15:03:47 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Sociales
+2025-05-13 15:03:48 - INFO - Salón S329 convertido en aula móvil
+2025-05-13 15:03:48 - INFO - Salón S330 convertido en aula móvil
+2025-05-13 15:03:48 - INFO - Salón S331 convertido en aula móvil
+2025-05-13 15:03:48 - INFO - Salón S332 convertido en aula móvil
+2025-05-13 15:03:48 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:48 - INFO - Asignación exitosa:
+Facultad: Facultad de Artes
+Programa: Bellas Artes
+Salones: ['S319', 'S320', 'S321', 'S322', 'S323', 'S324', 'S325', 'S326', 'S327', 'S328']
+Laboratorios: []
+Aulas móviles: ['S329', 'S330', 'S331', 'S332']
+2025-05-13 15:03:48 - INFO - Respuesta enviada a facultad: Facultad de Artes
+2025-05-13 15:03:48 - INFO - Salón S343 convertido en aula móvil
+2025-05-13 15:03:48 - INFO - Salón S344 convertido en aula móvil
+2025-05-13 15:03:48 - INFO - Salón S345 convertido en aula móvil
+2025-05-13 15:03:48 - INFO - Salón S346 convertido en aula móvil
+2025-05-13 15:03:48 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:48 - INFO - Asignación exitosa:
+Facultad: Facultad de Tecnología
+Programa: Ciberseguridad
+Salones: ['S333', 'S334', 'S335', 'S336', 'S337', 'S338', 'S339', 'S340', 'S341', 'S342']
+Laboratorios: []
+Aulas móviles: ['S343', 'S344', 'S345', 'S346']
+2025-05-13 15:03:48 - INFO - Respuesta enviada a facultad: Facultad de Tecnología
+2025-05-13 15:03:48 - INFO - Salón S357 convertido en aula móvil
+2025-05-13 15:03:48 - INFO - Salón S358 convertido en aula móvil
+2025-05-13 15:03:48 - INFO - Salón S359 convertido en aula móvil
+2025-05-13 15:03:48 - INFO - Salón S360 convertido en aula móvil
+2025-05-13 15:03:48 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:48 - INFO - Asignación exitosa:
+Facultad: Facultad de Arquitectura
+Programa: Restauración de Patrimonio
+Salones: ['S347', 'S348', 'S349', 'S350', 'S351', 'S352', 'S353', 'S354', 'S355', 'S356']
+Laboratorios: []
+Aulas móviles: ['S357', 'S358', 'S359', 'S360']
+2025-05-13 15:03:48 - INFO - Respuesta enviada a facultad: Facultad de Arquitectura
+2025-05-13 15:03:48 - INFO - Salón S371 convertido en aula móvil
+2025-05-13 15:03:48 - INFO - Salón S372 convertido en aula móvil
+2025-05-13 15:03:48 - INFO - Salón S373 convertido en aula móvil
+2025-05-13 15:03:48 - INFO - Salón S374 convertido en aula móvil
+2025-05-13 15:03:48 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:48 - INFO - Asignación exitosa:
+Facultad: Facultad de Artes
+Programa: Diseño Gráfico
+Salones: ['S361', 'S362', 'S363', 'S364', 'S365', 'S366', 'S367', 'S368', 'S369', 'S370']
+Laboratorios: []
+Aulas móviles: ['S371', 'S372', 'S373', 'S374']
+2025-05-13 15:03:48 - INFO - Respuesta enviada a facultad: Facultad de Artes
+2025-05-13 15:03:48 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:48 - INFO - Asignación exitosa:
+Facultad: Facultad de Tecnología
+Programa: Big Data
+Salones: ['S375', 'S376', 'S377', 'S378', 'S379', 'S380']
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:48 - INFO - Respuesta enviada a facultad: Facultad de Tecnología
+2025-05-13 15:03:48 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:48 - INFO - Asignación exitosa:
+Facultad: Facultad de Medicina
+Programa: Enfermería
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:48 - INFO - Respuesta enviada a facultad: Facultad de Medicina
+2025-05-13 15:03:48 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:48 - INFO - Asignación exitosa:
+Facultad: Facultad de Medicina
+Programa: Medicina General
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:48 - INFO - Respuesta enviada a facultad: Facultad de Medicina
+2025-05-13 15:03:48 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:48 - INFO - Asignación exitosa:
+Facultad: Facultad de Arquitectura
+Programa: Arquitectura
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:48 - INFO - Respuesta enviada a facultad: Facultad de Arquitectura
+2025-05-13 15:03:48 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:48 - INFO - Asignación exitosa:
+Facultad: Facultad de Arquitectura
+Programa: Diseño de Interiores
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:48 - INFO - Respuesta enviada a facultad: Facultad de Arquitectura
+2025-05-13 15:03:48 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:48 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Sociales
+Programa: Psicología
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:48 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Sociales
+2025-05-13 15:03:48 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:48 - INFO - Asignación exitosa:
+Facultad: Facultad de Tecnología
+Programa: Desarrollo de Software
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:48 - INFO - Respuesta enviada a facultad: Facultad de Tecnología
+2025-05-13 15:03:48 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:48 - INFO - Asignación exitosa:
+Facultad: Facultad de Artes
+Programa: Danza
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:48 - INFO - Respuesta enviada a facultad: Facultad de Artes
+2025-05-13 15:03:49 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:49 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Sociales
+Programa: Sociología
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:49 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Sociales
+2025-05-13 15:03:49 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:49 - INFO - Asignación exitosa:
+Facultad: Facultad de Tecnología
+Programa: Inteligencia Artificial
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:49 - INFO - Respuesta enviada a facultad: Facultad de Tecnología
+2025-05-13 15:03:49 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:49 - INFO - Asignación exitosa:
+Facultad: Facultad de Medicina
+Programa: Terapia Física
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:49 - INFO - Respuesta enviada a facultad: Facultad de Medicina
+2025-05-13 15:03:49 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:49 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Sociales
+Programa: Comunicación
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:49 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Sociales
+2025-05-13 15:03:49 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:49 - INFO - Asignación exitosa:
+Facultad: Facultad de Medicina
+Programa: Odontología
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:49 - INFO - Respuesta enviada a facultad: Facultad de Medicina
+2025-05-13 15:03:49 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:49 - INFO - Asignación exitosa:
+Facultad: Facultad de Arquitectura
+Programa: Urbanismo
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:49 - INFO - Respuesta enviada a facultad: Facultad de Arquitectura
+2025-05-13 15:03:49 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:49 - INFO - Asignación exitosa:
+Facultad: Facultad de Artes
+Programa: Música
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:49 - INFO - Respuesta enviada a facultad: Facultad de Artes
+2025-05-13 15:03:49 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:49 - INFO - Asignación exitosa:
+Facultad: Facultad de Artes
+Programa: Teatro
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:49 - INFO - Respuesta enviada a facultad: Facultad de Artes
+2025-05-13 15:03:49 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:49 - INFO - Asignación exitosa:
+Facultad: Facultad de Medicina
+Programa: Farmacia
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:49 - INFO - Respuesta enviada a facultad: Facultad de Medicina
+2025-05-13 15:03:49 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:49 - INFO - Asignación exitosa:
+Facultad: Facultad de Tecnología
+Programa: Redes y Telecomunicaciones
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:49 - INFO - Respuesta enviada a facultad: Facultad de Tecnología
+2025-05-13 15:03:49 - INFO - Base de datos de aulas actualizada
+2025-05-13 15:03:49 - INFO - Asignación exitosa:
+Facultad: Facultad de Ciencias Sociales
+Programa: Antropología
+Salones: []
+Laboratorios: []
+Aulas móviles: []
+2025-05-13 15:03:49 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Sociales
+2025-05-13 15:09:47 - INFO - Aulas cargadas exitosamente: 440 aulas en total
+2025-05-13 15:09:53 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Económicas
+2025-05-13 15:09:53 - INFO - Respuesta enviada a facultad: Facultad de Educación
+2025-05-13 15:09:53 - INFO - Respuesta enviada a facultad: Facultad de Educación
+2025-05-13 15:09:54 - INFO - Respuesta enviada a facultad: Facultad de Ingeniería
+2025-05-13 15:09:54 - INFO - Respuesta enviada a facultad: Facultad de Educación
+2025-05-13 15:09:54 - INFO - Respuesta enviada a facultad: Facultad de Artes
+2025-05-13 15:09:54 - INFO - Respuesta enviada a facultad: Facultad de Artes
+2025-05-13 15:09:54 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Económicas
+2025-05-13 15:09:54 - INFO - Respuesta enviada a facultad: Facultad de Educación
+2025-05-13 15:09:54 - INFO - Respuesta enviada a facultad: Facultad de Ingeniería
+2025-05-13 15:09:54 - INFO - Respuesta enviada a facultad: Facultad de Arquitectura
+2025-05-13 15:09:54 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Económicas
+2025-05-13 15:09:54 - INFO - Respuesta enviada a facultad: Facultad de Arquitectura
+2025-05-13 15:09:54 - INFO - Respuesta enviada a facultad: Facultad de Ingeniería
+2025-05-13 15:09:54 - INFO - Respuesta enviada a facultad: Facultad de Educación
+2025-05-13 15:09:54 - INFO - Respuesta enviada a facultad: Facultad de Arquitectura
+2025-05-13 15:09:55 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Económicas
+2025-05-13 15:09:55 - INFO - Respuesta enviada a facultad: Facultad de Ingeniería
+2025-05-13 15:09:55 - INFO - Respuesta enviada a facultad: Facultad de Artes
+2025-05-13 15:09:55 - INFO - Respuesta enviada a facultad: Facultad de Arquitectura
+2025-05-13 15:09:55 - INFO - Respuesta enviada a facultad: Facultad de Artes
+2025-05-13 15:09:55 - INFO - Respuesta enviada a facultad: Facultad de Ciencias Económicas
+2025-05-13 15:09:55 - INFO - Respuesta enviada a facultad: Facultad de Arquitectura
+2025-05-13 15:09:55 - INFO - Respuesta enviada a facultad: Facultad de Artes
+2025-05-13 15:09:55 - INFO - Respuesta enviada a facultad: Facultad de Ingeniería

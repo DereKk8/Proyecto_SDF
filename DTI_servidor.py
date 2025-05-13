@@ -57,7 +57,6 @@ class ServidorDTI:
         self.aulas = {}
         self.configurar_registro()
         self.cargar_aulas()
-        self.lock = threading.Lock()  # Para proteger recursos compartidos
 
     def configurar_registro(self):
         """Configura el sistema de registro de eventos."""
@@ -91,9 +90,10 @@ class ServidorDTI:
 
     def guardar_aulas(self):
         """Guarda el estado actual de las aulas en el archivo."""
+        thread_id = threading.get_ident()
         try:
-            with self.lock:
-                with open(AULAS_REGISTRO_FILE, 'w', newline='', encoding='utf-8') as archivo:
+           
+            with open(AULAS_REGISTRO_FILE, 'w', newline='', encoding='utf-8') as archivo:
                     escritor = csv.writer(archivo)
                     escritor.writerow(['id', 'tipo', 'estado', 'capacidad', 'facultad', 
                                    'programa', 'fecha_solicitud', 'fecha_asignacion'])
@@ -110,20 +110,30 @@ class ServidorDTI:
 
     def asignar_aulas(self, solicitud: dict) -> dict:
         """Procesa una solicitud de asignación de aulas."""
+        thread_id = threading.get_ident()
+        
+        
         try:
-            with self.lock:
                 facultad = solicitud["facultad"]
                 programa = solicitud["programa"]
                 num_salones = solicitud["salones"]
                 num_laboratorios = solicitud["laboratorios"]
                 marca_tiempo = datetime.now().isoformat()
 
+                # Verificar disponibilidad antes de asignar
+                salones_disponibles = [a for a in self.aulas.values() 
+                                     if a.tipo == TipoAula.SALON and 
+                                     a.estado == EstadoAula.DISPONIBLE]
+                
+                if len(salones_disponibles) < num_salones:
+                    return {
+                        "noDisponible": True,
+                        "noDisponible": f"No hay suficientes salones disponibles. Solicitados: {num_salones}, Disponibles: {len(salones_disponibles)}"
+                    }
+
                 # Buscar salones disponibles
                 salones_asignados = []
-                for aula in self.aulas.values():
-                    if (len(salones_asignados) < num_salones and 
-                        aula.tipo == TipoAula.SALON and 
-                        aula.estado == EstadoAula.DISPONIBLE):
+                for aula in salones_disponibles:
                         aula.estado = EstadoAula.ASIGNADA
                         aula.facultad = facultad
                         aula.programa = programa
@@ -136,6 +146,19 @@ class ServidorDTI:
                 laboratorios_disponibles = [a for a in self.aulas.values() 
                                           if a.tipo == TipoAula.LABORATORIO and 
                                           a.estado == EstadoAula.DISPONIBLE]
+
+                # Verificar si hay suficientes laboratorios o salones convertibles
+                salones_convertibles = [a for a in self.aulas.values() 
+                                      if a.tipo == TipoAula.SALON and 
+                                      a.estado == EstadoAula.DISPONIBLE and 
+                                      a.id not in salones_asignados]
+                
+                total_disponible = len(laboratorios_disponibles) + len(salones_convertibles)
+                if total_disponible < num_laboratorios:
+                    return {
+                        "noDisponible": True,
+                        "noDisponible": f"No hay suficientes laboratorios o salones convertibles. Solicitados: {num_laboratorios}, Disponibles: {total_disponible} (Labs: {len(laboratorios_disponibles)}, Convertibles: {len(salones_convertibles)})"
+                    }
 
                 for aula in laboratorios_disponibles[:num_laboratorios]:
                     aula.estado = EstadoAula.ASIGNADA
@@ -165,7 +188,9 @@ class ServidorDTI:
                         logging.info(f"Salón {aula.id} convertido en aula móvil")
 
                 # Guardar cambios
+                
                 self.guardar_aulas()
+                
                 
                 respuesta = {
                     "facultad": facultad,
@@ -276,10 +301,13 @@ def main():
     print("✨ Servidor DTI listo para procesar solicitudes")
     print("💡 Escriba 'limpiar' para reiniciar el sistema")
     
+    
     def atender_solicitud(mensaje):
+        thread_id = threading.get_ident()
         try:
+            
             solicitud = json.loads(mensaje)
-            logging.info(f"Solicitud recibida de facultad: {solicitud.get('facultad')}")
+
             respuesta = servidor.asignar_aulas(solicitud)
             socket.send_string(json.dumps(respuesta))
             estadisticas = servidor.obtener_estadisticas()
@@ -302,6 +330,7 @@ def main():
             # Esperar mensaje con timeout para poder revisar la entrada estándar
             if socket.poll(100) == zmq.POLLIN:
                 mensaje = socket.recv_string()
+                print(f"\nSolicitud recibida: {mensaje}")
                 # Lanzar un hilo para procesar la solicitud y responder
                 t = threading.Thread(target=atender_solicitud, args=(mensaje,))
                 t.start()

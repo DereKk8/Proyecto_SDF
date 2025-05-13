@@ -110,6 +110,10 @@ def mostrar_asignacion(asignacion):
     if "error" in asignacion:
         print("\n❌ Error en la asignación:", asignacion["error"])
         return
+
+    if "noDisponible" in asignacion:
+        print("\n⚠️ No hay disponibilidad para la solicitud:", asignacion["noDisponible"])
+        return
     
     print("\n" + "#" * 50)
     print(f"✅ Programa: {asignacion['programa']}")

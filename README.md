@@ -18,7 +18,7 @@ A continuación se presenta la lista de tareas pendientes ordenadas por priorida
   - [x] Refactorizar DTI para procesar múltiples solicitudes simultáneas
   - [x] Crear mecanismo de timeout para solicitudes bloqueadas
   - ** Bug
-      No hay acceso a recurso de los hilos dice que el recurso no esta disponible.
+      Mirar como se estan realizando las solicitudes de los programas y porque no hay condiciones de carrera (sin Locks)?
 
 
 ### Fase 2: Mejoras de Arquitectura
