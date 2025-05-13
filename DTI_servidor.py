@@ -26,6 +26,7 @@ import os
 from config import DTI_URL, AULAS_REGISTRO_FILE, ASIGNACIONES_LOG_FILE
 import select
 import sys
+import threading
 
 # =============================================================================
 # Definiciones de clases y enumeraciones
@@ -56,6 +57,7 @@ class ServidorDTI:
         self.aulas = {}
         self.configurar_registro()
         self.cargar_aulas()
+        self.lock = threading.Lock()  # Para proteger recursos compartidos
 
     def configurar_registro(self):
         """Configura el sistema de registro de eventos."""
@@ -90,16 +92,17 @@ class ServidorDTI:
     def guardar_aulas(self):
         """Guarda el estado actual de las aulas en el archivo."""
         try:
-            with open(AULAS_REGISTRO_FILE, 'w', newline='', encoding='utf-8') as archivo:
-                escritor = csv.writer(archivo)
-                escritor.writerow(['id', 'tipo', 'estado', 'capacidad', 'facultad', 
-                               'programa', 'fecha_solicitud', 'fecha_asignacion'])
-                for aula in self.aulas.values():
-                    escritor.writerow([
-                        aula.id, aula.tipo.value, aula.estado.value, aula.capacidad,
-                        aula.facultad, aula.programa, aula.fecha_solicitud, 
-                        aula.fecha_asignacion
-                    ])
+            with self.lock:
+                with open(AULAS_REGISTRO_FILE, 'w', newline='', encoding='utf-8') as archivo:
+                    escritor = csv.writer(archivo)
+                    escritor.writerow(['id', 'tipo', 'estado', 'capacidad', 'facultad', 
+                                   'programa', 'fecha_solicitud', 'fecha_asignacion'])
+                    for aula in self.aulas.values():
+                        escritor.writerow([
+                            aula.id, aula.tipo.value, aula.estado.value, aula.capacidad,
+                            aula.facultad, aula.programa, aula.fecha_solicitud, 
+                            aula.fecha_asignacion
+                        ])
             logging.info("Base de datos de aulas actualizada")
         except Exception as e:
             logging.error(f"Error al guardar aulas: {e}")
@@ -108,85 +111,86 @@ class ServidorDTI:
     def asignar_aulas(self, solicitud: dict) -> dict:
         """Procesa una solicitud de asignación de aulas."""
         try:
-            facultad = solicitud["facultad"]
-            programa = solicitud["programa"]
-            num_salones = solicitud["salones"]
-            num_laboratorios = solicitud["laboratorios"]
-            marca_tiempo = datetime.now().isoformat()
+            with self.lock:
+                facultad = solicitud["facultad"]
+                programa = solicitud["programa"]
+                num_salones = solicitud["salones"]
+                num_laboratorios = solicitud["laboratorios"]
+                marca_tiempo = datetime.now().isoformat()
 
-            # Buscar salones disponibles
-            salones_asignados = []
-            for aula in self.aulas.values():
-                if (len(salones_asignados) < num_salones and 
-                    aula.tipo == TipoAula.SALON and 
-                    aula.estado == EstadoAula.DISPONIBLE):
+                # Buscar salones disponibles
+                salones_asignados = []
+                for aula in self.aulas.values():
+                    if (len(salones_asignados) < num_salones and 
+                        aula.tipo == TipoAula.SALON and 
+                        aula.estado == EstadoAula.DISPONIBLE):
+                        aula.estado = EstadoAula.ASIGNADA
+                        aula.facultad = facultad
+                        aula.programa = programa
+                        aula.fecha_solicitud = marca_tiempo
+                        aula.fecha_asignacion = marca_tiempo
+                        salones_asignados.append(aula.id)
+
+                # Buscar laboratorios disponibles
+                laboratorios_asignados = []
+                laboratorios_disponibles = [a for a in self.aulas.values() 
+                                          if a.tipo == TipoAula.LABORATORIO and 
+                                          a.estado == EstadoAula.DISPONIBLE]
+
+                for aula in laboratorios_disponibles[:num_laboratorios]:
                     aula.estado = EstadoAula.ASIGNADA
                     aula.facultad = facultad
                     aula.programa = programa
                     aula.fecha_solicitud = marca_tiempo
                     aula.fecha_asignacion = marca_tiempo
-                    salones_asignados.append(aula.id)
+                    laboratorios_asignados.append(aula.id)
 
-            # Buscar laboratorios disponibles
-            laboratorios_asignados = []
-            laboratorios_disponibles = [a for a in self.aulas.values() 
-                                      if a.tipo == TipoAula.LABORATORIO and 
-                                      a.estado == EstadoAula.DISPONIBLE]
+                # Convertir salones en aulas móviles si es necesario
+                aulas_moviles = []
+                if len(laboratorios_asignados) < num_laboratorios:
+                    labs_faltantes = num_laboratorios - len(laboratorios_asignados)
+                    salones_disponibles = [a for a in self.aulas.values() 
+                                         if a.tipo == TipoAula.SALON and 
+                                         a.estado == EstadoAula.DISPONIBLE and 
+                                         a.id not in salones_asignados]
 
-            for aula in laboratorios_disponibles[:num_laboratorios]:
-                aula.estado = EstadoAula.ASIGNADA
-                aula.facultad = facultad
-                aula.programa = programa
-                aula.fecha_solicitud = marca_tiempo
-                aula.fecha_asignacion = marca_tiempo
-                laboratorios_asignados.append(aula.id)
+                    for aula in salones_disponibles[:labs_faltantes]:
+                        aula.tipo = TipoAula.AULA_MOVIL
+                        aula.estado = EstadoAula.ASIGNADA
+                        aula.facultad = facultad
+                        aula.programa = programa
+                        aula.fecha_solicitud = marca_tiempo
+                        aula.fecha_asignacion = marca_tiempo
+                        aulas_moviles.append(aula.id)
+                        logging.info(f"Salón {aula.id} convertido en aula móvil")
 
-            # Convertir salones en aulas móviles si es necesario
-            aulas_moviles = []
-            if len(laboratorios_asignados) < num_laboratorios:
-                labs_faltantes = num_laboratorios - len(laboratorios_asignados)
-                salones_disponibles = [a for a in self.aulas.values() 
-                                     if a.tipo == TipoAula.SALON and 
-                                     a.estado == EstadoAula.DISPONIBLE and 
-                                     a.id not in salones_asignados]
+                # Guardar cambios
+                self.guardar_aulas()
+                
+                respuesta = {
+                    "facultad": facultad,
+                    "programa": programa,
+                    "semestre": solicitud["semestre"],
+                    "salones_asignados": salones_asignados,
+                    "laboratorios_asignados": laboratorios_asignados + aulas_moviles
+                }
 
-                for aula in salones_disponibles[:labs_faltantes]:
-                    aula.tipo = TipoAula.AULA_MOVIL
-                    aula.estado = EstadoAula.ASIGNADA
-                    aula.facultad = facultad
-                    aula.programa = programa
-                    aula.fecha_solicitud = marca_tiempo
-                    aula.fecha_asignacion = marca_tiempo
-                    aulas_moviles.append(aula.id)
-                    logging.info(f"Salón {aula.id} convertido en aula móvil")
+                if aulas_moviles:
+                    respuesta["notificacion"] = (
+                        f"Se han convertido {len(aulas_moviles)} salones en aulas móviles "
+                        f"por falta de laboratorios disponibles."
+                    )
 
-            # Guardar cambios
-            self.guardar_aulas()
-            
-            respuesta = {
-                "facultad": facultad,
-                "programa": programa,
-                "semestre": solicitud["semestre"],
-                "salones_asignados": salones_asignados,
-                "laboratorios_asignados": laboratorios_asignados + aulas_moviles
-            }
-
-            if aulas_moviles:
-                respuesta["notificacion"] = (
-                    f"Se han convertido {len(aulas_moviles)} salones en aulas móviles "
-                    f"por falta de laboratorios disponibles."
+                logging.info(
+                    f"Asignación exitosa:\n"
+                    f"Facultad: {facultad}\n"
+                    f"Programa: {programa}\n"
+                    f"Salones: {salones_asignados}\n"
+                    f"Laboratorios: {laboratorios_asignados}\n"
+                    f"Aulas móviles: {aulas_moviles}"
                 )
 
-            logging.info(
-                f"Asignación exitosa:\n"
-                f"Facultad: {facultad}\n"
-                f"Programa: {programa}\n"
-                f"Salones: {salones_asignados}\n"
-                f"Laboratorios: {laboratorios_asignados}\n"
-                f"Aulas móviles: {aulas_moviles}"
-            )
-
-            return respuesta
+                return respuesta
 
         except Exception as e:
             mensaje_error = f"Error en la asignación: {str(e)}"
@@ -272,6 +276,20 @@ def main():
     print("✨ Servidor DTI listo para procesar solicitudes")
     print("💡 Escriba 'limpiar' para reiniciar el sistema")
     
+    def atender_solicitud(mensaje):
+        try:
+            solicitud = json.loads(mensaje)
+            logging.info(f"Solicitud recibida de facultad: {solicitud.get('facultad')}")
+            respuesta = servidor.asignar_aulas(solicitud)
+            socket.send_string(json.dumps(respuesta))
+            estadisticas = servidor.obtener_estadisticas()
+            print("\nEstadísticas actuales:")
+            print(json.dumps(estadisticas, indent=2))
+            logging.info(f"Respuesta enviada a facultad: {solicitud.get('facultad')}")
+        except Exception as e:
+            logging.error(f"Error procesando solicitud: {e}")
+            socket.send_string(json.dumps({"error": str(e)}))
+
     try:
         while True:
             # Verificar si hay comando en la entrada estándar
@@ -281,32 +299,12 @@ def main():
                     limpiar_sistema(servidor)
                     continue
 
-            try:
-                # Esperar mensaje con timeout para poder revisar la entrada estándar
-                if socket.poll(100) == zmq.POLLIN:
-                    mensaje = socket.recv_string()
-                    solicitud = json.loads(mensaje)
-                    
-                    logging.info(f"Solicitud recibida de facultad: {solicitud.get('facultad')}")
-                    
-                    # Procesar solicitud
-                    respuesta = servidor.asignar_aulas(solicitud)
-                    
-                    # Enviar respuesta
-                    socket.send_string(json.dumps(respuesta))
-                    
-                    # Mostrar estadísticas
-                    estadisticas = servidor.obtener_estadisticas()
-                    print("\nEstadísticas actuales:")
-                    print(json.dumps(estadisticas, indent=2))
-                    
-                    logging.info(f"Respuesta enviada a facultad: {solicitud.get('facultad')}")
-            
-            except Exception as e:
-                logging.error(f"Error procesando solicitud: {e}")
-                if socket.poll(100) == zmq.POLLIN:
-                    socket.send_string(json.dumps({"error": str(e)}))
-            
+            # Esperar mensaje con timeout para poder revisar la entrada estándar
+            if socket.poll(100) == zmq.POLLIN:
+                mensaje = socket.recv_string()
+                # Lanzar un hilo para procesar la solicitud y responder
+                t = threading.Thread(target=atender_solicitud, args=(mensaje,))
+                t.start()
     except KeyboardInterrupt:
         print("\n🛑 Deteniendo servidor DTI...")
     finally:
