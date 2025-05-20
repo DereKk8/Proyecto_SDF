@@ -14,6 +14,13 @@ FACULTAD_2_URL = "tcp://127.0.0.1:5558"
 # Lista de URLs de facultades
 FACULTAD_SERVERS = [FACULTAD_1_URL, FACULTAD_2_URL]
 
+# Load Balancer Broker URLs
+BROKER_IP = "127.0.0.1"
+BROKER_FRONTEND_PORT = "5571"  # Port for clients (facultad)
+BROKER_BACKEND_PORT = "5572"   # Port for workers (DTI)
+BROKER_FRONTEND_URL = f"tcp://{BROKER_IP}:{BROKER_FRONTEND_PORT}"
+BROKER_BACKEND_URL = f"tcp://{BROKER_IP}:{BROKER_BACKEND_PORT}"
+
 # Archivos del sistema
 FACULTADES_FILE = "facultades.txt"
 AULAS_REGISTRO_FILE = "aulas_registro.txt"

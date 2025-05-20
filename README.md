@@ -23,13 +23,13 @@ A continuación se presenta la lista de tareas pendientes ordenadas por priorida
 
 ### Fase 2: Mejoras de Arquitectura
 
-- [ ] **Implementación del patrón "Load Balancing Broker" ZeroMQ**
+- [x] **Implementación del patrón "Load Balancing Broker" ZeroMQ**
 
-  - [ ] Desarrollar intermediario con balanceo de carga
-  - [ ] Permitir selección de modelo de comunicación en tiempo de ejecución:
-    - [ ] Modelo actual (REQ - REPLY)
-    - [ ] Modelo broker centralizado
-  - [ ] Añadir interfaz para selección de modelo de comunicación
+  - [x] Desarrollar intermediario con balanceo de carga
+  - [x] Implementar un broker centralizado que distribuye trabajo entre los trabajadores
+  - [x] Convertir DTI_servidor en un trabajador (worker)
+  - [x] Convertir facultad en un cliente del broker
+  - [x] Implementar seguimiento de solicitudes pendientes
 
 - [ ] **Tolerancia a fallos del Servidor Central (Nodo 5)**
   - [ ] Implementar mecanismo de heartbeat para detección de fallos
@@ -316,3 +316,90 @@ python3 programa_academico.py
 - Soporte para más tipos de aulas
 - Sistema de reservas anticipadas
 - Estadísticas avanzadas
+
+## 🔄 Implementación del Load Balancing Broker
+
+El sistema ahora implementa el patrón Load Balancing Broker de ZeroMQ, que permite distribuir eficientemente el trabajo entre múltiples trabajadores (instancias DTI).
+
+### Componentes del patrón
+
+1. **Load Balancer Broker (`load_balancer_broker.py`)**
+   - Componente central que conecta clientes y trabajadores
+   - Distribuye las solicitudes entre los trabajadores disponibles
+   - Mantiene un registro de trabajadores activos
+   - Muestra estadísticas en tiempo real sobre el estado del sistema
+
+2. **Clientes (`facultad.py`)**
+   - Se registran con el broker usando un identificador único
+   - Envían solicitudes al broker junto con información de "distancia" para simulación
+   - Reciben respuestas de los trabajadores a través del broker
+
+3. **Trabajadores (`DTI_servidor.py`)**
+   - Se registran con el broker como trabajadores disponibles
+   - Procesan las solicitudes asignadas por el broker
+   - Envían respuestas de vuelta al broker para ser entregadas a los clientes
+
+### Arquitectura del Sistema
+
+```
+                   +----------------+
+                   |  Programas     |
+                   |  Académicos    |
+                   +-------+--------+
+                           |
+                           v
+            +-------------+-------------+
+            |                           |
++-----------+  Facultad 1    Facultad 2 +-----------+
+|           |  (Cliente)     (Cliente)  |           |
+|           +-------------+-------------+           |
+|                         |                         |
+|                         v                         |
+|           +-------------+-------------+           |
+|           |                           |           |
+|           |    Load Balancer Broker   |           |
+|           |                           |           |
+|           +-------------+-------------+           |
+|                         |                         |
+|                         v                         |
+|           +-------------+-------------+           |
+|           |                           |           |
++-----------+  DTI 1        DTI 2       +-----------+
+            |  (Worker)     (Worker)    |
+            +---------------------------+
+```
+
+### Cómo Ejecutar el Sistema con Load Balancing
+
+1. Inicie el broker:
+```
+python load_balancer_broker.py
+```
+
+2. Inicie uno o más servidores DTI (trabajadores):
+```
+python DTI_servidor.py
+```
+
+3. Inicie las instancias de facultad (clientes):
+```
+python facultad.py 1
+python facultad.py 2
+```
+
+4. Ejecute el programa académico para realizar solicitudes:
+```
+python programa_academico.py
+```
+
+Para ejecutar la simulación automática:
+```
+python programa_academico.py --simulacion A
+```
+
+### Características del Load Balancing Broker
+
+- **Balanceo de carga**: Distribución equitativa de solicitudes entre trabajadores disponibles
+- **Identificación de clientes**: Cada instancia de facultad se identifica de forma única
+- **Seguimiento de solicitudes**: Monitoreo en tiempo real del número de solicitudes pendientes
+- **Simulación de distancia**: Simulación de distancias físicas para ayudar en la distribución de carga
