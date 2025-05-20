@@ -95,10 +95,26 @@ def enviar_a_broker(solicitud, client_id):
         
         # Recibir respuesta del broker
         response_frames = socket.recv_multipart()
-        if len(response_frames) >= 2:
-            return json.loads(response_frames[1].decode('utf-8'))
+        print(f"Frames recibidos: {len(response_frames)} - Contenido: {[f[:20] + b'...' if len(f) > 20 else f for f in response_frames]}")
+        
+        # En el patrón DEALER, la respuesta debe tener al menos un frame vacío seguido 
+        # por el mensaje real (normalmente en la última posición)
+        
+        # Buscar el último frame no vacío que contenga datos JSON
+        json_data = None
+        for frame in reversed(response_frames):
+            if frame:  # Si no está vacío
+                try:
+                    json_data = json.loads(frame.decode('utf-8'))
+                    break
+                except json.JSONDecodeError:
+                    continue
+        
+        if json_data:
+            return json_data
         else:
-            return {"error": "Respuesta malformada del broker"}
+            print(f"⚠️ Advertencia: No se encontró un JSON válido en la respuesta")
+            return {"error": "No se pudo extraer datos JSON de la respuesta"}
     except Exception as e:
         return {"error": f"Error de comunicación con el broker: {e}"}
     finally:

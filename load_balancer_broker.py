@@ -147,7 +147,30 @@ class LoadBalancerBroker:
                 pass
         
         # Forward the response to the client
-        self.frontend.send_multipart([client_address, empty] + rest_frames)
+        try:
+            # Asegurémonos de que la respuesta sea un JSON válido
+            if rest_frames and isinstance(rest_frames[-1], bytes):
+                try:
+                    # Intentar parsear para verificar que es un JSON válido
+                    json_data = json.loads(rest_frames[-1].decode('utf-8'))
+                    # Si llega aquí, el JSON es válido
+                except json.JSONDecodeError:
+                    # Si no es un JSON válido, enviar un mensaje de error formateado
+                    logging.error(f"Respuesta inválida del trabajador: {rest_frames[-1]}")
+                    error_response = json.dumps({"error": "Respuesta inválida del servidor"}).encode('utf-8')
+                    rest_frames[-1] = error_response
+            
+            # Enviar la respuesta al cliente
+            self.frontend.send_multipart([client_address, empty] + rest_frames)
+            logging.info(f"Respuesta enviada al cliente {client_address}")
+        except Exception as e:
+            logging.error(f"Error al reenviar respuesta al cliente: {e}")
+            # Intentar enviar un mensaje de error en caso de fallo
+            try:
+                error_msg = json.dumps({"error": f"Error interno del broker: {str(e)}"}).encode('utf-8')
+                self.frontend.send_multipart([client_address, empty, error_msg])
+            except:
+                logging.error("No se pudo enviar mensaje de error al cliente")
     
     def handle_client_message(self):
         """Process messages from clients"""
