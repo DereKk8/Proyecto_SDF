@@ -214,6 +214,20 @@ def enviar_solicitudes(solicitudes, sockets):
         solicitudes (list): Lista de solicitudes a procesar
         sockets (list): Lista de sockets ZMQ conectados
     """
+    # Contador de solicitudes pendientes con lock para sincronización
+    pending_count = [threading.Lock(), 0]
+    
+    # Thread para mostrar el contador
+    def display_counter():
+        while pending_count[1] > 0:
+            with pending_count[0]:
+                current = pending_count[1]
+            print(f"\r📊 Solicitudes pendientes: {current}", end="")
+            time.sleep(0.5)
+    
+    counter_thread = threading.Thread(target=display_counter, daemon=True)
+    counter_thread.start()
+    
     server_index = 0
     for solicitud in solicitudes:
         socket = sockets[server_index]
@@ -222,11 +236,19 @@ def enviar_solicitudes(solicitudes, sockets):
             socket.setsockopt(zmq.RCVTIMEO, 5000)  # 5 segundos de timeout
             socket.setsockopt(zmq.SNDTIMEO, 5000)  # 5 segundos de timeout
             
+            # Incrementar contador
+            with pending_count[0]:
+                pending_count[1] += 1
+            
             # Intentar enviar la solicitud
             socket.send_string(json.dumps(solicitud))
             
             # Esperar respuesta
             respuesta = socket.recv_string()
+            
+            # Decrementar contador
+            with pending_count[0]:
+                pending_count[1] -= 1
             
             try:
                 asignacion = json.loads(respuesta)
@@ -246,10 +268,14 @@ def enviar_solicitudes(solicitudes, sockets):
             logging.error(f"Error de comunicación ZMQ: {str(e)}")
             mostrar_error_amigable(CodigosError.FALLO_COMUNICACION_FACULTAD)
             
+            # Decrementar contador en caso de error
+            with pending_count[0]:
+                pending_count[1] -= 1
+            
             # Intentar reconectar el socket
             try:
                 socket.close()
-                socket = context.socket(zmq.REQ)
+                socket = context.socket(zmq.REQ) # type: ignore
                 socket.connect(FACULTAD_SERVERS[server_index])
                 sockets[server_index] = socket
             except:
@@ -257,6 +283,10 @@ def enviar_solicitudes(solicitudes, sockets):
         
         # Rotar al siguiente servidor
         server_index = (server_index + 1) % len(sockets)
+        
+    # Esperar a que todas las solicitudes se completen
+    time.sleep(0.5)  # Dar tiempo para que el contador se actualice
+    print("\r", end="")
 
 def simulacion_mock(patron):
     """
@@ -286,7 +316,7 @@ def simulacion_mock(patron):
                 'capacidad_min': 30
             })
 
-    def proceso_programa(solicitud):
+    def proceso_programa(solicitud, pending_count):
         # Retardo aleatorio entre 0.1 y 2 segundos
         time.sleep(random.uniform(0.1, 2.0))
         context = zmq.Context()
@@ -297,24 +327,60 @@ def simulacion_mock(patron):
         try:
             socket.setsockopt(zmq.RCVTIMEO, 5000)
             socket.setsockopt(zmq.SNDTIMEO, 5000)
+            
+            # Incrementar el contador de solicitudes pendientes
+            with pending_count[0]:
+                pending_count[1] += 1
+                current = pending_count[1]
+                print(f"\n📊 Solicitudes pendientes: {current} (+1 para {solicitud['facultad']} - {solicitud['programa']})")
+            
             socket.send_string(json.dumps(solicitud))
             respuesta = socket.recv_string()
+            
+            # Decrementar el contador cuando la solicitud se completa
+            with pending_count[0]:
+                pending_count[1] -= 1
+                current = pending_count[1]
+                print(f"\n📊 Solicitudes pendientes: {current} (-1 para {solicitud['facultad']} - {solicitud['programa']})")
+            
             try:
                 asignacion = json.loads(respuesta)
                 mostrar_asignacion(asignacion)
             except json.JSONDecodeError:
                 print(f"\n❌ Respuesta malformada para {solicitud['facultad']} - {solicitud['programa']}: {respuesta}")
         except zmq.ZMQError as e:
+            # Decrementar el contador en caso de error
+            with pending_count[0]:
+                pending_count[1] -= 1
+                current = pending_count[1]
+                print(f"\n📊 Solicitudes pendientes: {current} (-1 para {solicitud['facultad']} - {solicitud['programa']} por error)")
             print(f"\n❌ Error de comunicación para {solicitud['facultad']} - {solicitud['programa']}: {str(e)}")
         finally:
             socket.close()
             context.term()
 
+    # Crear un contador compartido con un lock para evitar condiciones de carrera
+    # [lock, counter]
+    pending_count = [threading.Lock(), 0]
+
     hilos = []
     for solicitud in solicitudes:
-        t = threading.Thread(target=proceso_programa, args=(solicitud,))
+        t = threading.Thread(target=proceso_programa, args=(solicitud, pending_count))
         t.start()
         hilos.append(t)
+    
+    # Thread para mostrar el contador de solicitudes pendientes
+    def display_counter():
+        while any(t.is_alive() for t in hilos):
+            with pending_count[0]:
+                current = pending_count[1]
+            print(f"\r📊 Total de solicitudes pendientes: {current}", end="")
+            time.sleep(0.5)
+        print("\n✅ Simulación completada")
+    
+    counter_thread = threading.Thread(target=display_counter, daemon=True)
+    counter_thread.start()
+    
     for t in hilos:
         t.join()
 

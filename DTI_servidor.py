@@ -12,6 +12,7 @@ Características principales:
 - Persistencia de datos en archivos CSV
 - Comando de limpieza del sistema
 - Estadísticas en tiempo real
+- Arquitectura de trabajador ZeroMQ bajo el patrón Load Balancing Broker
 
 """
 
@@ -23,10 +24,12 @@ import csv
 from dataclasses import dataclass
 from enum import Enum
 import os
-from config import DTI_URL, AULAS_REGISTRO_FILE, ASIGNACIONES_LOG_FILE
+from config import BROKER_BACKEND_URL, AULAS_REGISTRO_FILE, ASIGNACIONES_LOG_FILE
 import select
 import sys
 import threading
+import time
+import uuid
 
 # =============================================================================
 # Definiciones de clases y enumeraciones
@@ -287,37 +290,65 @@ def limpiar_sistema(servidor):
         logging.error(f"Error durante la limpieza del sistema: {str(e)}")
 
 def main():
-    """Función principal del servidor DTI."""
-    print("✅ Iniciando Servidor Central (DTI)...")
+    """Función principal del servidor DTI - Implementado como Worker en el patrón Load Balancing Broker."""
+    print("✅ Iniciando Servidor Central (DTI) como Worker...")
     
     contexto = zmq.Context()
     servidor = ServidorDTI()
     
-    # Socket para recibir solicitudes de las facultades
-    socket = contexto.socket(zmq.REP)
-    socket.bind(DTI_URL)
+    # Socket para comunicarse con el broker
+    socket = contexto.socket(zmq.DEALER)
     
-    print(f"📡 Escuchando solicitudes en {DTI_URL}")
+    # Crear una identidad única para este worker
+    worker_id = str(uuid.uuid4()).encode()
+    socket.setsockopt(zmq.IDENTITY, worker_id)
+    
+    # Conectar con el broker (backend)
+    socket.connect(BROKER_BACKEND_URL)
+    
+    print(f"📡 Conectado como Worker al broker en {BROKER_BACKEND_URL}")
+    print(f"🆔 ID del Worker: {worker_id.decode()}")
     print("✨ Servidor DTI listo para procesar solicitudes")
     print("💡 Escriba 'limpiar' para reiniciar el sistema")
     
+    # Enviar mensaje inicial para registrarse con el broker
+    socket.send(b"READY")
     
-    def atender_solicitud(mensaje):
-        thread_id = threading.get_ident()
+    def procesar_solicitud(client_id, mensaje):
+        """Procesa una solicitud y envía la respuesta de vuelta al broker."""
         try:
-            
             solicitud = json.loads(mensaje)
-
+            print(f"\nSolicitud recibida de {solicitud.get('facultad', 'desconocido')}: {mensaje}")
+            
+            # Procesar la solicitud
             respuesta = servidor.asignar_aulas(solicitud)
-            socket.send_string(json.dumps(respuesta))
+            
+            # Mostrar estadísticas
             estadisticas = servidor.obtener_estadisticas()
             print("\nEstadísticas actuales:")
             print(json.dumps(estadisticas, indent=2))
+            
+            # Enviar respuesta al broker
+            socket.send_multipart([
+                b"",              # Empty frame
+                client_id,        # Client ID
+                b"",              # Empty delimiter
+                json.dumps(respuesta).encode("utf-8")  # Response
+            ])
+            
             logging.info(f"Respuesta enviada a facultad: {solicitud.get('facultad')}")
+            
         except Exception as e:
-            logging.error(f"Error procesando solicitud: {e}")
-            socket.send_string(json.dumps({"error": str(e)}))
-
+            error_msg = f"Error procesando solicitud: {e}"
+            logging.error(error_msg)
+            # Enviar mensaje de error
+            socket.send_multipart([
+                b"",              # Empty frame
+                client_id,        # Client ID
+                b"",              # Empty delimiter
+                json.dumps({"error": str(e)}).encode("utf-8")
+            ])
+    
     try:
         while True:
             # Verificar si hay comando en la entrada estándar
@@ -326,14 +357,30 @@ def main():
                 if comando == "limpiar":
                     limpiar_sistema(servidor)
                     continue
-
-            # Esperar mensaje con timeout para poder revisar la entrada estándar
-            if socket.poll(100) == zmq.POLLIN:
-                mensaje = socket.recv_string()
-                print(f"\nSolicitud recibida: {mensaje}")
-                # Lanzar un hilo para procesar la solicitud y responder
-                t = threading.Thread(target=atender_solicitud, args=(mensaje,))
-                t.start()
+                elif comando == "salir":
+                    break
+            
+            # Verificar si hay mensajes del broker con un timeout corto
+            try:
+                if socket.poll(100) == zmq.POLLIN:
+                    # Recibir mensaje del broker
+                    frames = socket.recv_multipart()
+                    if len(frames) >= 4:
+                        empty = frames[0]      # Should be empty
+                        client_id = frames[1]  # ID of client
+                        delimiter = frames[2]  # Should be empty
+                        request = frames[3]    # Request data
+                        
+                        # Procesar en un hilo separado
+                        t = threading.Thread(target=procesar_solicitud, args=(client_id, request.decode("utf-8")))
+                        t.start()
+                    else:
+                        # Recibimos un mensaje que no entendemos, responder como READY
+                        socket.send(b"READY")
+            except zmq.ZMQError as e:
+                logging.error(f"Error ZMQ: {e}")
+                time.sleep(0.1)  # Pequeña pausa para evitar saturar la CPU
+            
     except KeyboardInterrupt:
         print("\n🛑 Deteniendo servidor DTI...")
     finally:

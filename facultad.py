@@ -1,10 +1,10 @@
 """
-facultad.py - Servidor de Facultad Simplificado
+facultad.py - Cliente en el Sistema de Load Balancing Broker
 
-Este módulo implementa un servidor intermediario que:
+Este módulo implementa un cliente en el patrón Load Balancing Broker que:
 1. Recibe solicitudes de asignación de aulas de los programas académicos
 2. Valida que la facultad solicitante exista
-3. Reenvía las solicitudes válidas al servidor DTI
+3. Reenvía las solicitudes válidas al broker
 4. Retorna las respuestas del DTI a los programas
 
 Uso básico:
@@ -20,7 +20,8 @@ Archivos necesarios:
 import zmq      # Para comunicación entre procesos
 import json     # Para serialización de mensajes
 import sys      # Para argumentos de línea de comandos
-from config import FACULTAD_1_URL, FACULTAD_2_URL, FACULTADES_FILE, DTI_URL
+import uuid     # Para generar ID único de cliente
+from config import FACULTAD_1_URL, FACULTAD_2_URL, FACULTADES_FILE, BROKER_FRONTEND_URL
 
 def leer_facultades():
     """
@@ -50,9 +51,9 @@ def leer_facultades():
         print(f"Error al leer facultades: {e}")
         return {}
 
-def enviar_a_dti(solicitud):
+def enviar_a_broker(solicitud, client_id):
     """
-    Envía una solicitud al servidor DTI y espera su respuesta.
+    Envía una solicitud al broker y espera su respuesta.
 
     Args:
         solicitud (dict): Diccionario con los datos de la solicitud
@@ -64,6 +65,7 @@ def enviar_a_dti(solicitud):
                 "laboratorios": 1,
                 "semestre": 1
             }
+        client_id (bytes): ID único del cliente para identificación
 
     Returns:
         dict: Respuesta del servidor DTI o mensaje de error
@@ -78,14 +80,27 @@ def enviar_a_dti(solicitud):
             }
     """
     contexto = zmq.Context()
-    socket = contexto.socket(zmq.REQ)
-    socket.connect(DTI_URL)
+    socket = contexto.socket(zmq.DEALER)
+    
+    # Configurar identidad del cliente para el broker
+    socket.setsockopt(zmq.IDENTITY, client_id)
+    socket.connect(BROKER_FRONTEND_URL)
     
     try:
-        socket.send_string(json.dumps(solicitud))
-        return json.loads(socket.recv_string())
+        # Añadir distancia a la solicitud para simular carga
+        solicitud['distance'] = sum(ord(c) for c in solicitud['facultad']) % 10 + 1
+        
+        # Enviar solicitud al broker
+        socket.send_multipart([b"", json.dumps(solicitud).encode('utf-8')])
+        
+        # Recibir respuesta del broker
+        response_frames = socket.recv_multipart()
+        if len(response_frames) >= 2:
+            return json.loads(response_frames[1].decode('utf-8'))
+        else:
+            return {"error": "Respuesta malformada del broker"}
     except Exception as e:
-        return {"error": f"Error de comunicación con DTI: {e}"}
+        return {"error": f"Error de comunicación con el broker: {e}"}
     finally:
         socket.close()
         contexto.term()
@@ -93,6 +108,7 @@ def enviar_a_dti(solicitud):
 def iniciar_servidor(url_servidor):
     """
     Inicia el servidor de facultad y procesa solicitudes en un bucle infinito.
+    Actúa como cliente en el patrón Load Balancing Broker.
 
     Args:
         url_servidor (str): URL donde escuchará el servidor (ej: "tcp://127.0.0.1:5555")
@@ -103,13 +119,13 @@ def iniciar_servidor(url_servidor):
         3. Espera y procesa solicitudes en bucle:
             - Recibe solicitud JSON
             - Valida que la facultad exista
-            - Reenvía solicitud válida al DTI
+            - Reenvía solicitud válida al broker
             - Retorna respuesta al programa solicitante
 
     Manejo de errores:
         - Validación de formato JSON
         - Verificación de facultad existente
-        - Errores de comunicación con DTI
+        - Errores de comunicación con el broker
         - Errores inesperados
     """
     # Cargar datos de facultades
@@ -117,13 +133,19 @@ def iniciar_servidor(url_servidor):
     if not facultades:
         print("⚠️ Advertencia: No hay facultades configuradas")
     
+    # Crear ID único para este cliente (facultad)
+    client_id = str(uuid.uuid4()).encode()
+    instance_id = url_servidor.split(":")[-1]  # Extraer número de puerto para identificación
+    
     # Configurar socket
     contexto = zmq.Context()
     socket = contexto.socket(zmq.REP)
     
     try:
         socket.bind(url_servidor)
-        print(f"✅ Servidor de facultad iniciado en {url_servidor}")
+        print(f"✅ Servidor de facultad (Cliente #{instance_id}) iniciado en {url_servidor}")
+        print(f"🔌 Conectado al broker en {BROKER_FRONTEND_URL}")
+        print(f"🆔 ID del cliente: {client_id.decode()}")
         
         # Bucle principal
         while True:
@@ -136,8 +158,11 @@ def iniciar_servidor(url_servidor):
                 if solicitud.get("facultad") not in facultades:
                     respuesta = {"error": "Facultad no válida"}
                 else:
-                    # Reenviar a DTI
-                    respuesta = enviar_a_dti(solicitud)
+                    # Añadir identificador de la instancia de facultad
+                    solicitud["facultad_instance"] = instance_id
+                    
+                    # Reenviar al broker
+                    respuesta = enviar_a_broker(solicitud, client_id)
                 
                 # Enviar respuesta
                 socket.send_string(json.dumps(respuesta))
