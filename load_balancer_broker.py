@@ -115,7 +115,8 @@ class LoadBalancerBroker:
         frames = self.backend.recv_multipart()
         
         # At least 3 frames expected: worker address, empty delimiter, client address
-        if len(frames) < 3:
+        # Check if this is a new worker registration
+        if len(frames) >= 2 and frames[-1] == b'READY':
             worker_address = frames[0]
             # New worker registration
             self.available_workers.append(worker_address)
