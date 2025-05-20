@@ -133,7 +133,7 @@ class ServidorDTI:
 
                 # Buscar salones disponibles
                 salones_asignados = []
-                for aula in salones_disponibles:
+                for aula in salones_disponibles[:num_salones]:
                         aula.estado = EstadoAula.ASIGNADA
                         aula.facultad = facultad
                         aula.programa = programa
