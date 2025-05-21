@@ -26,7 +26,7 @@ import csv
 from dataclasses import dataclass
 from enum import Enum
 import os
-from config import BROKER_BACKEND_URL, AULAS_REGISTRO_FILE, ASIGNACIONES_LOG_FILE
+from config import BROKER_BACKEND_URL, AULAS_REGISTRO_FILE, ASIGNACIONES_LOG_FILE, HEARTBEAT_URL, SYNC_URL
 import select
 import sys
 import threading
@@ -36,10 +36,7 @@ import uuid
 # Configuración para el latido y sincronización
 INTERVALO_LATIDO = 2.0  # segundos entre cada latido (heartbeat)
 INTERVALO_SINC = 10.0   # intervalo de sincronización de estado
-PUERTO_LATIDO = "5573"  # puerto para comunicación de latidos
-PUERTO_SINC = "5574"    # puerto para sincronización de estado
-HEARTBEAT_URL = f"tcp://127.0.0.1:{PUERTO_LATIDO}"
-SYNC_URL = f"tcp://127.0.0.1:{PUERTO_SINC}"
+
 
 # =============================================================================
 # Definiciones de clases y enumeraciones

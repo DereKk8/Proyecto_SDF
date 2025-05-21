@@ -90,7 +90,7 @@ class LoadBalancerBroker:
             if cmd == "salir":
                 self.running = False
                 break
-            elif cmd == "clean":
+            elif cmd =="limpiar" or cmd == "clean":
                 duplicates = self.cleanup_worker_list()
                 print(f"✅ Lista de workers limpiada - Eliminados {duplicates} duplicados")
                 print(f"ℹ️ Workers disponibles: {len(self.available_workers)}/{len(self.workers)}")
