@@ -35,12 +35,6 @@ A continuación se presenta la lista de tareas completadas y pendientes para el 
 
 ### Fase 3: Monitoreo y Optimización (Pendiente)
 
-- [ ] **Health check en un nodo adicional**
-  - [ ] Desarrollar nodo de monitoreo independiente
-  - [ ] Implementar verificación periódica de todos los componentes
-  - [ ] Crear panel de estado del sistema en tiempo real
-  - [ ] Añadir sistema de alertas para problemas detectados
-
 - [ ] **Métricas de desempeño**
   - [ ] Desarrollar sistema completo de recolección de métricas:
     - [ ] Tiempo de respuesta promedio (del servidor a las Facultades)
