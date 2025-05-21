@@ -320,44 +320,66 @@ def simulacion_mock(patron):
         # Retardo aleatorio entre 0.1 y 2 segundos
         time.sleep(random.uniform(0.1, 2.0))
         context = zmq.Context()
-        # Round-robin entre servidores de facultad
-        server_url = random.choice(FACULTAD_SERVERS)
-        socket = context.socket(zmq.REQ)
-        socket.connect(server_url)
-        try:
-            socket.setsockopt(zmq.RCVTIMEO, 5000)
-            socket.setsockopt(zmq.SNDTIMEO, 5000)
-            
-            # Incrementar el contador de solicitudes pendientes
-            with pending_count[0]:
-                pending_count[1] += 1
-                current = pending_count[1]
-                print(f"\n📊 Solicitudes pendientes: {current} (+1 para {solicitud['facultad']} - {solicitud['programa']})")
-            
-            socket.send_string(json.dumps(solicitud))
-            respuesta = socket.recv_string()
-            
-            # Decrementar el contador cuando la solicitud se completa
-            with pending_count[0]:
-                pending_count[1] -= 1
-                current = pending_count[1]
-                print(f"\n📊 Solicitudes pendientes: {current} (-1 para {solicitud['facultad']} - {solicitud['programa']})")
-            
+        
+        # Seleccionar servidor de facultad - intentar ambos si es necesario
+        servers_to_try = list(FACULTAD_SERVERS)  # Hacer una copia para poder reordenar
+        random.shuffle(servers_to_try)  # Aleatorizar el orden
+        
+        # Incrementar el contador de solicitudes pendientes
+        with pending_count[0]:
+            pending_count[1] += 1
+            current = pending_count[1]
+            print(f"\n📊 Solicitudes pendientes: {current} (+1 para {solicitud['facultad']} - {solicitud['programa']})")
+        
+        success = False
+        error_message = "No hay servidores de facultad disponibles"
+        
+        # Intentar enviar a los servidores disponibles
+        for server_url in servers_to_try:
             try:
-                asignacion = json.loads(respuesta)
-                mostrar_asignacion(asignacion)
-            except json.JSONDecodeError:
-                print(f"\n❌ Respuesta malformada para {solicitud['facultad']} - {solicitud['programa']}: {respuesta}")
-        except zmq.ZMQError as e:
-            # Decrementar el contador en caso de error
-            with pending_count[0]:
-                pending_count[1] -= 1
-                current = pending_count[1]
-                print(f"\n📊 Solicitudes pendientes: {current} (-1 para {solicitud['facultad']} - {solicitud['programa']} por error)")
-            print(f"\n❌ Error de comunicación para {solicitud['facultad']} - {solicitud['programa']}: {str(e)}")
-        finally:
-            socket.close()
-            context.term()
+                socket = context.socket(zmq.REQ)
+                # Configurar timeouts más adecuados
+                socket.setsockopt(zmq.RCVTIMEO, 15000)  # 15 segundos para recibir
+                socket.setsockopt(zmq.SNDTIMEO, 5000)   # 5 segundos para enviar
+                socket.setsockopt(zmq.LINGER, 1000)     # Esperar max 1 segundo al cerrar
+                
+                socket.connect(server_url)
+                print(f"🔄 Intentando enviar a {server_url}: {solicitud['facultad']} - {solicitud['programa']}")
+                
+                socket.send_string(json.dumps(solicitud))
+                print(f"⏱️ Esperando respuesta para: {solicitud['facultad']} - {solicitud['programa']}")
+                
+                # Recibir con tiempo de espera
+                respuesta = socket.recv_string()
+                
+                try:
+                    asignacion = json.loads(respuesta)
+                    mostrar_asignacion(asignacion)
+                    success = True
+                    break  # Salir del bucle si tuvo éxito
+                except json.JSONDecodeError:
+                    error_message = f"Respuesta malformada: {respuesta[:100]}..."
+                    print(f"\n❌ {error_message}")
+                finally:
+                    socket.close()
+                    
+            except zmq.ZMQError as e:
+                error_message = f"Error de comunicación: {str(e)}"
+                print(f"\n❌ {error_message} con {server_url}")
+                if socket:
+                    socket.close()
+                    
+        # Decrementar el contador cuando la solicitud se completa (éxito o error)
+        with pending_count[0]:
+            pending_count[1] -= 1
+            current = pending_count[1]
+            status = "✅ completada" if success else "❌ error"
+            print(f"\n📊 Solicitudes pendientes: {current} (-1 para {solicitud['facultad']} - {solicitud['programa']} | {status})")
+            
+        if not success:
+            print(f"\n❌ Todos los intentos fallaron para {solicitud['facultad']} - {solicitud['programa']}: {error_message}")
+            
+        context.term()
 
     # Crear un contador compartido con un lock para evitar condiciones de carrera
     # [lock, counter]

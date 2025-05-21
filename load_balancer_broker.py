@@ -63,7 +63,10 @@ class LoadBalancerBroker:
         print("✅ Load Balancer Broker iniciado")
         print(f"📡 Frontend escuchando en {BROKER_FRONTEND_URL}")
         print(f"📡 Backend escuchando en {BROKER_BACKEND_URL}")
-        print("💡 Escriba 'salir' para terminar")
+        print("💡 Comandos disponibles:")
+        print("   - 'salir'   : Termina el broker")
+        print("   - 'limpiar' : Elimina workers duplicados")
+        print("   - 'status'  : Muestra información del estado actual")
         
         # Start the monitoring thread
         self.monitor_thread = threading.Thread(target=self.monitor_function, daemon=True)
@@ -87,6 +90,16 @@ class LoadBalancerBroker:
             if cmd == "salir":
                 self.running = False
                 break
+            elif cmd == "clean":
+                duplicates = self.cleanup_worker_list()
+                print(f"✅ Lista de workers limpiada - Eliminados {duplicates} duplicados")
+                print(f"ℹ️ Workers disponibles: {len(self.available_workers)}/{len(self.workers)}")
+            elif cmd == "status" or cmd == "estado":
+                print(f"ℹ️ Estado del broker:")
+                print(f"   - Workers registrados: {len(self.workers)}")
+                print(f"   - Workers disponibles: {len(self.available_workers)}")
+                print(f"   - Clientes conectados: {len(self.clients)}")
+                print(f"   - Solicitudes pendientes: {self.client_requests_count}")
                 
     def broker_loop(self):
         """Main broker loop using zmq polling"""
@@ -95,9 +108,18 @@ class LoadBalancerBroker:
         poller.register(self.frontend, zmq.POLLIN)
         poller.register(self.backend, zmq.POLLIN)
         
+        # Variables para control de tiempo
+        last_cleanup = time.time()
+        cleanup_interval = 5  # Segundos entre limpiezas
+        
         while self.running:
             try:
                 socks = dict(poller.poll(100))  # 100ms timeout for checking self.running
+                
+                # Limpiar periódicamente la lista de workers
+                if time.time() - last_cleanup > cleanup_interval:
+                    self.cleanup_worker_list()
+                    last_cleanup = time.time()
                 
                 # Handle worker messages
                 if self.backend in socks and socks[self.backend] == zmq.POLLIN:
@@ -118,10 +140,25 @@ class LoadBalancerBroker:
         # Check if this is a new worker registration
         if len(frames) >= 2 and frames[-1] == b'READY':
             worker_address = frames[0]
-            # New worker registration
-            self.available_workers.append(worker_address)
-            self.workers.add(worker_address)
-            logging.info(f"Nuevo trabajador registrado: {worker_address}")
+            
+            # Verificar si este worker ya está registrado
+            is_new_worker = worker_address not in self.workers
+            
+            # Obtener una representación legible del ID del worker
+            worker_id_str = worker_address.decode('utf-8', 'ignore')
+            worker_id_short = worker_id_str[:8] + "..." if len(worker_id_str) > 8 else worker_id_str
+            
+            # Añadir a la cola de workers disponibles solo si aún no está
+            if worker_address not in self.available_workers:
+                self.available_workers.append(worker_address)
+                
+            # Registrar el worker solo si es nuevo
+            if is_new_worker:
+                self.workers.add(worker_address)
+                logging.info(f"Nuevo trabajador registrado: {worker_id_short}")
+                print(f"✅ Nuevo trabajador registrado: {worker_id_short}")
+            else:
+                logging.info(f"Trabajador ya registrado listo: {worker_id_short}")
             return
             
         # Existing worker sending a response
@@ -132,8 +169,9 @@ class LoadBalancerBroker:
         # Rest of the frames are the actual response
         rest_frames = frames[3:]
         
-        # Add the worker back to the available worker queue
-        self.available_workers.append(worker_address)
+        # Add the worker back to the available worker queue sólo si no está ya en la lista
+        if worker_address not in self.available_workers:
+            self.available_workers.append(worker_address)
         
         # Update clients count if this is completing a request
         if client_address in self.clients:
@@ -233,6 +271,27 @@ class LoadBalancerBroker:
             sys.stdout.flush()
             time.sleep(1)
             
+    def cleanup_worker_list(self):
+        """Limpia la lista de workers disponibles eliminando duplicados"""
+        # Eliminar duplicados manteniendo el orden
+        unique_workers = []
+        seen = set()
+        
+        for worker in self.available_workers:
+            if worker not in seen:
+                seen.add(worker)
+                unique_workers.append(worker)
+        
+        # Actualizar la lista de workers disponibles
+        old_count = len(self.available_workers)
+        self.available_workers = unique_workers
+        new_count = len(self.available_workers)
+        
+        if old_count != new_count:
+            logging.info(f"Lista de workers limpiada: {old_count} -> {new_count} (eliminados {old_count - new_count} duplicados)")
+        
+        return old_count - new_count
+    
     def cleanup(self):
         """Clean up resources on exit"""
         self.frontend.close()
