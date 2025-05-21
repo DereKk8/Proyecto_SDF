@@ -13,6 +13,8 @@ Características principales:
 - Comando de limpieza del sistema
 - Estadísticas en tiempo real
 - Arquitectura de trabajador ZeroMQ bajo el patrón Load Balancing Broker
+- Heartbeat para sistema de tolerancia a fallos
+- Sincronización de estado con servidor de respaldo
 
 """
 
@@ -24,12 +26,17 @@ import csv
 from dataclasses import dataclass
 from enum import Enum
 import os
-from config import BROKER_BACKEND_URL, AULAS_REGISTRO_FILE, ASIGNACIONES_LOG_FILE
+from config import BROKER_BACKEND_URL, AULAS_REGISTRO_FILE, ASIGNACIONES_LOG_FILE, HEARTBEAT_URL, SYNC_URL
 import select
 import sys
 import threading
 import time
 import uuid
+
+# Configuración para el latido y sincronización
+INTERVALO_LATIDO = 2.0  # segundos entre cada latido (heartbeat)
+INTERVALO_SINC = 10.0   # intervalo de sincronización de estado
+
 
 # =============================================================================
 # Definiciones de clases y enumeraciones
@@ -60,6 +67,7 @@ class ServidorDTI:
         self.aulas = {}
         self.configurar_registro()
         self.cargar_aulas()
+        self.detenido = False
 
     def configurar_registro(self):
         """Configura el sistema de registro de eventos."""
@@ -251,6 +259,28 @@ class ServidorDTI:
                     estadisticas["aulas_moviles_en_uso"] += 1
 
         return estadisticas
+    
+    def enviar_estado_para_sincronizacion(self):
+        """Prepara y envía el estado actual del servidor para sincronización con el backup."""
+        try:
+            # Convertir objetos Aula a diccionarios para poder serializarlos
+            aulas_dict = {}
+            for aula_id, aula in self.aulas.items():
+                aulas_dict[aula_id] = {
+                    "id": aula.id,
+                    "tipo": aula.tipo.value,
+                    "estado": aula.estado.value,
+                    "capacidad": aula.capacidad,
+                    "facultad": aula.facultad,
+                    "programa": aula.programa,
+                    "fecha_solicitud": aula.fecha_solicitud,
+                    "fecha_asignacion": aula.fecha_asignacion
+                }
+            
+            return {"aulas": aulas_dict}
+        except Exception as e:
+            logging.error(f"Error preparando estado para sincronización: {e}")
+            return {"error": str(e)}
 
 def limpiar_sistema(servidor):
     """Limpia todas las asignaciones y registros del sistema."""
@@ -289,12 +319,49 @@ def limpiar_sistema(servidor):
         print(f"\n❌ Error al limpiar el sistema: {str(e)}")
         logging.error(f"Error durante la limpieza del sistema: {str(e)}")
 
+def iniciar_latidos(contexto):
+    """Inicia el servicio de latidos (heartbeat) para indicar que el servidor está vivo."""
+    try:
+        socket = contexto.socket(zmq.PUB)
+        socket.bind(HEARTBEAT_URL)
+        
+        logging.info(f"Servicio de latidos iniciado en {HEARTBEAT_URL}")
+        print(f"💓 Servicio de latidos iniciado en {HEARTBEAT_URL}")
+        
+        # Enviar latidos periódicamente
+        while True:
+            socket.send_string(f"LATIDO {datetime.now().isoformat()}")
+            time.sleep(INTERVALO_LATIDO)
+    except Exception as e:
+        logging.error(f"Error en servicio de latidos: {e}")
+
+def iniciar_sincronizacion(contexto, servidor):
+    """Inicia el servicio de sincronización de estado con el servidor de respaldo."""
+    try:
+        socket = contexto.socket(zmq.PUB)
+        socket.bind(SYNC_URL)
+        
+        logging.info(f"Servicio de sincronización iniciado en {SYNC_URL}")
+        print(f"🔄 Servicio de sincronización iniciado en {SYNC_URL}")
+        
+        # Enviar estado periódicamente
+        while not servidor.detenido:
+            estado = servidor.enviar_estado_para_sincronizacion()
+            socket.send_string(json.dumps(estado))
+            time.sleep(INTERVALO_SINC)
+    except Exception as e:
+        logging.error(f"Error en servicio de sincronización: {e}")
+
 def main():
     """Función principal del servidor DTI - Implementado como Worker en el patrón Load Balancing Broker."""
     print("✅ Iniciando Servidor Central (DTI) como Worker...")
     
     contexto = zmq.Context()
     servidor = ServidorDTI()
+    
+    # Iniciar servicios de tolerancia a fallos
+    threading.Thread(target=iniciar_latidos, args=(contexto,), daemon=True).start()
+    threading.Thread(target=iniciar_sincronizacion, args=(contexto, servidor), daemon=True).start()
     
     # Socket para comunicarse con el broker
     socket = contexto.socket(zmq.DEALER)
@@ -384,6 +451,7 @@ def main():
     except KeyboardInterrupt:
         print("\n🛑 Deteniendo servidor DTI...")
     finally:
+        servidor.detenido = True
         socket.close()
         contexto.term()
 

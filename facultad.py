@@ -21,6 +21,7 @@ import zmq      # Para comunicación entre procesos
 import json     # Para serialización de mensajes
 import sys      # Para argumentos de línea de comandos
 import uuid     # Para generar ID único de cliente
+import time     # Para pausas y timeouts
 from config import FACULTAD_1_URL, FACULTAD_2_URL, FACULTADES_FILE, BROKER_FRONTEND_URL
 
 def leer_facultades():
@@ -86,6 +87,10 @@ def enviar_a_broker(solicitud, client_id):
     socket.setsockopt(zmq.IDENTITY, client_id)
     socket.connect(BROKER_FRONTEND_URL)
     
+    # Configurar timeouts para evitar bloqueos
+    socket.setsockopt(zmq.RCVTIMEO, 10000)  # 10 segundos de timeout para recepción
+    socket.setsockopt(zmq.SNDTIMEO, 5000)   # 5 segundos de timeout para envío
+    
     try:
         # Añadir distancia a la solicitud para simular carga
         solicitud['distance'] = sum(ord(c) for c in solicitud['facultad']) % 10 + 1
@@ -93,7 +98,7 @@ def enviar_a_broker(solicitud, client_id):
         # Enviar solicitud al broker
         socket.send_multipart([b"", json.dumps(solicitud).encode('utf-8')])
         
-        # Recibir respuesta del broker
+        # Recibir respuesta del broker (con timeout)
         response_frames = socket.recv_multipart()
         print(f"Frames recibidos: {len(response_frames)} - Contenido: {[f[:20] + b'...' if len(f) > 20 else f for f in response_frames]}")
         
@@ -115,7 +120,15 @@ def enviar_a_broker(solicitud, client_id):
         else:
             print(f"⚠️ Advertencia: No se encontró un JSON válido en la respuesta")
             return {"error": "No se pudo extraer datos JSON de la respuesta"}
+    except zmq.ZMQError as e:
+        if e.errno == zmq.EAGAIN:
+            print(f"⚠️ Timeout esperando respuesta del broker: {e}")
+            return {"error": f"Timeout esperando respuesta del broker (posiblemente ocupado)"}
+        else:
+            print(f"❌ Error ZMQ al comunicarse con el broker: {e}")
+            return {"error": f"Error de comunicación ZMQ con el broker: {e}"}
     except Exception as e:
+        print(f"❌ Error inesperado al comunicarse con el broker: {e}")
         return {"error": f"Error de comunicación con el broker: {e}"}
     finally:
         socket.close()
@@ -163,31 +176,56 @@ def iniciar_servidor(url_servidor):
         print(f"🔌 Conectado al broker en {BROKER_FRONTEND_URL}")
         print(f"🆔 ID del cliente: {client_id.decode()}")
         
+        # Variable para seguimiento de solicitudes
+        solicitudes_procesadas = 0
+        
         # Bucle principal
         while True:
             try:
-                # Recibir solicitud
-                solicitud = json.loads(socket.recv_string())
-                print(f"\nSolicitud recibida: {solicitud}")
-                
-                # Validar facultad
-                if solicitud.get("facultad") not in facultades:
-                    respuesta = {"error": "Facultad no válida"}
-                else:
-                    # Añadir identificador de la instancia de facultad
-                    solicitud["facultad_instance"] = instance_id
+                # Recibir solicitud con timeout para poder procesar interrupciones
+                try:
+                    mensaje = socket.recv_string(flags=zmq.NOBLOCK)
+                    solicitud = json.loads(mensaje)
+                    solicitudes_procesadas += 1
+                    print(f"\nSolicitud #{solicitudes_procesadas} recibida: {solicitud}")
                     
-                    # Reenviar al broker
-                    respuesta = enviar_a_broker(solicitud, client_id)
+                    # Validar facultad
+                    if solicitud.get("facultad") not in facultades:
+                        respuesta = {"error": "Facultad no válida"}
+                        print(f"⚠️ Facultad inválida: {solicitud.get('facultad')}")
+                    else:
+                        # Añadir identificador de la instancia de facultad
+                        solicitud["facultad_instance"] = instance_id
+                        
+                        # Reenviar al broker
+                        print(f"⏳ Enviando solicitud al broker: {solicitud.get('facultad')} - {solicitud.get('programa')}")
+                        respuesta = enviar_a_broker(solicitud, client_id)
+                        print(f"✅ Recibida respuesta del broker para: {solicitud.get('facultad')} - {solicitud.get('programa')}")
+                    
+                    # Enviar respuesta
+                    socket.send_string(json.dumps(respuesta))
+                    print(f"Respuesta enviada a programa: {respuesta}")
+                except zmq.Again:
+                    # No hay mensajes, esperar un poco y continuar
+                    time.sleep(0.01)
+                    continue
                 
-                # Enviar respuesta
-                socket.send_string(json.dumps(respuesta))
-                print(f"Respuesta enviada: {respuesta}")
-                
-            except json.JSONDecodeError:
+            except json.JSONDecodeError as e:
+                print(f"❌ Error de formato JSON: {e}")
                 socket.send_string(json.dumps({"error": "Formato de solicitud inválido"}))
+            except zmq.ZMQError as e:
+                print(f"❌ Error ZMQ: {e}")
+                if e.errno != zmq.ETERM:  # No es error de terminación
+                    try:
+                        socket.send_string(json.dumps({"error": f"Error de comunicación: {str(e)}"}))
+                    except:
+                        pass
             except Exception as e:
-                socket.send_string(json.dumps({"error": f"Error: {str(e)}"}))
+                print(f"❌ Error inesperado: {e}")
+                try:
+                    socket.send_string(json.dumps({"error": f"Error: {str(e)}"}))
+                except:
+                    pass
                 
     except Exception as e:
         print(f"❌ Error fatal: {e}")
