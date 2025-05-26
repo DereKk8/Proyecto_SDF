@@ -7,6 +7,9 @@ import argparse
 import random
 import time
 import threading
+import uuid
+from monitor_metricas import obtener_monitor
+from monitor_metricas_programa import obtener_monitor_programa
 
 # =============================================================================
 # Funciones de carga y validación de datos
@@ -214,6 +217,9 @@ def enviar_solicitudes(solicitudes, sockets):
         solicitudes (list): Lista de solicitudes a procesar
         sockets (list): Lista de sockets ZMQ conectados
     """
+    # Obtener monitor de métricas
+    monitor = obtener_monitor()
+    
     # Contador de solicitudes pendientes con lock para sincronización
     pending_count = [threading.Lock(), 0]
     
@@ -231,6 +237,14 @@ def enviar_solicitudes(solicitudes, sockets):
     server_index = 0
     for solicitud in solicitudes:
         socket = sockets[server_index]
+        
+        # Generar ID único para la solicitud y registrar inicio
+        id_solicitud = str(uuid.uuid4())
+        facultad = solicitud.get("facultad", "Desconocida")
+        programa = solicitud.get("programa", "Desconocido")
+        
+        monitor.registrar_inicio_solicitud_programa(id_solicitud, facultad, programa)
+        
         try:
             # Configurar timeout para la comunicación
             socket.setsockopt(zmq.RCVTIMEO, 5000)  # 5 segundos de timeout
@@ -258,15 +272,26 @@ def enviar_solicitudes(solicitudes, sockets):
                     mostrar_error_amigable(CodigosError.FALLO_COMUNICACION_FACULTAD)
                 else:
                     mostrar_asignacion(asignacion)
+                
+                # Registrar fin de solicitud exitosa
+                tiempo_total = monitor.registrar_fin_solicitud_programa(id_solicitud)
+                if tiempo_total:
+                    print(f"📊 Solicitud {programa} completada en {tiempo_total:.4f}s")
+                    
             except json.JSONDecodeError:
                 # Error al decodificar la respuesta
                 logging.error(f"Respuesta malformada: {respuesta}")
                 mostrar_error_amigable(CodigosError.RESPUESTA_INVALIDA)
+                # Registrar fin incluso en caso de error
+                monitor.registrar_fin_solicitud_programa(id_solicitud)
                 
         except zmq.ZMQError as e:
             # Error de comunicación con el servidor
             logging.error(f"Error de comunicación ZMQ: {str(e)}")
             mostrar_error_amigable(CodigosError.FALLO_COMUNICACION_FACULTAD)
+            
+            # Registrar fin incluso en caso de error de comunicación
+            monitor.registrar_fin_solicitud_programa(id_solicitud)
             
             # Decrementar contador en caso de error
             with pending_count[0]:
@@ -317,6 +342,15 @@ def simulacion_mock(patron):
             })
 
     def proceso_programa(solicitud, pending_count):
+        # Obtener monitor de métricas y generar ID único
+        monitor = obtener_monitor()
+        id_solicitud = str(uuid.uuid4())
+        facultad = solicitud.get("facultad", "Desconocida")
+        programa = solicitud.get("programa", "Desconocido")
+        
+        # Registrar inicio de solicitud
+        monitor.registrar_inicio_solicitud_programa(id_solicitud, facultad, programa)
+        
         # Retardo aleatorio entre 0.1 y 2 segundos
         time.sleep(random.uniform(0.1, 2.0))
         context = zmq.Context()
@@ -355,7 +389,23 @@ def simulacion_mock(patron):
                 try:
                     asignacion = json.loads(respuesta)
                     mostrar_asignacion(asignacion)
+                    
+                    # Registrar métricas por programa según el resultado
+                    monitor_programa = obtener_monitor_programa()
+                    if "error" in asignacion:
+                        monitor_programa.registrar_error_comunicacion_programa(facultad, programa, "error_servidor")
+                    elif "noDisponible" in asignacion:
+                        monitor_programa.registrar_requerimiento_rechazado_por_servidor(facultad, programa, "no_disponible")
+                    else:
+                        monitor_programa.registrar_requerimiento_atendido_satisfactoriamente(facultad, programa)
+                    
                     success = True
+                    
+                    # Registrar fin de solicitud exitosa
+                    tiempo_total = monitor.registrar_fin_solicitud_programa(id_solicitud)
+                    if tiempo_total:
+                        print(f"📊 Solicitud {programa} completada en {tiempo_total:.4f}s")
+                    
                     break  # Salir del bucle si tuvo éxito
                 except json.JSONDecodeError:
                     error_message = f"Respuesta malformada: {respuesta[:100]}..."
@@ -366,6 +416,9 @@ def simulacion_mock(patron):
             except zmq.ZMQError as e:
                 error_message = f"Error de comunicación: {str(e)}"
                 print(f"\n❌ {error_message} con {server_url}")
+                # Registrar error de comunicación por programa
+                monitor_programa = obtener_monitor_programa()
+                monitor_programa.registrar_error_comunicacion_programa(facultad, programa, "zmq_error")
                 if socket:
                     socket.close()
                     
@@ -378,6 +431,8 @@ def simulacion_mock(patron):
             
         if not success:
             print(f"\n❌ Todos los intentos fallaron para {solicitud['facultad']} - {solicitud['programa']}: {error_message}")
+            # Registrar fin incluso en caso de fallo total
+            monitor.registrar_fin_solicitud_programa(id_solicitud)
             
         context.term()
 
@@ -406,14 +461,57 @@ def simulacion_mock(patron):
     for t in hilos:
         t.join()
 
+def generar_reportes_periodicos():
+    """
+    Función para generar reportes periódicos de métricas programa-atención en segundo plano.
+    """
+    monitor = obtener_monitor()
+    monitor_programa = obtener_monitor_programa()
+    
+    while True:
+        try:
+            time.sleep(300)  # Generar reporte cada 5 minutos
+            
+            # Reporte programa-atención
+            reporte = monitor.generar_reporte_programa_atencion()
+            print(f"\n📈 [PROGRAMA] Reporte PROGRAMA-ATENCIÓN generado: {reporte['timestamp']}")
+            
+            # Reporte por programa (archivo separado)
+            monitor_programa.guardar_reporte_por_programa()
+            print(f"📈 [PROGRAMA] Reporte POR PROGRAMA generado en archivo separado")
+            
+        except Exception as e:
+            print(f"❌ Error generando reporte periódico: {e}")
+
 def main():
     """Función principal que coordina el flujo del programa."""
     parser = argparse.ArgumentParser(description="Simulador de Programa Académico")
     parser.add_argument('--simulacion', choices=['A', 'B'], help='Ejecutar simulación mock con patrón A o B')
     args = parser.parse_args()
 
+    # Iniciar hilo de reportes periódicos
+    hilo_reportes = threading.Thread(target=generar_reportes_periodicos, daemon=True)
+    hilo_reportes.start()
+    print("📊 Sistema de monitoreo de métricas iniciado")
+
     if args.simulacion:
         simulacion_mock(args.simulacion)
+        
+        # Generar reportes después de la simulación
+        monitor = obtener_monitor()
+        print("\n📊 Generando reportes de métricas...")
+        
+        # Reporte programa-atención
+        reporte_programa = monitor.generar_reporte_programa_atencion()
+        print(f"📈 Reporte PROGRAMA-ATENCIÓN generado: {reporte_programa['timestamp']}")
+        print(f"📊 Total de métricas programa-atención: {reporte_programa['metricas_programa_atencion']['total_mediciones']}")
+        print(f"📊 Total respuestas enviadas: {reporte_programa['total_respuestas_enviadas']}")
+        
+        # Reporte por programa
+        monitor_programa = obtener_monitor_programa()
+        monitor_programa.guardar_reporte_por_programa()
+        print(f"📈 Reporte POR PROGRAMA generado en archivo separado")
+        
         return
 
     # Configurar logging

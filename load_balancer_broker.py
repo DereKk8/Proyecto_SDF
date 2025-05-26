@@ -21,6 +21,7 @@ import logging
 from datetime import datetime
 from config import BROKER_FRONTEND_URL, BROKER_BACKEND_URL
 import sys
+from monitor_metricas import obtener_monitor
 
 class LoadBalancerBroker:
     def __init__(self):
@@ -44,6 +45,15 @@ class LoadBalancerBroker:
         self.clients = {}
         self.client_requests_count = 0
         
+        # Monitor de métricas
+        self.monitor_metricas = obtener_monitor()
+        
+        # Diccionario para rastrear tiempos de solicitudes en el broker
+        self.solicitudes_en_proceso = {}
+        
+        # Contador de solicitudes procesadas para métricas
+        self.total_solicitudes_procesadas_broker = 0
+        
         # Set up logging
         self.setup_logging()
         
@@ -64,13 +74,18 @@ class LoadBalancerBroker:
         print(f"📡 Frontend escuchando en {BROKER_FRONTEND_URL}")
         print(f"📡 Backend escuchando en {BROKER_BACKEND_URL}")
         print("💡 Comandos disponibles:")
-        print("   - 'salir'   : Termina el broker")
-        print("   - 'limpiar' : Elimina workers duplicados")
-        print("   - 'status'  : Muestra información del estado actual")
+        print("   - 'salir'    : Termina el broker")
+        print("   - 'limpiar'  : Elimina workers duplicados")
+        print("   - 'status'   : Muestra información del estado actual")
+        print("   - 'metricas' : Genera reporte de métricas inmediato")
         
         # Start the monitoring thread
         self.monitor_thread = threading.Thread(target=self.monitor_function, daemon=True)
         self.monitor_thread.start()
+        
+        # Start the metrics reporting thread
+        self.metrics_thread = threading.Thread(target=self.generar_reportes_periodicos, daemon=True)
+        self.metrics_thread.start()
         
         # Input thread for commands
         self.input_thread = threading.Thread(target=self.command_input, daemon=True)
@@ -100,6 +115,14 @@ class LoadBalancerBroker:
                 print(f"   - Workers disponibles: {len(self.available_workers)}")
                 print(f"   - Clientes conectados: {len(self.clients)}")
                 print(f"   - Solicitudes pendientes: {self.client_requests_count}")
+            elif cmd == "metricas" or cmd == "metrics":
+                try:
+                    reporte = self.monitor_metricas.generar_reporte_servidor_facultad(self.total_solicitudes_procesadas_broker)
+                    print(f"📈 Reporte SERVIDOR-FACULTAD generado: {reporte['timestamp']}")
+                    print(f"📊 Total solicitudes procesadas: {reporte['total_solicitudes_procesadas']}")
+                    print(f"📊 Métricas servidor-facultad: {reporte['metricas_servidor_facultad']['total_mediciones']}")
+                except Exception as e:
+                    print(f"❌ Error generando reporte: {e}")
                 
     def broker_loop(self):
         """Main broker loop using zmq polling"""
@@ -173,6 +196,37 @@ class LoadBalancerBroker:
         if worker_address not in self.available_workers:
             self.available_workers.append(worker_address)
         
+        # Registrar métricas de tiempo de respuesta del broker
+        solicitud_key = (client_address, worker_address)
+        if solicitud_key in self.solicitudes_en_proceso:
+            tiempo_inicio = self.solicitudes_en_proceso.pop(solicitud_key)
+            tiempo_respuesta_broker = time.time() - tiempo_inicio
+            
+            # Extraer información de la respuesta para métricas
+            try:
+                response_data = json.loads(rest_frames[-1])
+                facultad = response_data.get("facultad", "Desconocida")
+                
+                # Determinar tipo de operación basado en la respuesta
+                if "error" in response_data:
+                    tipo_operacion = "error_broker"
+                elif "noDisponible" in response_data:
+                    tipo_operacion = "no_disponible_broker"
+                else:
+                    tipo_operacion = "asignacion_exitosa_broker"
+                
+                # Registrar métricas del broker
+                self.monitor_metricas.registrar_tiempo_respuesta_servidor(
+                    tiempo_respuesta_broker,
+                    facultad,
+                    tipo_operacion
+                )
+                
+                logging.info(f"Métricas broker registradas: {facultad} - {tiempo_respuesta_broker:.4f}s - {tipo_operacion}")
+                
+            except Exception as e:
+                logging.error(f"Error registrando métricas del broker: {e}")
+        
         # Update clients count if this is completing a request
         if client_address in self.clients:
             self.client_requests_count -= 1
@@ -241,6 +295,9 @@ class LoadBalancerBroker:
             self.clients[client_address]["requests"] += 1
             self.client_requests_count += 1
             
+            # Incrementar contador de solicitudes procesadas
+            self.total_solicitudes_procesadas_broker += 1
+            
             # Log the request
             faculty = request_data.get("facultad", "unknown")
             program = request_data.get("programa", "unknown")
@@ -250,6 +307,10 @@ class LoadBalancerBroker:
         
         # Get next available worker using load balancing
         worker_address = self.get_next_worker()
+        
+        # Registrar tiempo de inicio para métricas del broker
+        solicitud_key = (client_address, worker_address)
+        self.solicitudes_en_proceso[solicitud_key] = time.time()
         
         # Forward message to worker
         self.backend.send_multipart([worker_address, b''] + frames)
@@ -292,6 +353,20 @@ class LoadBalancerBroker:
         
         return old_count - new_count
     
+    def generar_reportes_periodicos(self):
+        """
+        Función para generar reportes periódicos de métricas servidor-facultad en segundo plano.
+        """
+        while self.running:
+            try:
+                time.sleep(300)  # Generar reporte cada 5 minutos
+                if self.running:  # Verificar que aún estemos ejecutándose
+                    reporte = self.monitor_metricas.generar_reporte_servidor_facultad(self.total_solicitudes_procesadas_broker)
+                    print(f"\n📈 [BROKER] Reporte SERVIDOR-FACULTAD generado: {reporte['timestamp']}")
+                    logging.info(f"Reporte servidor-facultad generado desde broker: {reporte['timestamp']}")
+            except Exception as e:
+                logging.error(f"Error generando reporte periódico desde broker: {e}")
+
     def cleanup(self):
         """Clean up resources on exit"""
         self.frontend.close()
