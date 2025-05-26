@@ -23,6 +23,7 @@ import sys      # Para argumentos de línea de comandos
 import uuid     # Para generar ID único de cliente
 import time     # Para pausas y timeouts
 from config import FACULTAD_1_URL, FACULTAD_2_URL, FACULTADES_FILE, BROKER_FRONTEND_URL
+from monitor_metricas import obtener_monitor
 
 def leer_facultades():
     """
@@ -80,6 +81,10 @@ def enviar_a_broker(solicitud, client_id):
                 "error": "Mensaje de error"
             }
     """
+    # Obtener monitor de métricas
+    monitor = obtener_monitor()
+    tiempo_inicio_comunicacion = time.time()
+    
     contexto = zmq.Context()
     socket = contexto.socket(zmq.DEALER)
     
@@ -116,11 +121,33 @@ def enviar_a_broker(solicitud, client_id):
                     continue
         
         if json_data:
+            # Registrar métricas de tiempo de respuesta del servidor (incluye broker + DTI)
+            tiempo_respuesta_total = time.time() - tiempo_inicio_comunicacion
+            monitor.registrar_tiempo_respuesta_servidor(
+                tiempo_respuesta_total,
+                solicitud.get("facultad", "Desconocida"),
+                "respuesta_exitosa"
+            )
             return json_data
         else:
+            # Registrar métricas incluso para respuestas inválidas
+            tiempo_respuesta_total = time.time() - tiempo_inicio_comunicacion
+            monitor.registrar_tiempo_respuesta_servidor(
+                tiempo_respuesta_total,
+                solicitud.get("facultad", "Desconocida"),
+                "respuesta_invalida"
+            )
             print(f"⚠️ Advertencia: No se encontró un JSON válido en la respuesta")
             return {"error": "No se pudo extraer datos JSON de la respuesta"}
     except zmq.ZMQError as e:
+        # Registrar métricas de error de comunicación
+        tiempo_respuesta_total = time.time() - tiempo_inicio_comunicacion
+        monitor.registrar_tiempo_respuesta_servidor(
+            tiempo_respuesta_total,
+            solicitud.get("facultad", "Desconocida"),
+            "error_zmq"
+        )
+        
         if e.errno == zmq.EAGAIN:
             print(f"⚠️ Timeout esperando respuesta del broker: {e}")
             return {"error": f"Timeout esperando respuesta del broker (posiblemente ocupado)"}
@@ -128,6 +155,14 @@ def enviar_a_broker(solicitud, client_id):
             print(f"❌ Error ZMQ al comunicarse con el broker: {e}")
             return {"error": f"Error de comunicación ZMQ con el broker: {e}"}
     except Exception as e:
+        # Registrar métricas de error general
+        tiempo_respuesta_total = time.time() - tiempo_inicio_comunicacion
+        monitor.registrar_tiempo_respuesta_servidor(
+            tiempo_respuesta_total,
+            solicitud.get("facultad", "Desconocida"),
+            "error_general"
+        )
+        
         print(f"❌ Error inesperado al comunicarse con el broker: {e}")
         return {"error": f"Error de comunicación con el broker: {e}"}
     finally:

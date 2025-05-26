@@ -32,6 +32,7 @@ import sys
 import threading
 import time
 import uuid
+from monitor_metricas import obtener_monitor
 
 # Configuración para el latido y sincronización
 INTERVALO_LATIDO = 2.0  # segundos entre cada latido (heartbeat)
@@ -68,6 +69,7 @@ class ServidorDTI:
         self.configurar_registro()
         self.cargar_aulas()
         self.detenido = False
+        self.monitor_metricas = obtener_monitor()
 
     def configurar_registro(self):
         """Configura el sistema de registro de eventos."""
@@ -123,6 +125,8 @@ class ServidorDTI:
         """Procesa una solicitud de asignación de aulas."""
         thread_id = threading.get_ident()
         
+        # Registrar inicio del procesamiento para métricas
+        tiempo_inicio_servidor = time.time()
         
         try:
                 facultad = solicitud["facultad"]
@@ -137,6 +141,13 @@ class ServidorDTI:
                                      a.estado == EstadoAula.DISPONIBLE]
                 
                 if len(salones_disponibles) < num_salones:
+                    # Registrar métricas incluso para solicitudes no disponibles
+                    tiempo_respuesta = time.time() - tiempo_inicio_servidor
+                    self.monitor_metricas.registrar_tiempo_respuesta_servidor(
+                        tiempo_respuesta,
+                        facultad,
+                        "no_disponible_salones"
+                    )
                     return {
                         "noDisponible": True,
                         "noDisponible": f"No hay suficientes salones disponibles. Solicitados: {num_salones}, Disponibles: {len(salones_disponibles)}"
@@ -166,6 +177,13 @@ class ServidorDTI:
                 
                 total_disponible = len(laboratorios_disponibles) + len(salones_convertibles)
                 if total_disponible < num_laboratorios:
+                    # Registrar métricas incluso para solicitudes no disponibles
+                    tiempo_respuesta = time.time() - tiempo_inicio_servidor
+                    self.monitor_metricas.registrar_tiempo_respuesta_servidor(
+                        tiempo_respuesta,
+                        facultad,
+                        "no_disponible_laboratorios"
+                    )
                     return {
                         "noDisponible": True,
                         "noDisponible": f"No hay suficientes laboratorios o salones convertibles. Solicitados: {num_laboratorios}, Disponibles: {total_disponible} (Labs: {len(laboratorios_disponibles)}, Convertibles: {len(salones_convertibles)})"
@@ -226,9 +244,26 @@ class ServidorDTI:
                     f"Aulas móviles: {aulas_moviles}"
                 )
 
+                # Registrar métricas de tiempo de respuesta del servidor
+                tiempo_respuesta = time.time() - tiempo_inicio_servidor
+                self.monitor_metricas.registrar_tiempo_respuesta_servidor(
+                    tiempo_respuesta,
+                    facultad,
+                    "asignacion_exitosa"
+                )
+
                 return respuesta
 
         except Exception as e:
+            # Registrar métricas incluso en caso de error
+            tiempo_respuesta = time.time() - tiempo_inicio_servidor
+            facultad = solicitud.get("facultad", "Desconocida")
+            self.monitor_metricas.registrar_tiempo_respuesta_servidor(
+                tiempo_respuesta,
+                facultad,
+                "error_asignacion"
+            )
+            
             mensaje_error = f"Error en la asignación: {str(e)}"
             logging.error(mensaje_error)
             return {"error": mensaje_error}
