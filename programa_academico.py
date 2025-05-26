@@ -223,17 +223,6 @@ def enviar_solicitudes(solicitudes, sockets):
     # Contador de solicitudes pendientes con lock para sincronización
     pending_count = [threading.Lock(), 0]
     
-    # Thread para mostrar el contador
-    def display_counter():
-        while pending_count[1] > 0:
-            with pending_count[0]:
-                current = pending_count[1]
-            print(f"\r📊 Solicitudes pendientes: {current}", end="")
-            time.sleep(0.5)
-    
-    counter_thread = threading.Thread(target=display_counter, daemon=True)
-    counter_thread.start()
-    
     server_index = 0
     for solicitud in solicitudes:
         socket = sockets[server_index]
@@ -274,9 +263,7 @@ def enviar_solicitudes(solicitudes, sockets):
                     mostrar_asignacion(asignacion)
                 
                 # Registrar fin de solicitud exitosa
-                tiempo_total = monitor.registrar_fin_solicitud_programa(id_solicitud)
-                if tiempo_total:
-                    print(f"📊 Solicitud {programa} completada en {tiempo_total:.4f}s")
+                monitor.registrar_fin_solicitud_programa(id_solicitud)
                     
             except json.JSONDecodeError:
                 # Error al decodificar la respuesta
@@ -362,8 +349,6 @@ def simulacion_mock(patron):
         # Incrementar el contador de solicitudes pendientes
         with pending_count[0]:
             pending_count[1] += 1
-            current = pending_count[1]
-            print(f"\n📊 Solicitudes pendientes: {current} (+1 para {solicitud['facultad']} - {solicitud['programa']})")
         
         success = False
         error_message = "No hay servidores de facultad disponibles"
@@ -378,10 +363,8 @@ def simulacion_mock(patron):
                 socket.setsockopt(zmq.LINGER, 1000)     # Esperar max 1 segundo al cerrar
                 
                 socket.connect(server_url)
-                print(f"🔄 Intentando enviar a {server_url}: {solicitud['facultad']} - {solicitud['programa']}")
                 
                 socket.send_string(json.dumps(solicitud))
-                print(f"⏱️ Esperando respuesta para: {solicitud['facultad']} - {solicitud['programa']}")
                 
                 # Recibir con tiempo de espera
                 respuesta = socket.recv_string()
@@ -402,9 +385,7 @@ def simulacion_mock(patron):
                     success = True
                     
                     # Registrar fin de solicitud exitosa
-                    tiempo_total = monitor.registrar_fin_solicitud_programa(id_solicitud)
-                    if tiempo_total:
-                        print(f"📊 Solicitud {programa} completada en {tiempo_total:.4f}s")
+                    monitor.registrar_fin_solicitud_programa(id_solicitud)
                     
                     break  # Salir del bucle si tuvo éxito
                 except json.JSONDecodeError:
@@ -425,9 +406,6 @@ def simulacion_mock(patron):
         # Decrementar el contador cuando la solicitud se completa (éxito o error)
         with pending_count[0]:
             pending_count[1] -= 1
-            current = pending_count[1]
-            status = "✅ completada" if success else "❌ error"
-            print(f"\n📊 Solicitudes pendientes: {current} (-1 para {solicitud['facultad']} - {solicitud['programa']} | {status})")
             
         if not success:
             print(f"\n❌ Todos los intentos fallaron para {solicitud['facultad']} - {solicitud['programa']}: {error_message}")
@@ -446,20 +424,12 @@ def simulacion_mock(patron):
         t.start()
         hilos.append(t)
     
-    # Thread para mostrar el contador de solicitudes pendientes
-    def display_counter():
-        while any(t.is_alive() for t in hilos):
-            with pending_count[0]:
-                current = pending_count[1]
-            print(f"\r📊 Total de solicitudes pendientes: {current}", end="")
-            time.sleep(0.5)
-        print("\n✅ Simulación completada")
-    
-    counter_thread = threading.Thread(target=display_counter, daemon=True)
-    counter_thread.start()
+    print("🚀 Iniciando simulación...")
     
     for t in hilos:
         t.join()
+    
+    print("✅ Simulación completada")
 
 def generar_reportes_periodicos():
     """
@@ -472,16 +442,15 @@ def generar_reportes_periodicos():
         try:
             time.sleep(300)  # Generar reporte cada 5 minutos
             
-            # Reporte programa-atención
-            reporte = monitor.generar_reporte_programa_atencion()
-            print(f"\n📈 [PROGRAMA] Reporte PROGRAMA-ATENCIÓN generado: {reporte['timestamp']}")
+            # Reporte programa-atención (sin mostrar en consola)
+            monitor.generar_reporte_programa_atencion()
             
-            # Reporte por programa (archivo separado)
+            # Reporte por programa (archivo separado, sin mostrar en consola)
             monitor_programa.guardar_reporte_por_programa()
-            print(f"📈 [PROGRAMA] Reporte POR PROGRAMA generado en archivo separado")
             
         except Exception as e:
-            print(f"❌ Error generando reporte periódico: {e}")
+            # Solo registrar errores en log, no mostrar en consola
+            logging.error(f"Error generando reporte periódico: {e}")
 
 def main():
     """Función principal que coordina el flujo del programa."""
@@ -489,28 +458,19 @@ def main():
     parser.add_argument('--simulacion', choices=['A', 'B'], help='Ejecutar simulación mock con patrón A o B')
     args = parser.parse_args()
 
-    # Iniciar hilo de reportes periódicos
+    # Iniciar hilo de reportes periódicos (silencioso)
     hilo_reportes = threading.Thread(target=generar_reportes_periodicos, daemon=True)
     hilo_reportes.start()
-    print("📊 Sistema de monitoreo de métricas iniciado")
 
     if args.simulacion:
         simulacion_mock(args.simulacion)
         
-        # Generar reportes después de la simulación
+        # Generar reportes después de la simulación (silencioso)
         monitor = obtener_monitor()
-        print("\n📊 Generando reportes de métricas...")
+        monitor.generar_reporte_programa_atencion()
         
-        # Reporte programa-atención
-        reporte_programa = monitor.generar_reporte_programa_atencion()
-        print(f"📈 Reporte PROGRAMA-ATENCIÓN generado: {reporte_programa['timestamp']}")
-        print(f"📊 Total de métricas programa-atención: {reporte_programa['metricas_programa_atencion']['total_mediciones']}")
-        print(f"📊 Total respuestas enviadas: {reporte_programa['total_respuestas_enviadas']}")
-        
-        # Reporte por programa
         monitor_programa = obtener_monitor_programa()
         monitor_programa.guardar_reporte_por_programa()
-        print(f"📈 Reporte POR PROGRAMA generado en archivo separado")
         
         return
 

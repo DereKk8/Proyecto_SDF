@@ -138,7 +138,7 @@ def enviar_a_broker(solicitud, client_id):
                 solicitud.get("facultad", "Desconocida"),
                 "respuesta_invalida"
             )
-            print(f"⚠️ Advertencia: No se encontró un JSON válido en la respuesta")
+            print(f"ADVERTENCIA: No se encontró un JSON válido en la respuesta")
             return {"error": "No se pudo extraer datos JSON de la respuesta"}
     except zmq.ZMQError as e:
         # Registrar métricas de error de comunicación
@@ -150,10 +150,10 @@ def enviar_a_broker(solicitud, client_id):
         )
         
         if e.errno == zmq.EAGAIN:
-            print(f"⚠️ Timeout esperando respuesta del broker: {e}")
+            print(f"TIMEOUT: Esperando respuesta del broker: {e}")
             return {"error": f"Timeout esperando respuesta del broker (posiblemente ocupado)"}
         else:
-            print(f"❌ Error ZMQ al comunicarse con el broker: {e}")
+            print(f"ERROR ZMQ: Comunicación con el broker: {e}")
             return {"error": f"Error de comunicación ZMQ con el broker: {e}"}
     except Exception as e:
         # Registrar métricas de error general
@@ -164,7 +164,7 @@ def enviar_a_broker(solicitud, client_id):
             "error_general"
         )
         
-        print(f"❌ Error inesperado al comunicarse con el broker: {e}")
+        print(f"ERROR: Inesperado al comunicarse con el broker: {e}")
         return {"error": f"Error de comunicación con el broker: {e}"}
     finally:
         socket.close()
@@ -196,7 +196,7 @@ def iniciar_servidor(url_servidor):
     # Cargar datos de facultades
     facultades = leer_facultades()
     if not facultades:
-        print("⚠️ Advertencia: No hay facultades configuradas")
+        print("ADVERTENCIA: No hay facultades configuradas")
     
     # Crear ID único para este cliente (facultad)
     client_id = str(uuid.uuid4()).encode()
@@ -208,9 +208,20 @@ def iniciar_servidor(url_servidor):
     
     try:
         socket.bind(url_servidor)
-        print(f"✅ Servidor de facultad (Cliente #{instance_id}) iniciado en {url_servidor}")
-        print(f"🔌 Conectado al broker en {BROKER_FRONTEND_URL}")
-        print(f"🆔 ID del cliente: {client_id.decode()}")
+        
+        # Mostrar información en formato tabla
+        print("\n" + "="*80)
+        print("                    SERVIDOR DE FACULTAD - ESTADO INICIAL")
+        print("="*80)
+        print(f"| {'COMPONENTE':<25} | {'ESTADO':<15} | {'DETALLES':<30} |")
+        print("-"*80)
+        print(f"| {'Servidor Facultad':<25} | {'INICIADO':<15} | {'Cliente #{}'.format(instance_id):<30} |")
+        print(f"| {'URL Servidor':<25} | {'ACTIVO':<15} | {url_servidor:<30} |")
+        print(f"| {'Conexión Broker':<25} | {'CONECTADO':<15} | {BROKER_FRONTEND_URL:<30} |")
+        print(f"| {'Cliente ID':<25} | {'ASIGNADO':<15} | {client_id.decode()[:30]:<30} |")
+        print("-"*80)
+        print("| ESTADO: Esperando solicitudes de programas académicos")
+        print("="*80)
         
         # Variable para seguimiento de solicitudes
         solicitudes_procesadas = 0
@@ -228,7 +239,7 @@ def iniciar_servidor(url_servidor):
                     # Validar facultad
                     if solicitud.get("facultad") not in facultades:
                         respuesta = {"error": "Facultad no válida"}
-                        print(f"⚠️ Facultad inválida: {solicitud.get('facultad')}")
+                        print(f"ADVERTENCIA: Facultad inválida: {solicitud.get('facultad')}")
                         
                         # Registrar rechazo por facultad inválida
                         monitor_programa = obtener_monitor_programa()
@@ -242,9 +253,9 @@ def iniciar_servidor(url_servidor):
                         solicitud["facultad_instance"] = instance_id
                         
                         # Reenviar al broker
-                        print(f"⏳ Enviando solicitud al broker: {solicitud.get('facultad')} - {solicitud.get('programa')}")
+                        print(f"ENVIANDO: Solicitud al broker: {solicitud.get('facultad')} - {solicitud.get('programa')}")
                         respuesta = enviar_a_broker(solicitud, client_id)
-                        print(f"✅ Recibida respuesta del broker para: {solicitud.get('facultad')} - {solicitud.get('programa')}")
+                        print(f"RECIBIDO: Respuesta del broker para: {solicitud.get('facultad')} - {solicitud.get('programa')}")
                     
                     # Enviar respuesta
                     socket.send_string(json.dumps(respuesta))
@@ -255,24 +266,24 @@ def iniciar_servidor(url_servidor):
                     continue
                 
             except json.JSONDecodeError as e:
-                print(f"❌ Error de formato JSON: {e}")
+                print(f"ERROR: Formato JSON inválido: {e}")
                 socket.send_string(json.dumps({"error": "Formato de solicitud inválido"}))
             except zmq.ZMQError as e:
-                print(f"❌ Error ZMQ: {e}")
+                print(f"ERROR ZMQ: {e}")
                 if e.errno != zmq.ETERM:  # No es error de terminación
                     try:
                         socket.send_string(json.dumps({"error": f"Error de comunicación: {str(e)}"}))
                     except:
                         pass
             except Exception as e:
-                print(f"❌ Error inesperado: {e}")
+                print(f"ERROR: Inesperado: {e}")
                 try:
                     socket.send_string(json.dumps({"error": f"Error: {str(e)}"}))
                 except:
                     pass
                 
     except Exception as e:
-        print(f"❌ Error fatal: {e}")
+        print(f"ERROR FATAL: {e}")
     finally:
         socket.close()
         contexto.term()

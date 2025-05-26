@@ -341,17 +341,22 @@ def limpiar_sistema(servidor):
         servidor.configurar_registro()
         logging.info("Sistema limpiado completamente")
         
-        print("\n✨ Sistema limpiado exitosamente")
-        print("📋 Todas las asignaciones han sido borradas")
-        print("📝 Registros de logs reiniciados")
+        print("\n" + "="*60)
+        print("                SISTEMA LIMPIADO EXITOSAMENTE")
+        print("="*60)
+        print("| Todas las asignaciones han sido borradas")
+        print("| Registros de logs reiniciados")
+        print("| Estado del sistema restaurado")
+        print("-"*60)
         
         # Mostrar estadísticas después de la limpieza
         estadisticas = servidor.obtener_estadisticas()
-        print("\nEstadísticas actuales:")
+        print("ESTADISTICAS ACTUALES:")
         print(json.dumps(estadisticas, indent=2))
+        print("="*60)
         
     except Exception as e:
-        print(f"\n❌ Error al limpiar el sistema: {str(e)}")
+        print(f"\nERROR: No se pudo limpiar el sistema: {str(e)}")
         logging.error(f"Error durante la limpieza del sistema: {str(e)}")
 
 def iniciar_latidos(contexto):
@@ -361,7 +366,6 @@ def iniciar_latidos(contexto):
         socket.bind(HEARTBEAT_URL)
         
         logging.info(f"Servicio de latidos iniciado en {HEARTBEAT_URL}")
-        print(f"💓 Servicio de latidos iniciado en {HEARTBEAT_URL}")
         
         # Enviar latidos periódicamente
         while True:
@@ -377,7 +381,6 @@ def iniciar_sincronizacion(contexto, servidor):
         socket.bind(SYNC_URL)
         
         logging.info(f"Servicio de sincronización iniciado en {SYNC_URL}")
-        print(f"🔄 Servicio de sincronización iniciado en {SYNC_URL}")
         
         # Enviar estado periódicamente
         while not servidor.detenido:
@@ -389,7 +392,6 @@ def iniciar_sincronizacion(contexto, servidor):
 
 def main():
     """Función principal del servidor DTI - Implementado como Worker en el patrón Load Balancing Broker."""
-    print("✅ Iniciando Servidor Central (DTI) como Worker...")
     
     contexto = zmq.Context()
     servidor = ServidorDTI()
@@ -408,10 +410,20 @@ def main():
     # Conectar con el broker (backend)
     socket.connect(BROKER_BACKEND_URL)
     
-    print(f"📡 Conectado como Worker al broker en {BROKER_BACKEND_URL}")
-    print(f"🆔 ID del Worker: {worker_id.decode()}")
-    print("✨ Servidor DTI listo para procesar solicitudes")
-    print("💡 Escriba 'limpiar' para reiniciar el sistema")
+    # Mostrar información en formato tabla
+    print("\n" + "="*80)
+    print("                    SERVIDOR CENTRAL DTI - ESTADO INICIAL")
+    print("="*80)
+    print(f"| {'COMPONENTE':<25} | {'ESTADO':<15} | {'DETALLES':<30} |")
+    print("-"*80)
+    print(f"| {'Servidor DTI':<25} | {'INICIADO':<15} | {'Worker Mode':<30} |")
+    print(f"| {'Servicio Latidos':<25} | {'ACTIVO':<15} | {HEARTBEAT_URL:<30} |")
+    print(f"| {'Sincronización':<25} | {'ACTIVO':<15} | {SYNC_URL:<30} |")
+    print(f"| {'Conexión Broker':<25} | {'CONECTADO':<15} | {BROKER_BACKEND_URL:<30} |")
+    print(f"| {'Worker ID':<25} | {'ASIGNADO':<15} | {worker_id.decode()[:30]:<30} |")
+    print("-"*80)
+    print("| COMANDOS DISPONIBLES: 'limpiar' para reiniciar | 'salir' para terminar |")
+    print("="*80)
     
     # Enviar mensaje inicial para registrarse con el broker
     socket.send(b"READY")
@@ -484,7 +496,9 @@ def main():
                 time.sleep(0.1)  # Pequeña pausa para evitar saturar la CPU
             
     except KeyboardInterrupt:
-        print("\n🛑 Deteniendo servidor DTI...")
+        print("\n" + "="*50)
+        print("           DETENIENDO SERVIDOR DTI")
+        print("="*50)
     finally:
         servidor.detenido = True
         socket.close()
