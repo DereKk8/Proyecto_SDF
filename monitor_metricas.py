@@ -195,6 +195,54 @@ class MonitorMetricas:
         
         return reporte
     
+    def generar_reporte_programa_atencion(self):
+        """
+        Genera solo el reporte de métricas programa-atención.
+        
+        Returns:
+            dict: Diccionario con las métricas de programa-atención
+        """
+        metricas_programa = self.calcular_metricas_programa_atencion()
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        
+        reporte = {
+            'timestamp': timestamp,
+            'metricas_programa_atencion': metricas_programa,
+            'total_respuestas_enviadas': self.total_respuestas_enviadas
+        }
+        
+        # Escribir solo la sección de programa-atención
+        self._escribir_reporte_programa_archivo(reporte)
+        
+        return reporte
+    
+    def generar_reporte_servidor_facultad(self, total_solicitudes_broker=None):
+        """
+        Genera solo el reporte de métricas servidor-facultad.
+        
+        Args:
+            total_solicitudes_broker (int, optional): Total de solicitudes procesadas por el broker
+        
+        Returns:
+            dict: Diccionario con las métricas servidor-facultad
+        """
+        metricas_servidor = self.calcular_metricas_servidor_facultad()
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        
+        # Usar el contador del broker si se proporciona, sino usar el contador local
+        total_solicitudes = total_solicitudes_broker if total_solicitudes_broker is not None else self.total_solicitudes_procesadas
+        
+        reporte = {
+            'timestamp': timestamp,
+            'metricas_servidor_facultad': metricas_servidor,
+            'total_solicitudes_procesadas': total_solicitudes
+        }
+        
+        # Escribir solo la sección de servidor-facultad
+        self._escribir_reporte_servidor_archivo(reporte)
+        
+        return reporte
+    
     def _escribir_reporte_archivo(self, reporte):
         """
         Escribe el reporte de métricas al archivo de texto.
@@ -227,6 +275,48 @@ class MonitorMetricas:
             archivo.write(f"   • Total solicitudes procesadas: {stats['total_solicitudes_procesadas']}\n")
             archivo.write(f"   • Total respuestas enviadas: {stats['total_respuestas_enviadas']}\n")
             archivo.write(f"   • Solicitudes en progreso: {stats['solicitudes_en_progreso']}\n")
+            
+            archivo.write("\n" + "=" * 70 + "\n")
+    
+    def _escribir_reporte_programa_archivo(self, reporte):
+        """
+        Escribe solo el reporte de métricas programa-atención al archivo.
+        
+        Args:
+            reporte (dict): Diccionario con las métricas de programa-atención
+        """
+        with open(self.archivo_metricas, 'a', encoding='utf-8') as archivo:
+            archivo.write(f"\n--- REPORTE PROGRAMA-ATENCIÓN - {reporte['timestamp']} ---\n")
+            
+            # Métricas programa-atención
+            programa = reporte['metricas_programa_atencion']
+            archivo.write("\n2. MÉTRICAS PROGRAMA → ATENCIÓN:\n")
+            archivo.write(f"   • Tiempo promedio solicitud-atención: {programa['tiempo_promedio']:.4f} segundos\n")
+            archivo.write(f"   • Tiempo mínimo solicitud-atención: {programa['tiempo_minimo']:.4f} segundos\n")
+            archivo.write(f"   • Tiempo máximo solicitud-atención: {programa['tiempo_maximo']:.4f} segundos\n")
+            archivo.write(f"   • Total de mediciones: {programa['total_mediciones']}\n")
+            archivo.write(f"   • Total respuestas enviadas: {reporte['total_respuestas_enviadas']}\n")
+            
+            archivo.write("\n" + "=" * 70 + "\n")
+    
+    def _escribir_reporte_servidor_archivo(self, reporte):
+        """
+        Escribe solo el reporte de métricas servidor-facultad al archivo.
+        
+        Args:
+            reporte (dict): Diccionario con las métricas servidor-facultad
+        """
+        with open(self.archivo_metricas, 'a', encoding='utf-8') as archivo:
+            archivo.write(f"\n--- REPORTE SERVIDOR-FACULTAD - {reporte['timestamp']} ---\n")
+            
+            # Métricas servidor-facultad
+            servidor = reporte['metricas_servidor_facultad']
+            archivo.write("\n1. MÉTRICAS SERVIDOR → FACULTADES:\n")
+            archivo.write(f"   • Tiempo promedio de respuesta: {servidor['tiempo_promedio']:.4f} segundos\n")
+            archivo.write(f"   • Tiempo mínimo de respuesta: {servidor['tiempo_minimo']:.4f} segundos\n")
+            archivo.write(f"   • Tiempo máximo de respuesta: {servidor['tiempo_maximo']:.4f} segundos\n")
+            archivo.write(f"   • Total de mediciones: {servidor['total_mediciones']}\n")
+            archivo.write(f"   • Total solicitudes procesadas: {reporte['total_solicitudes_procesadas']}\n")
             
             archivo.write("\n" + "=" * 70 + "\n")
     

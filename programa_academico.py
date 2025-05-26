@@ -449,14 +449,14 @@ def simulacion_mock(patron):
 
 def generar_reportes_periodicos():
     """
-    Función para generar reportes periódicos de métricas en segundo plano.
+    Función para generar reportes periódicos de métricas programa-atención en segundo plano.
     """
     monitor = obtener_monitor()
     while True:
         try:
-            time.sleep(60)  # Generar reporte cada minuto
-            reporte = monitor.generar_reporte_metricas()
-            print(f"\n📈 Reporte de métricas generado: {reporte['timestamp']}")
+            time.sleep(300)  # Generar reporte cada 5 minutos
+            reporte = monitor.generar_reporte_programa_atencion()
+            print(f"\n📈 [PROGRAMA] Reporte PROGRAMA-ATENCIÓN generado: {reporte['timestamp']}")
         except Exception as e:
             print(f"❌ Error generando reporte periódico: {e}")
 
@@ -474,10 +474,13 @@ def main():
     if args.simulacion:
         simulacion_mock(args.simulacion)
         
-        # Generar reporte final después de la simulación
+        # Generar reporte de programa-atención después de la simulación
         monitor = obtener_monitor()
-        print("\n📊 Generando reporte final de métricas...")
-        reporte = monitor.generar_reporte_metricas()
+        print("\n📊 Generando reporte de métricas PROGRAMA-ATENCIÓN...")
+        reporte = monitor.generar_reporte_programa_atencion()
+        print(f"📈 Reporte PROGRAMA-ATENCIÓN generado: {reporte['timestamp']}")
+        print(f"📊 Total de métricas programa-atención: {reporte['metricas_programa_atencion']['total_mediciones']}")
+        print(f"📊 Total respuestas enviadas: {reporte['total_respuestas_enviadas']}")
         
         return
 

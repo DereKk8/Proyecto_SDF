@@ -51,6 +51,9 @@ class LoadBalancerBroker:
         # Diccionario para rastrear tiempos de solicitudes en el broker
         self.solicitudes_en_proceso = {}
         
+        # Contador de solicitudes procesadas para métricas
+        self.total_solicitudes_procesadas_broker = 0
+        
         # Set up logging
         self.setup_logging()
         
@@ -114,11 +117,10 @@ class LoadBalancerBroker:
                 print(f"   - Solicitudes pendientes: {self.client_requests_count}")
             elif cmd == "metricas" or cmd == "metrics":
                 try:
-                    reporte = self.monitor_metricas.generar_reporte_metricas()
-                    print(f"📈 Reporte de métricas generado: {reporte['timestamp']}")
-                    print(f"📊 Solicitudes procesadas: {reporte['estadisticas_generales']['total_solicitudes_procesadas']}")
-                    print(f"📊 Respuestas enviadas: {reporte['estadisticas_generales']['total_respuestas_enviadas']}")
-                    print(f"📊 Métricas servidor: {reporte['metricas_servidor_facultad']['total_mediciones']}")
+                    reporte = self.monitor_metricas.generar_reporte_servidor_facultad(self.total_solicitudes_procesadas_broker)
+                    print(f"📈 Reporte SERVIDOR-FACULTAD generado: {reporte['timestamp']}")
+                    print(f"📊 Total solicitudes procesadas: {reporte['total_solicitudes_procesadas']}")
+                    print(f"📊 Métricas servidor-facultad: {reporte['metricas_servidor_facultad']['total_mediciones']}")
                 except Exception as e:
                     print(f"❌ Error generando reporte: {e}")
                 
@@ -293,6 +295,9 @@ class LoadBalancerBroker:
             self.clients[client_address]["requests"] += 1
             self.client_requests_count += 1
             
+            # Incrementar contador de solicitudes procesadas
+            self.total_solicitudes_procesadas_broker += 1
+            
             # Log the request
             faculty = request_data.get("facultad", "unknown")
             program = request_data.get("programa", "unknown")
@@ -350,15 +355,15 @@ class LoadBalancerBroker:
     
     def generar_reportes_periodicos(self):
         """
-        Función para generar reportes periódicos de métricas en segundo plano.
+        Función para generar reportes periódicos de métricas servidor-facultad en segundo plano.
         """
         while self.running:
             try:
                 time.sleep(300)  # Generar reporte cada 5 minutos
                 if self.running:  # Verificar que aún estemos ejecutándose
-                    reporte = self.monitor_metricas.generar_reporte_metricas()
-                    print(f"\n📈 [BROKER] Reporte de métricas generado: {reporte['timestamp']}")
-                    logging.info(f"Reporte de métricas generado desde broker: {reporte['timestamp']}")
+                    reporte = self.monitor_metricas.generar_reporte_servidor_facultad(self.total_solicitudes_procesadas_broker)
+                    print(f"\n📈 [BROKER] Reporte SERVIDOR-FACULTAD generado: {reporte['timestamp']}")
+                    logging.info(f"Reporte servidor-facultad generado desde broker: {reporte['timestamp']}")
             except Exception as e:
                 logging.error(f"Error generando reporte periódico desde broker: {e}")
 
