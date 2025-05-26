@@ -42,6 +42,8 @@ class MonitorMetricas:
         self.total_solicitudes_procesadas = 0
         self.total_respuestas_enviadas = 0
         
+
+        
         # Inicializar archivo de métricas si no existe
         self._inicializar_archivo_metricas()
     
@@ -117,6 +119,8 @@ class MonitorMetricas:
             })
             self.total_respuestas_enviadas += 1
     
+
+    
     def calcular_metricas_servidor_facultad(self):
         """
         Calcula las métricas de tiempo de respuesta servidor-facultad.
@@ -166,6 +170,8 @@ class MonitorMetricas:
                 'tiempo_maximo': max(tiempos),
                 'total_mediciones': len(tiempos)
             }
+    
+
     
     def generar_reporte_metricas(self):
         """
@@ -243,6 +249,8 @@ class MonitorMetricas:
         
         return reporte
     
+
+    
     def _escribir_reporte_archivo(self, reporte):
         """
         Escribe el reporte de métricas al archivo de texto.
@@ -319,6 +327,8 @@ class MonitorMetricas:
             archivo.write(f"   • Total solicitudes procesadas: {reporte['total_solicitudes_procesadas']}\n")
             
             archivo.write("\n" + "=" * 70 + "\n")
+    
+
     
     def obtener_metricas_detalladas_por_facultad(self):
         """

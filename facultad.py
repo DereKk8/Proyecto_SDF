@@ -24,6 +24,7 @@ import uuid     # Para generar ID único de cliente
 import time     # Para pausas y timeouts
 from config import FACULTAD_1_URL, FACULTAD_2_URL, FACULTADES_FILE, BROKER_FRONTEND_URL
 from monitor_metricas import obtener_monitor
+from monitor_metricas_programa import obtener_monitor_programa
 
 def leer_facultades():
     """
@@ -228,6 +229,14 @@ def iniciar_servidor(url_servidor):
                     if solicitud.get("facultad") not in facultades:
                         respuesta = {"error": "Facultad no válida"}
                         print(f"⚠️ Facultad inválida: {solicitud.get('facultad')}")
+                        
+                        # Registrar rechazo por facultad inválida
+                        monitor_programa = obtener_monitor_programa()
+                        monitor_programa.registrar_requerimiento_rechazado_por_facultad(
+                            solicitud.get("facultad", "Desconocida"), 
+                            solicitud.get("programa", "Desconocido"), 
+                            "facultad_invalida"
+                        )
                     else:
                         # Añadir identificador de la instancia de facultad
                         solicitud["facultad_instance"] = instance_id

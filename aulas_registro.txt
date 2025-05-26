@@ -1,441 +1,441 @@
 id,tipo,estado,capacidad,facultad,programa,fecha_solicitud,fecha_asignacion
-S001,salón,asignada,40,Facultad de Ciencias Sociales,Psicología,2025-05-26T16:19:00.604478,2025-05-26T16:19:00.604478
-S002,salón,asignada,40,Facultad de Ciencias Sociales,Psicología,2025-05-26T16:19:00.604478,2025-05-26T16:19:00.604478
-S003,salón,asignada,40,Facultad de Ciencias Sociales,Psicología,2025-05-26T16:19:00.604478,2025-05-26T16:19:00.604478
-S004,salón,asignada,40,Facultad de Ciencias Sociales,Psicología,2025-05-26T16:19:00.604478,2025-05-26T16:19:00.604478
-S005,salón,asignada,40,Facultad de Ciencias Sociales,Psicología,2025-05-26T16:19:00.604478,2025-05-26T16:19:00.604478
-S006,salón,asignada,40,Facultad de Ciencias Sociales,Psicología,2025-05-26T16:19:00.604478,2025-05-26T16:19:00.604478
-S007,salón,asignada,40,Facultad de Ciencias Sociales,Psicología,2025-05-26T16:19:00.604478,2025-05-26T16:19:00.604478
-S008,salón,asignada,40,Facultad de Ciencias Sociales,Psicología,2025-05-26T16:19:00.604478,2025-05-26T16:19:00.604478
-S009,salón,asignada,40,Facultad de Ciencias Sociales,Psicología,2025-05-26T16:19:00.604478,2025-05-26T16:19:00.604478
-S010,salón,asignada,40,Facultad de Ciencias Sociales,Psicología,2025-05-26T16:19:00.604478,2025-05-26T16:19:00.604478
-S011,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:19:00.683532,2025-05-26T16:19:00.683532
-S012,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:19:00.683532,2025-05-26T16:19:00.683532
-S013,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:19:00.683532,2025-05-26T16:19:00.683532
-S014,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:19:00.683532,2025-05-26T16:19:00.683532
-S015,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:19:00.683532,2025-05-26T16:19:00.683532
-S016,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:19:00.683532,2025-05-26T16:19:00.683532
-S017,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:19:00.683532,2025-05-26T16:19:00.683532
-S018,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:19:00.683532,2025-05-26T16:19:00.683532
-S019,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:19:00.683532,2025-05-26T16:19:00.683532
-S020,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:19:00.683532,2025-05-26T16:19:00.683532
-S021,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:19:00.768689,2025-05-26T16:19:00.768689
-S022,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:19:00.768689,2025-05-26T16:19:00.768689
-S023,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:19:00.768689,2025-05-26T16:19:00.768689
-S024,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:19:00.768689,2025-05-26T16:19:00.768689
-S025,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:19:00.768689,2025-05-26T16:19:00.768689
-S026,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:19:00.768689,2025-05-26T16:19:00.768689
-S027,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:19:00.768689,2025-05-26T16:19:00.768689
-S028,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:19:00.768689,2025-05-26T16:19:00.768689
-S029,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:19:00.768689,2025-05-26T16:19:00.768689
-S030,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:19:00.768689,2025-05-26T16:19:00.768689
-S031,salón,asignada,40,Facultad de Artes,Música,2025-05-26T16:19:00.795608,2025-05-26T16:19:00.795608
-S032,salón,asignada,40,Facultad de Artes,Música,2025-05-26T16:19:00.795608,2025-05-26T16:19:00.795608
-S033,salón,asignada,40,Facultad de Artes,Música,2025-05-26T16:19:00.795608,2025-05-26T16:19:00.795608
-S034,salón,asignada,40,Facultad de Artes,Música,2025-05-26T16:19:00.795608,2025-05-26T16:19:00.795608
-S035,salón,asignada,40,Facultad de Artes,Música,2025-05-26T16:19:00.795608,2025-05-26T16:19:00.795608
-S036,salón,asignada,40,Facultad de Artes,Música,2025-05-26T16:19:00.795608,2025-05-26T16:19:00.795608
-S037,salón,asignada,40,Facultad de Artes,Música,2025-05-26T16:19:00.795608,2025-05-26T16:19:00.795608
-S038,salón,asignada,40,Facultad de Artes,Música,2025-05-26T16:19:00.795608,2025-05-26T16:19:00.795608
-S039,salón,asignada,40,Facultad de Artes,Música,2025-05-26T16:19:00.795608,2025-05-26T16:19:00.795608
-S040,salón,asignada,40,Facultad de Artes,Música,2025-05-26T16:19:00.795608,2025-05-26T16:19:00.795608
-S041,salón,asignada,40,Facultad de Ciencias Sociales,Sociología,2025-05-26T16:19:00.834896,2025-05-26T16:19:00.834896
-S042,salón,asignada,40,Facultad de Ciencias Sociales,Sociología,2025-05-26T16:19:00.834896,2025-05-26T16:19:00.834896
-S043,salón,asignada,40,Facultad de Ciencias Sociales,Sociología,2025-05-26T16:19:00.834896,2025-05-26T16:19:00.834896
-S044,salón,asignada,40,Facultad de Ciencias Sociales,Sociología,2025-05-26T16:19:00.834896,2025-05-26T16:19:00.834896
-S045,salón,asignada,40,Facultad de Ciencias Sociales,Sociología,2025-05-26T16:19:00.834896,2025-05-26T16:19:00.834896
-S046,salón,asignada,40,Facultad de Ciencias Sociales,Sociología,2025-05-26T16:19:00.834896,2025-05-26T16:19:00.834896
-S047,salón,asignada,40,Facultad de Ciencias Sociales,Sociología,2025-05-26T16:19:00.834896,2025-05-26T16:19:00.834896
-S048,salón,asignada,40,Facultad de Ciencias Sociales,Sociología,2025-05-26T16:19:00.834896,2025-05-26T16:19:00.834896
-S049,salón,asignada,40,Facultad de Ciencias Sociales,Sociología,2025-05-26T16:19:00.834896,2025-05-26T16:19:00.834896
-S050,salón,asignada,40,Facultad de Ciencias Sociales,Sociología,2025-05-26T16:19:00.834896,2025-05-26T16:19:00.834896
-S051,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:19:00.957075,2025-05-26T16:19:00.957075
-S052,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:19:00.957075,2025-05-26T16:19:00.957075
-S053,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:19:00.957075,2025-05-26T16:19:00.957075
-S054,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:19:00.957075,2025-05-26T16:19:00.957075
-S055,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:19:00.957075,2025-05-26T16:19:00.957075
-S056,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:19:00.957075,2025-05-26T16:19:00.957075
-S057,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:19:00.957075,2025-05-26T16:19:00.957075
-S058,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:19:00.957075,2025-05-26T16:19:00.957075
-S059,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:19:00.957075,2025-05-26T16:19:00.957075
-S060,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:19:00.957075,2025-05-26T16:19:00.957075
-S061,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:19:00.961447,2025-05-26T16:19:00.961447
-S062,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:19:00.961447,2025-05-26T16:19:00.961447
-S063,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:19:00.961447,2025-05-26T16:19:00.961447
-S064,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:19:00.961447,2025-05-26T16:19:00.961447
-S065,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:19:00.961447,2025-05-26T16:19:00.961447
-S066,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:19:00.961447,2025-05-26T16:19:00.961447
-S067,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:19:00.961447,2025-05-26T16:19:00.961447
-S068,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:19:00.961447,2025-05-26T16:19:00.961447
-S069,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:19:00.961447,2025-05-26T16:19:00.961447
-S070,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:19:00.961447,2025-05-26T16:19:00.961447
-S071,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:19:01.097472,2025-05-26T16:19:01.097472
-S072,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:19:01.097472,2025-05-26T16:19:01.097472
-S073,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:19:01.097472,2025-05-26T16:19:01.097472
-S074,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:19:01.097472,2025-05-26T16:19:01.097472
-S075,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:19:01.097472,2025-05-26T16:19:01.097472
-S076,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:19:01.097472,2025-05-26T16:19:01.097472
-S077,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:19:01.097472,2025-05-26T16:19:01.097472
-S078,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:19:01.097472,2025-05-26T16:19:01.097472
-S079,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:19:01.097472,2025-05-26T16:19:01.097472
-S080,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:19:01.097472,2025-05-26T16:19:01.097472
-S081,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:19:01.173352,2025-05-26T16:19:01.173352
-S082,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:19:01.173352,2025-05-26T16:19:01.173352
-S083,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:19:01.173352,2025-05-26T16:19:01.173352
-S084,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:19:01.173352,2025-05-26T16:19:01.173352
-S085,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:19:01.173352,2025-05-26T16:19:01.173352
-S086,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:19:01.173352,2025-05-26T16:19:01.173352
-S087,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:19:01.173352,2025-05-26T16:19:01.173352
-S088,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:19:01.173352,2025-05-26T16:19:01.173352
-S089,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:19:01.173352,2025-05-26T16:19:01.173352
-S090,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:19:01.173352,2025-05-26T16:19:01.173352
-S091,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:19:01.178469,2025-05-26T16:19:01.178469
-S092,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:19:01.178469,2025-05-26T16:19:01.178469
-S093,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:19:01.178469,2025-05-26T16:19:01.178469
-S094,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:19:01.178469,2025-05-26T16:19:01.178469
-S095,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:19:01.178469,2025-05-26T16:19:01.178469
-S096,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:19:01.178469,2025-05-26T16:19:01.178469
-S097,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:19:01.178469,2025-05-26T16:19:01.178469
-S098,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:19:01.178469,2025-05-26T16:19:01.178469
-S099,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:19:01.178469,2025-05-26T16:19:01.178469
-S100,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:19:01.178469,2025-05-26T16:19:01.178469
-S101,salón,asignada,40,Facultad de Tecnología,Inteligencia Artificial,2025-05-26T16:19:01.183046,2025-05-26T16:19:01.183046
-S102,salón,asignada,40,Facultad de Tecnología,Inteligencia Artificial,2025-05-26T16:19:01.183046,2025-05-26T16:19:01.183046
-S103,salón,asignada,40,Facultad de Tecnología,Inteligencia Artificial,2025-05-26T16:19:01.183046,2025-05-26T16:19:01.183046
-S104,salón,asignada,40,Facultad de Tecnología,Inteligencia Artificial,2025-05-26T16:19:01.183046,2025-05-26T16:19:01.183046
-S105,salón,asignada,40,Facultad de Tecnología,Inteligencia Artificial,2025-05-26T16:19:01.183046,2025-05-26T16:19:01.183046
-S106,salón,asignada,40,Facultad de Tecnología,Inteligencia Artificial,2025-05-26T16:19:01.183046,2025-05-26T16:19:01.183046
-S107,salón,asignada,40,Facultad de Tecnología,Inteligencia Artificial,2025-05-26T16:19:01.183046,2025-05-26T16:19:01.183046
-S108,salón,asignada,40,Facultad de Tecnología,Inteligencia Artificial,2025-05-26T16:19:01.183046,2025-05-26T16:19:01.183046
-S109,salón,asignada,40,Facultad de Tecnología,Inteligencia Artificial,2025-05-26T16:19:01.183046,2025-05-26T16:19:01.183046
-S110,salón,asignada,40,Facultad de Tecnología,Inteligencia Artificial,2025-05-26T16:19:01.183046,2025-05-26T16:19:01.183046
-S111,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:19:01.249541,2025-05-26T16:19:01.249541
-S112,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:19:01.249541,2025-05-26T16:19:01.249541
-S113,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:19:01.249541,2025-05-26T16:19:01.249541
-S114,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:19:01.249541,2025-05-26T16:19:01.249541
-S115,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:19:01.249541,2025-05-26T16:19:01.249541
-S116,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:19:01.249541,2025-05-26T16:19:01.249541
-S117,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:19:01.249541,2025-05-26T16:19:01.249541
-S118,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:19:01.249541,2025-05-26T16:19:01.249541
-S119,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:19:01.249541,2025-05-26T16:19:01.249541
-S120,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:19:01.249541,2025-05-26T16:19:01.249541
-S121,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:19:01.292039,2025-05-26T16:19:01.292039
-S122,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:19:01.292039,2025-05-26T16:19:01.292039
-S123,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:19:01.292039,2025-05-26T16:19:01.292039
-S124,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:19:01.292039,2025-05-26T16:19:01.292039
-S125,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:19:01.292039,2025-05-26T16:19:01.292039
-S126,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:19:01.292039,2025-05-26T16:19:01.292039
-S127,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:19:01.292039,2025-05-26T16:19:01.292039
-S128,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:19:01.292039,2025-05-26T16:19:01.292039
-S129,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:19:01.292039,2025-05-26T16:19:01.292039
-S130,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:19:01.292039,2025-05-26T16:19:01.292039
-S131,salón,asignada,40,Facultad de Artes,Bellas Artes,2025-05-26T16:19:01.530792,2025-05-26T16:19:01.530792
-S132,salón,asignada,40,Facultad de Artes,Bellas Artes,2025-05-26T16:19:01.530792,2025-05-26T16:19:01.530792
-S133,salón,asignada,40,Facultad de Artes,Bellas Artes,2025-05-26T16:19:01.530792,2025-05-26T16:19:01.530792
-S134,salón,asignada,40,Facultad de Artes,Bellas Artes,2025-05-26T16:19:01.530792,2025-05-26T16:19:01.530792
-S135,salón,asignada,40,Facultad de Artes,Bellas Artes,2025-05-26T16:19:01.530792,2025-05-26T16:19:01.530792
-S136,salón,asignada,40,Facultad de Artes,Bellas Artes,2025-05-26T16:19:01.530792,2025-05-26T16:19:01.530792
-S137,salón,asignada,40,Facultad de Artes,Bellas Artes,2025-05-26T16:19:01.530792,2025-05-26T16:19:01.530792
-S138,salón,asignada,40,Facultad de Artes,Bellas Artes,2025-05-26T16:19:01.530792,2025-05-26T16:19:01.530792
-S139,salón,asignada,40,Facultad de Artes,Bellas Artes,2025-05-26T16:19:01.530792,2025-05-26T16:19:01.530792
-S140,salón,asignada,40,Facultad de Artes,Bellas Artes,2025-05-26T16:19:01.530792,2025-05-26T16:19:01.530792
-S141,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:19:01.682391,2025-05-26T16:19:01.682391
-S142,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:19:01.682391,2025-05-26T16:19:01.682391
-S143,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:19:01.682391,2025-05-26T16:19:01.682391
-S144,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:19:01.682391,2025-05-26T16:19:01.682391
-S145,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:19:01.682391,2025-05-26T16:19:01.682391
-S146,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:19:01.682391,2025-05-26T16:19:01.682391
-S147,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:19:01.682391,2025-05-26T16:19:01.682391
-S148,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:19:01.682391,2025-05-26T16:19:01.682391
-S149,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:19:01.682391,2025-05-26T16:19:01.682391
-S150,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:19:01.682391,2025-05-26T16:19:01.682391
-S151,salón,asignada,40,Facultad de Ciencias Económicas,Administración de Empresas,2025-05-26T16:19:01.707935,2025-05-26T16:19:01.707935
-S152,salón,asignada,40,Facultad de Ciencias Económicas,Administración de Empresas,2025-05-26T16:19:01.707935,2025-05-26T16:19:01.707935
-S153,salón,asignada,40,Facultad de Ciencias Económicas,Administración de Empresas,2025-05-26T16:19:01.707935,2025-05-26T16:19:01.707935
-S154,salón,asignada,40,Facultad de Ciencias Económicas,Administración de Empresas,2025-05-26T16:19:01.707935,2025-05-26T16:19:01.707935
-S155,salón,asignada,40,Facultad de Ciencias Económicas,Administración de Empresas,2025-05-26T16:19:01.707935,2025-05-26T16:19:01.707935
-S156,salón,asignada,40,Facultad de Ciencias Económicas,Administración de Empresas,2025-05-26T16:19:01.707935,2025-05-26T16:19:01.707935
-S157,salón,asignada,40,Facultad de Ciencias Económicas,Administración de Empresas,2025-05-26T16:19:01.707935,2025-05-26T16:19:01.707935
-S158,salón,asignada,40,Facultad de Ciencias Económicas,Administración de Empresas,2025-05-26T16:19:01.707935,2025-05-26T16:19:01.707935
-S159,salón,asignada,40,Facultad de Ciencias Económicas,Administración de Empresas,2025-05-26T16:19:01.707935,2025-05-26T16:19:01.707935
-S160,salón,asignada,40,Facultad de Ciencias Económicas,Administración de Empresas,2025-05-26T16:19:01.707935,2025-05-26T16:19:01.707935
-S161,aula móvil,asignada,40,Facultad de Ciencias Económicas,Administración de Empresas,2025-05-26T16:19:01.707935,2025-05-26T16:19:01.707935
-S162,aula móvil,asignada,40,Facultad de Ciencias Económicas,Administración de Empresas,2025-05-26T16:19:01.707935,2025-05-26T16:19:01.707935
-S163,aula móvil,asignada,40,Facultad de Ciencias Económicas,Administración de Empresas,2025-05-26T16:19:01.707935,2025-05-26T16:19:01.707935
-S164,aula móvil,asignada,40,Facultad de Ciencias Económicas,Administración de Empresas,2025-05-26T16:19:01.707935,2025-05-26T16:19:01.707935
-S165,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:19:01.789056,2025-05-26T16:19:01.789056
-S166,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:19:01.789056,2025-05-26T16:19:01.789056
-S167,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:19:01.789056,2025-05-26T16:19:01.789056
-S168,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:19:01.789056,2025-05-26T16:19:01.789056
-S169,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:19:01.789056,2025-05-26T16:19:01.789056
-S170,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:19:01.789056,2025-05-26T16:19:01.789056
-S171,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:19:01.789056,2025-05-26T16:19:01.789056
-S172,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:19:01.789056,2025-05-26T16:19:01.789056
-S173,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:19:01.789056,2025-05-26T16:19:01.789056
-S174,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:19:01.789056,2025-05-26T16:19:01.789056
-S175,aula móvil,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:19:01.789056,2025-05-26T16:19:01.789056
-S176,aula móvil,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:19:01.789056,2025-05-26T16:19:01.789056
-S177,aula móvil,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:19:01.789056,2025-05-26T16:19:01.789056
-S178,aula móvil,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:19:01.789056,2025-05-26T16:19:01.789056
-S179,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:19:01.860065,2025-05-26T16:19:01.860065
-S180,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:19:01.860065,2025-05-26T16:19:01.860065
-S181,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:19:01.860065,2025-05-26T16:19:01.860065
-S182,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:19:01.860065,2025-05-26T16:19:01.860065
-S183,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:19:01.860065,2025-05-26T16:19:01.860065
-S184,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:19:01.860065,2025-05-26T16:19:01.860065
-S185,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:19:01.860065,2025-05-26T16:19:01.860065
-S186,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:19:01.860065,2025-05-26T16:19:01.860065
-S187,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:19:01.860065,2025-05-26T16:19:01.860065
-S188,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:19:01.860065,2025-05-26T16:19:01.860065
-S189,aula móvil,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:19:01.860065,2025-05-26T16:19:01.860065
-S190,aula móvil,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:19:01.860065,2025-05-26T16:19:01.860065
-S191,aula móvil,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:19:01.860065,2025-05-26T16:19:01.860065
-S192,aula móvil,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:19:01.860065,2025-05-26T16:19:01.860065
-S193,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:19:01.864765,2025-05-26T16:19:01.864765
-S194,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:19:01.864765,2025-05-26T16:19:01.864765
-S195,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:19:01.864765,2025-05-26T16:19:01.864765
-S196,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:19:01.864765,2025-05-26T16:19:01.864765
-S197,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:19:01.864765,2025-05-26T16:19:01.864765
-S198,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:19:01.864765,2025-05-26T16:19:01.864765
-S199,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:19:01.864765,2025-05-26T16:19:01.864765
-S200,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:19:01.864765,2025-05-26T16:19:01.864765
-S201,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:19:01.864765,2025-05-26T16:19:01.864765
-S202,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:19:01.864765,2025-05-26T16:19:01.864765
-S203,aula móvil,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:19:01.864765,2025-05-26T16:19:01.864765
-S204,aula móvil,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:19:01.864765,2025-05-26T16:19:01.864765
-S205,aula móvil,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:19:01.864765,2025-05-26T16:19:01.864765
-S206,aula móvil,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:19:01.864765,2025-05-26T16:19:01.864765
-S207,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:19:01.978933,2025-05-26T16:19:01.978933
-S208,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:19:01.978933,2025-05-26T16:19:01.978933
-S209,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:19:01.978933,2025-05-26T16:19:01.978933
-S210,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:19:01.978933,2025-05-26T16:19:01.978933
-S211,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:19:01.978933,2025-05-26T16:19:01.978933
-S212,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:19:01.978933,2025-05-26T16:19:01.978933
-S213,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:19:01.978933,2025-05-26T16:19:01.978933
-S214,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:19:01.978933,2025-05-26T16:19:01.978933
-S215,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:19:01.978933,2025-05-26T16:19:01.978933
-S216,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:19:01.978933,2025-05-26T16:19:01.978933
-S217,aula móvil,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:19:01.978933,2025-05-26T16:19:01.978933
-S218,aula móvil,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:19:01.978933,2025-05-26T16:19:01.978933
-S219,aula móvil,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:19:01.978933,2025-05-26T16:19:01.978933
-S220,aula móvil,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:19:01.978933,2025-05-26T16:19:01.978933
-S221,salón,asignada,40,Facultad de Ciencias Económicas,Mercadotecnia,2025-05-26T16:19:02.081021,2025-05-26T16:19:02.081021
-S222,salón,asignada,40,Facultad de Ciencias Económicas,Mercadotecnia,2025-05-26T16:19:02.081021,2025-05-26T16:19:02.081021
-S223,salón,asignada,40,Facultad de Ciencias Económicas,Mercadotecnia,2025-05-26T16:19:02.081021,2025-05-26T16:19:02.081021
-S224,salón,asignada,40,Facultad de Ciencias Económicas,Mercadotecnia,2025-05-26T16:19:02.081021,2025-05-26T16:19:02.081021
-S225,salón,asignada,40,Facultad de Ciencias Económicas,Mercadotecnia,2025-05-26T16:19:02.081021,2025-05-26T16:19:02.081021
-S226,salón,asignada,40,Facultad de Ciencias Económicas,Mercadotecnia,2025-05-26T16:19:02.081021,2025-05-26T16:19:02.081021
-S227,salón,asignada,40,Facultad de Ciencias Económicas,Mercadotecnia,2025-05-26T16:19:02.081021,2025-05-26T16:19:02.081021
-S228,salón,asignada,40,Facultad de Ciencias Económicas,Mercadotecnia,2025-05-26T16:19:02.081021,2025-05-26T16:19:02.081021
-S229,salón,asignada,40,Facultad de Ciencias Económicas,Mercadotecnia,2025-05-26T16:19:02.081021,2025-05-26T16:19:02.081021
-S230,salón,asignada,40,Facultad de Ciencias Económicas,Mercadotecnia,2025-05-26T16:19:02.081021,2025-05-26T16:19:02.081021
-S231,aula móvil,asignada,40,Facultad de Ciencias Económicas,Mercadotecnia,2025-05-26T16:19:02.081021,2025-05-26T16:19:02.081021
-S232,aula móvil,asignada,40,Facultad de Ciencias Económicas,Mercadotecnia,2025-05-26T16:19:02.081021,2025-05-26T16:19:02.081021
-S233,aula móvil,asignada,40,Facultad de Ciencias Económicas,Mercadotecnia,2025-05-26T16:19:02.081021,2025-05-26T16:19:02.081021
-S234,aula móvil,asignada,40,Facultad de Ciencias Económicas,Mercadotecnia,2025-05-26T16:19:02.081021,2025-05-26T16:19:02.081021
-S235,salón,asignada,40,Facultad de Ciencias Sociales,Comunicación,2025-05-26T16:19:02.087703,2025-05-26T16:19:02.087703
-S236,salón,asignada,40,Facultad de Ciencias Sociales,Comunicación,2025-05-26T16:19:02.087703,2025-05-26T16:19:02.087703
-S237,salón,asignada,40,Facultad de Ciencias Sociales,Comunicación,2025-05-26T16:19:02.087703,2025-05-26T16:19:02.087703
-S238,salón,asignada,40,Facultad de Ciencias Sociales,Comunicación,2025-05-26T16:19:02.087703,2025-05-26T16:19:02.087703
-S239,salón,asignada,40,Facultad de Ciencias Sociales,Comunicación,2025-05-26T16:19:02.087703,2025-05-26T16:19:02.087703
-S240,salón,asignada,40,Facultad de Ciencias Sociales,Comunicación,2025-05-26T16:19:02.087703,2025-05-26T16:19:02.087703
-S241,salón,asignada,40,Facultad de Ciencias Sociales,Comunicación,2025-05-26T16:19:02.087703,2025-05-26T16:19:02.087703
-S242,salón,asignada,40,Facultad de Ciencias Sociales,Comunicación,2025-05-26T16:19:02.087703,2025-05-26T16:19:02.087703
-S243,salón,asignada,40,Facultad de Ciencias Sociales,Comunicación,2025-05-26T16:19:02.087703,2025-05-26T16:19:02.087703
-S244,salón,asignada,40,Facultad de Ciencias Sociales,Comunicación,2025-05-26T16:19:02.087703,2025-05-26T16:19:02.087703
-S245,aula móvil,asignada,40,Facultad de Ciencias Sociales,Comunicación,2025-05-26T16:19:02.087703,2025-05-26T16:19:02.087703
-S246,aula móvil,asignada,40,Facultad de Ciencias Sociales,Comunicación,2025-05-26T16:19:02.087703,2025-05-26T16:19:02.087703
-S247,aula móvil,asignada,40,Facultad de Ciencias Sociales,Comunicación,2025-05-26T16:19:02.087703,2025-05-26T16:19:02.087703
-S248,aula móvil,asignada,40,Facultad de Ciencias Sociales,Comunicación,2025-05-26T16:19:02.087703,2025-05-26T16:19:02.087703
-S249,salón,asignada,40,Facultad de Artes,Danza,2025-05-26T16:19:02.179763,2025-05-26T16:19:02.179763
-S250,salón,asignada,40,Facultad de Artes,Danza,2025-05-26T16:19:02.179763,2025-05-26T16:19:02.179763
-S251,salón,asignada,40,Facultad de Artes,Danza,2025-05-26T16:19:02.179763,2025-05-26T16:19:02.179763
-S252,salón,asignada,40,Facultad de Artes,Danza,2025-05-26T16:19:02.179763,2025-05-26T16:19:02.179763
-S253,salón,asignada,40,Facultad de Artes,Danza,2025-05-26T16:19:02.179763,2025-05-26T16:19:02.179763
-S254,salón,asignada,40,Facultad de Artes,Danza,2025-05-26T16:19:02.179763,2025-05-26T16:19:02.179763
-S255,salón,asignada,40,Facultad de Artes,Danza,2025-05-26T16:19:02.179763,2025-05-26T16:19:02.179763
-S256,salón,asignada,40,Facultad de Artes,Danza,2025-05-26T16:19:02.179763,2025-05-26T16:19:02.179763
-S257,salón,asignada,40,Facultad de Artes,Danza,2025-05-26T16:19:02.179763,2025-05-26T16:19:02.179763
-S258,salón,asignada,40,Facultad de Artes,Danza,2025-05-26T16:19:02.179763,2025-05-26T16:19:02.179763
-S259,aula móvil,asignada,40,Facultad de Artes,Danza,2025-05-26T16:19:02.179763,2025-05-26T16:19:02.179763
-S260,aula móvil,asignada,40,Facultad de Artes,Danza,2025-05-26T16:19:02.179763,2025-05-26T16:19:02.179763
-S261,aula móvil,asignada,40,Facultad de Artes,Danza,2025-05-26T16:19:02.179763,2025-05-26T16:19:02.179763
-S262,aula móvil,asignada,40,Facultad de Artes,Danza,2025-05-26T16:19:02.179763,2025-05-26T16:19:02.179763
-S263,salón,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:19:02.260079,2025-05-26T16:19:02.260079
-S264,salón,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:19:02.260079,2025-05-26T16:19:02.260079
-S265,salón,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:19:02.260079,2025-05-26T16:19:02.260079
-S266,salón,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:19:02.260079,2025-05-26T16:19:02.260079
-S267,salón,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:19:02.260079,2025-05-26T16:19:02.260079
-S268,salón,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:19:02.260079,2025-05-26T16:19:02.260079
-S269,salón,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:19:02.260079,2025-05-26T16:19:02.260079
-S270,salón,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:19:02.260079,2025-05-26T16:19:02.260079
-S271,salón,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:19:02.260079,2025-05-26T16:19:02.260079
-S272,salón,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:19:02.260079,2025-05-26T16:19:02.260079
-S273,aula móvil,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:19:02.260079,2025-05-26T16:19:02.260079
-S274,aula móvil,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:19:02.260079,2025-05-26T16:19:02.260079
-S275,aula móvil,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:19:02.260079,2025-05-26T16:19:02.260079
-S276,aula móvil,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:19:02.260079,2025-05-26T16:19:02.260079
-S277,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:19:02.328869,2025-05-26T16:19:02.328869
-S278,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:19:02.328869,2025-05-26T16:19:02.328869
-S279,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:19:02.328869,2025-05-26T16:19:02.328869
-S280,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:19:02.328869,2025-05-26T16:19:02.328869
-S281,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:19:02.328869,2025-05-26T16:19:02.328869
-S282,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:19:02.328869,2025-05-26T16:19:02.328869
-S283,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:19:02.328869,2025-05-26T16:19:02.328869
-S284,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:19:02.328869,2025-05-26T16:19:02.328869
-S285,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:19:02.328869,2025-05-26T16:19:02.328869
-S286,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:19:02.328869,2025-05-26T16:19:02.328869
-S287,aula móvil,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:19:02.328869,2025-05-26T16:19:02.328869
-S288,aula móvil,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:19:02.328869,2025-05-26T16:19:02.328869
-S289,aula móvil,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:19:02.328869,2025-05-26T16:19:02.328869
-S290,aula móvil,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:19:02.328869,2025-05-26T16:19:02.328869
-S291,salón,disponible,40,,,,
-S292,salón,disponible,40,,,,
-S293,salón,disponible,40,,,,
-S294,salón,disponible,40,,,,
-S295,salón,disponible,40,,,,
-S296,salón,disponible,40,,,,
-S297,salón,disponible,40,,,,
-S298,salón,disponible,40,,,,
-S299,salón,disponible,40,,,,
-S300,salón,disponible,40,,,,
-S301,salón,disponible,40,,,,
-S302,salón,disponible,40,,,,
-S303,salón,disponible,40,,,,
-S304,salón,disponible,40,,,,
-S305,salón,disponible,40,,,,
-S306,salón,disponible,40,,,,
-S307,salón,disponible,40,,,,
-S308,salón,disponible,40,,,,
-S309,salón,disponible,40,,,,
-S310,salón,disponible,40,,,,
-S311,salón,disponible,40,,,,
-S312,salón,disponible,40,,,,
-S313,salón,disponible,40,,,,
-S314,salón,disponible,40,,,,
-S315,salón,disponible,40,,,,
-S316,salón,disponible,40,,,,
-S317,salón,disponible,40,,,,
-S318,salón,disponible,40,,,,
-S319,salón,disponible,40,,,,
-S320,salón,disponible,40,,,,
-S321,salón,disponible,40,,,,
-S322,salón,disponible,40,,,,
-S323,salón,disponible,40,,,,
-S324,salón,disponible,40,,,,
-S325,salón,disponible,40,,,,
-S326,salón,disponible,40,,,,
-S327,salón,disponible,40,,,,
-S328,salón,disponible,40,,,,
-S329,salón,disponible,40,,,,
-S330,salón,disponible,40,,,,
-S331,salón,disponible,40,,,,
-S332,salón,disponible,40,,,,
-S333,salón,disponible,40,,,,
-S334,salón,disponible,40,,,,
-S335,salón,disponible,40,,,,
-S336,salón,disponible,40,,,,
-S337,salón,disponible,40,,,,
-S338,salón,disponible,40,,,,
-S339,salón,disponible,40,,,,
-S340,salón,disponible,40,,,,
-S341,salón,disponible,40,,,,
-S342,salón,disponible,40,,,,
-S343,salón,disponible,40,,,,
-S344,salón,disponible,40,,,,
-S345,salón,disponible,40,,,,
-S346,salón,disponible,40,,,,
-S347,salón,disponible,40,,,,
-S348,salón,disponible,40,,,,
-S349,salón,disponible,40,,,,
-S350,salón,disponible,40,,,,
-S351,salón,disponible,40,,,,
-S352,salón,disponible,40,,,,
-S353,salón,disponible,40,,,,
-S354,salón,disponible,40,,,,
-S355,salón,disponible,40,,,,
-S356,salón,disponible,40,,,,
-S357,salón,disponible,40,,,,
-S358,salón,disponible,40,,,,
-S359,salón,disponible,40,,,,
-S360,salón,disponible,40,,,,
-S361,salón,disponible,40,,,,
-S362,salón,disponible,40,,,,
-S363,salón,disponible,40,,,,
-S364,salón,disponible,40,,,,
-S365,salón,disponible,40,,,,
-S366,salón,disponible,40,,,,
-S367,salón,disponible,40,,,,
-S368,salón,disponible,40,,,,
-S369,salón,disponible,40,,,,
-S370,salón,disponible,40,,,,
-S371,salón,disponible,40,,,,
-S372,salón,disponible,40,,,,
-S373,salón,disponible,40,,,,
-S374,salón,disponible,40,,,,
-S375,salón,disponible,40,,,,
+S001,salón,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:51:42.597597,2025-05-26T16:51:42.597597
+S002,salón,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:51:42.597597,2025-05-26T16:51:42.597597
+S003,salón,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:51:42.597597,2025-05-26T16:51:42.597597
+S004,salón,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:51:42.597597,2025-05-26T16:51:42.597597
+S005,salón,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:51:42.597597,2025-05-26T16:51:42.597597
+S006,salón,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:51:42.597597,2025-05-26T16:51:42.597597
+S007,salón,asignada,40,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:51:42.597597,2025-05-26T16:51:42.597597
+S008,salón,asignada,40,Facultad de Educación,Psicopedagogía,2025-05-26T16:51:42.615433,2025-05-26T16:51:42.615433
+S009,salón,asignada,40,Facultad de Educación,Psicopedagogía,2025-05-26T16:51:42.615433,2025-05-26T16:51:42.615433
+S010,salón,asignada,40,Facultad de Educación,Psicopedagogía,2025-05-26T16:51:42.615433,2025-05-26T16:51:42.615433
+S011,salón,asignada,40,Facultad de Educación,Psicopedagogía,2025-05-26T16:51:42.615433,2025-05-26T16:51:42.615433
+S012,salón,asignada,40,Facultad de Educación,Psicopedagogía,2025-05-26T16:51:42.615433,2025-05-26T16:51:42.615433
+S013,salón,asignada,40,Facultad de Educación,Psicopedagogía,2025-05-26T16:51:42.615433,2025-05-26T16:51:42.615433
+S014,salón,asignada,40,Facultad de Educación,Psicopedagogía,2025-05-26T16:51:42.615433,2025-05-26T16:51:42.615433
+S015,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:51:42.846390,2025-05-26T16:51:42.846390
+S016,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:51:42.846390,2025-05-26T16:51:42.846390
+S017,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:51:42.846390,2025-05-26T16:51:42.846390
+S018,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:51:42.846390,2025-05-26T16:51:42.846390
+S019,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:51:42.846390,2025-05-26T16:51:42.846390
+S020,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:51:42.846390,2025-05-26T16:51:42.846390
+S021,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:51:42.846390,2025-05-26T16:51:42.846390
+S022,salón,asignada,40,Facultad de Medicina,Enfermería,2025-05-26T16:51:42.963129,2025-05-26T16:51:42.963129
+S023,salón,asignada,40,Facultad de Medicina,Enfermería,2025-05-26T16:51:42.963129,2025-05-26T16:51:42.963129
+S024,salón,asignada,40,Facultad de Medicina,Enfermería,2025-05-26T16:51:42.963129,2025-05-26T16:51:42.963129
+S025,salón,asignada,40,Facultad de Medicina,Enfermería,2025-05-26T16:51:42.963129,2025-05-26T16:51:42.963129
+S026,salón,asignada,40,Facultad de Medicina,Enfermería,2025-05-26T16:51:42.963129,2025-05-26T16:51:42.963129
+S027,salón,asignada,40,Facultad de Medicina,Enfermería,2025-05-26T16:51:42.963129,2025-05-26T16:51:42.963129
+S028,salón,asignada,40,Facultad de Medicina,Enfermería,2025-05-26T16:51:42.963129,2025-05-26T16:51:42.963129
+S029,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:51:43.283872,2025-05-26T16:51:43.283872
+S030,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:51:43.283872,2025-05-26T16:51:43.283872
+S031,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:51:43.283872,2025-05-26T16:51:43.283872
+S032,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:51:43.283872,2025-05-26T16:51:43.283872
+S033,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:51:43.283872,2025-05-26T16:51:43.283872
+S034,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:51:43.283872,2025-05-26T16:51:43.283872
+S035,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:51:43.283872,2025-05-26T16:51:43.283872
+S036,salón,asignada,40,Facultad de Arquitectura,Restauración de Patrimonio,2025-05-26T16:51:43.350203,2025-05-26T16:51:43.350203
+S037,salón,asignada,40,Facultad de Arquitectura,Restauración de Patrimonio,2025-05-26T16:51:43.350203,2025-05-26T16:51:43.350203
+S038,salón,asignada,40,Facultad de Arquitectura,Restauración de Patrimonio,2025-05-26T16:51:43.350203,2025-05-26T16:51:43.350203
+S039,salón,asignada,40,Facultad de Arquitectura,Restauración de Patrimonio,2025-05-26T16:51:43.350203,2025-05-26T16:51:43.350203
+S040,salón,asignada,40,Facultad de Arquitectura,Restauración de Patrimonio,2025-05-26T16:51:43.350203,2025-05-26T16:51:43.350203
+S041,salón,asignada,40,Facultad de Arquitectura,Restauración de Patrimonio,2025-05-26T16:51:43.350203,2025-05-26T16:51:43.350203
+S042,salón,asignada,40,Facultad de Arquitectura,Restauración de Patrimonio,2025-05-26T16:51:43.350203,2025-05-26T16:51:43.350203
+S043,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:51:43.469225,2025-05-26T16:51:43.469225
+S044,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:51:43.469225,2025-05-26T16:51:43.469225
+S045,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:51:43.469225,2025-05-26T16:51:43.469225
+S046,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:51:43.469225,2025-05-26T16:51:43.469225
+S047,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:51:43.469225,2025-05-26T16:51:43.469225
+S048,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:51:43.469225,2025-05-26T16:51:43.469225
+S049,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:51:43.469225,2025-05-26T16:51:43.469225
+S050,salón,asignada,40,Facultad de Arquitectura,Paisajismo,2025-05-26T16:51:43.619147,2025-05-26T16:51:43.619147
+S051,salón,asignada,40,Facultad de Arquitectura,Paisajismo,2025-05-26T16:51:43.619147,2025-05-26T16:51:43.619147
+S052,salón,asignada,40,Facultad de Arquitectura,Paisajismo,2025-05-26T16:51:43.619147,2025-05-26T16:51:43.619147
+S053,salón,asignada,40,Facultad de Arquitectura,Paisajismo,2025-05-26T16:51:43.619147,2025-05-26T16:51:43.619147
+S054,salón,asignada,40,Facultad de Arquitectura,Paisajismo,2025-05-26T16:51:43.619147,2025-05-26T16:51:43.619147
+S055,salón,asignada,40,Facultad de Arquitectura,Paisajismo,2025-05-26T16:51:43.619147,2025-05-26T16:51:43.619147
+S056,salón,asignada,40,Facultad de Arquitectura,Paisajismo,2025-05-26T16:51:43.619147,2025-05-26T16:51:43.619147
+S057,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:51:43.624320,2025-05-26T16:51:43.624320
+S058,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:51:43.624320,2025-05-26T16:51:43.624320
+S059,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:51:43.624320,2025-05-26T16:51:43.624320
+S060,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:51:43.624320,2025-05-26T16:51:43.624320
+S061,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:51:43.624320,2025-05-26T16:51:43.624320
+S062,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:51:43.624320,2025-05-26T16:51:43.624320
+S063,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:51:43.624320,2025-05-26T16:51:43.624320
+S064,salón,asignada,40,Facultad de Medicina,Odontología,2025-05-26T16:51:43.651357,2025-05-26T16:51:43.651357
+S065,salón,asignada,40,Facultad de Medicina,Odontología,2025-05-26T16:51:43.651357,2025-05-26T16:51:43.651357
+S066,salón,asignada,40,Facultad de Medicina,Odontología,2025-05-26T16:51:43.651357,2025-05-26T16:51:43.651357
+S067,salón,asignada,40,Facultad de Medicina,Odontología,2025-05-26T16:51:43.651357,2025-05-26T16:51:43.651357
+S068,salón,asignada,40,Facultad de Medicina,Odontología,2025-05-26T16:51:43.651357,2025-05-26T16:51:43.651357
+S069,salón,asignada,40,Facultad de Medicina,Odontología,2025-05-26T16:51:43.651357,2025-05-26T16:51:43.651357
+S070,salón,asignada,40,Facultad de Medicina,Odontología,2025-05-26T16:51:43.651357,2025-05-26T16:51:43.651357
+S071,salón,asignada,40,Facultad de Medicina,Farmacia,2025-05-26T16:51:43.663101,2025-05-26T16:51:43.663101
+S072,salón,asignada,40,Facultad de Medicina,Farmacia,2025-05-26T16:51:43.663101,2025-05-26T16:51:43.663101
+S073,salón,asignada,40,Facultad de Medicina,Farmacia,2025-05-26T16:51:43.663101,2025-05-26T16:51:43.663101
+S074,salón,asignada,40,Facultad de Medicina,Farmacia,2025-05-26T16:51:43.663101,2025-05-26T16:51:43.663101
+S075,salón,asignada,40,Facultad de Medicina,Farmacia,2025-05-26T16:51:43.663101,2025-05-26T16:51:43.663101
+S076,salón,asignada,40,Facultad de Medicina,Farmacia,2025-05-26T16:51:43.663101,2025-05-26T16:51:43.663101
+S077,salón,asignada,40,Facultad de Medicina,Farmacia,2025-05-26T16:51:43.663101,2025-05-26T16:51:43.663101
+S078,salón,asignada,40,Facultad de Artes,Bellas Artes,2025-05-26T16:51:43.704039,2025-05-26T16:51:43.704039
+S079,salón,asignada,40,Facultad de Artes,Bellas Artes,2025-05-26T16:51:43.704039,2025-05-26T16:51:43.704039
+S080,salón,asignada,40,Facultad de Artes,Bellas Artes,2025-05-26T16:51:43.704039,2025-05-26T16:51:43.704039
+S081,salón,asignada,40,Facultad de Artes,Bellas Artes,2025-05-26T16:51:43.704039,2025-05-26T16:51:43.704039
+S082,salón,asignada,40,Facultad de Artes,Bellas Artes,2025-05-26T16:51:43.704039,2025-05-26T16:51:43.704039
+S083,salón,asignada,40,Facultad de Artes,Bellas Artes,2025-05-26T16:51:43.704039,2025-05-26T16:51:43.704039
+S084,salón,asignada,40,Facultad de Artes,Bellas Artes,2025-05-26T16:51:43.704039,2025-05-26T16:51:43.704039
+S085,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:51:43.707498,2025-05-26T16:51:43.707498
+S086,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:51:43.707498,2025-05-26T16:51:43.707498
+S087,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:51:43.707498,2025-05-26T16:51:43.707498
+S088,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:51:43.707498,2025-05-26T16:51:43.707498
+S089,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:51:43.707498,2025-05-26T16:51:43.707498
+S090,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:51:43.707498,2025-05-26T16:51:43.707498
+S091,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:51:43.707498,2025-05-26T16:51:43.707498
+S092,salón,asignada,40,Facultad de Educación,Educación Especial,2025-05-26T16:51:43.741664,2025-05-26T16:51:43.741664
+S093,salón,asignada,40,Facultad de Educación,Educación Especial,2025-05-26T16:51:43.741664,2025-05-26T16:51:43.741664
+S094,salón,asignada,40,Facultad de Educación,Educación Especial,2025-05-26T16:51:43.741664,2025-05-26T16:51:43.741664
+S095,salón,asignada,40,Facultad de Educación,Educación Especial,2025-05-26T16:51:43.741664,2025-05-26T16:51:43.741664
+S096,salón,asignada,40,Facultad de Educación,Educación Especial,2025-05-26T16:51:43.741664,2025-05-26T16:51:43.741664
+S097,salón,asignada,40,Facultad de Educación,Educación Especial,2025-05-26T16:51:43.741664,2025-05-26T16:51:43.741664
+S098,salón,asignada,40,Facultad de Educación,Educación Especial,2025-05-26T16:51:43.741664,2025-05-26T16:51:43.741664
+S099,salón,asignada,40,Facultad de Arquitectura,Diseño de Interiores,2025-05-26T16:51:43.757569,2025-05-26T16:51:43.757569
+S100,salón,asignada,40,Facultad de Arquitectura,Diseño de Interiores,2025-05-26T16:51:43.757569,2025-05-26T16:51:43.757569
+S101,salón,asignada,40,Facultad de Arquitectura,Diseño de Interiores,2025-05-26T16:51:43.757569,2025-05-26T16:51:43.757569
+S102,salón,asignada,40,Facultad de Arquitectura,Diseño de Interiores,2025-05-26T16:51:43.757569,2025-05-26T16:51:43.757569
+S103,salón,asignada,40,Facultad de Arquitectura,Diseño de Interiores,2025-05-26T16:51:43.757569,2025-05-26T16:51:43.757569
+S104,salón,asignada,40,Facultad de Arquitectura,Diseño de Interiores,2025-05-26T16:51:43.757569,2025-05-26T16:51:43.757569
+S105,salón,asignada,40,Facultad de Arquitectura,Diseño de Interiores,2025-05-26T16:51:43.757569,2025-05-26T16:51:43.757569
+S106,salón,asignada,40,Facultad de Educación,Administración Educativa,2025-05-26T16:51:43.824046,2025-05-26T16:51:43.824046
+S107,salón,asignada,40,Facultad de Educación,Administración Educativa,2025-05-26T16:51:43.824046,2025-05-26T16:51:43.824046
+S108,salón,asignada,40,Facultad de Educación,Administración Educativa,2025-05-26T16:51:43.824046,2025-05-26T16:51:43.824046
+S109,salón,asignada,40,Facultad de Educación,Administración Educativa,2025-05-26T16:51:43.824046,2025-05-26T16:51:43.824046
+S110,salón,asignada,40,Facultad de Educación,Administración Educativa,2025-05-26T16:51:43.824046,2025-05-26T16:51:43.824046
+S111,salón,asignada,40,Facultad de Educación,Administración Educativa,2025-05-26T16:51:43.824046,2025-05-26T16:51:43.824046
+S112,salón,asignada,40,Facultad de Educación,Administración Educativa,2025-05-26T16:51:43.824046,2025-05-26T16:51:43.824046
+S113,salón,asignada,40,Facultad de Artes,Música,2025-05-26T16:51:43.875658,2025-05-26T16:51:43.875658
+S114,salón,asignada,40,Facultad de Artes,Música,2025-05-26T16:51:43.875658,2025-05-26T16:51:43.875658
+S115,salón,asignada,40,Facultad de Artes,Música,2025-05-26T16:51:43.875658,2025-05-26T16:51:43.875658
+S116,salón,asignada,40,Facultad de Artes,Música,2025-05-26T16:51:43.875658,2025-05-26T16:51:43.875658
+S117,salón,asignada,40,Facultad de Artes,Música,2025-05-26T16:51:43.875658,2025-05-26T16:51:43.875658
+S118,salón,asignada,40,Facultad de Artes,Música,2025-05-26T16:51:43.875658,2025-05-26T16:51:43.875658
+S119,salón,asignada,40,Facultad de Artes,Música,2025-05-26T16:51:43.875658,2025-05-26T16:51:43.875658
+S120,salón,asignada,40,Facultad de Arquitectura,Arquitectura,2025-05-26T16:51:43.879106,2025-05-26T16:51:43.879106
+S121,salón,asignada,40,Facultad de Arquitectura,Arquitectura,2025-05-26T16:51:43.879106,2025-05-26T16:51:43.879106
+S122,salón,asignada,40,Facultad de Arquitectura,Arquitectura,2025-05-26T16:51:43.879106,2025-05-26T16:51:43.879106
+S123,salón,asignada,40,Facultad de Arquitectura,Arquitectura,2025-05-26T16:51:43.879106,2025-05-26T16:51:43.879106
+S124,salón,asignada,40,Facultad de Arquitectura,Arquitectura,2025-05-26T16:51:43.879106,2025-05-26T16:51:43.879106
+S125,salón,asignada,40,Facultad de Arquitectura,Arquitectura,2025-05-26T16:51:43.879106,2025-05-26T16:51:43.879106
+S126,salón,asignada,40,Facultad de Arquitectura,Arquitectura,2025-05-26T16:51:43.879106,2025-05-26T16:51:43.879106
+S127,salón,asignada,40,Facultad de Educación,Educación Secundaria,2025-05-26T16:51:43.882592,2025-05-26T16:51:43.882592
+S128,salón,asignada,40,Facultad de Educación,Educación Secundaria,2025-05-26T16:51:43.882592,2025-05-26T16:51:43.882592
+S129,salón,asignada,40,Facultad de Educación,Educación Secundaria,2025-05-26T16:51:43.882592,2025-05-26T16:51:43.882592
+S130,salón,asignada,40,Facultad de Educación,Educación Secundaria,2025-05-26T16:51:43.882592,2025-05-26T16:51:43.882592
+S131,salón,asignada,40,Facultad de Educación,Educación Secundaria,2025-05-26T16:51:43.882592,2025-05-26T16:51:43.882592
+S132,salón,asignada,40,Facultad de Educación,Educación Secundaria,2025-05-26T16:51:43.882592,2025-05-26T16:51:43.882592
+S133,salón,asignada,40,Facultad de Educación,Educación Secundaria,2025-05-26T16:51:43.882592,2025-05-26T16:51:43.882592
+S134,salón,asignada,40,Facultad de Arquitectura,Urbanismo,2025-05-26T16:51:43.907789,2025-05-26T16:51:43.907789
+S135,salón,asignada,40,Facultad de Arquitectura,Urbanismo,2025-05-26T16:51:43.907789,2025-05-26T16:51:43.907789
+S136,salón,asignada,40,Facultad de Arquitectura,Urbanismo,2025-05-26T16:51:43.907789,2025-05-26T16:51:43.907789
+S137,salón,asignada,40,Facultad de Arquitectura,Urbanismo,2025-05-26T16:51:43.907789,2025-05-26T16:51:43.907789
+S138,salón,asignada,40,Facultad de Arquitectura,Urbanismo,2025-05-26T16:51:43.907789,2025-05-26T16:51:43.907789
+S139,salón,asignada,40,Facultad de Arquitectura,Urbanismo,2025-05-26T16:51:43.907789,2025-05-26T16:51:43.907789
+S140,salón,asignada,40,Facultad de Arquitectura,Urbanismo,2025-05-26T16:51:43.907789,2025-05-26T16:51:43.907789
+S141,salón,asignada,40,Facultad de Educación,Educación Primaria,2025-05-26T16:51:43.909817,2025-05-26T16:51:43.909817
+S142,salón,asignada,40,Facultad de Educación,Educación Primaria,2025-05-26T16:51:43.909817,2025-05-26T16:51:43.909817
+S143,salón,asignada,40,Facultad de Educación,Educación Primaria,2025-05-26T16:51:43.909817,2025-05-26T16:51:43.909817
+S144,salón,asignada,40,Facultad de Educación,Educación Primaria,2025-05-26T16:51:43.909817,2025-05-26T16:51:43.909817
+S145,salón,asignada,40,Facultad de Educación,Educación Primaria,2025-05-26T16:51:43.909817,2025-05-26T16:51:43.909817
+S146,salón,asignada,40,Facultad de Educación,Educación Primaria,2025-05-26T16:51:43.909817,2025-05-26T16:51:43.909817
+S147,salón,asignada,40,Facultad de Educación,Educación Primaria,2025-05-26T16:51:43.909817,2025-05-26T16:51:43.909817
+S148,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:51:43.973907,2025-05-26T16:51:43.973907
+S149,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:51:43.973907,2025-05-26T16:51:43.973907
+S150,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:51:43.973907,2025-05-26T16:51:43.973907
+S151,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:51:43.973907,2025-05-26T16:51:43.973907
+S152,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:51:43.973907,2025-05-26T16:51:43.973907
+S153,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:51:43.973907,2025-05-26T16:51:43.973907
+S154,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:51:43.973907,2025-05-26T16:51:43.973907
+S155,salón,asignada,40,Facultad de Artes,Danza,2025-05-26T16:51:44.159989,2025-05-26T16:51:44.159989
+S156,salón,asignada,40,Facultad de Artes,Danza,2025-05-26T16:51:44.159989,2025-05-26T16:51:44.159989
+S157,salón,asignada,40,Facultad de Artes,Danza,2025-05-26T16:51:44.159989,2025-05-26T16:51:44.159989
+S158,salón,asignada,40,Facultad de Artes,Danza,2025-05-26T16:51:44.159989,2025-05-26T16:51:44.159989
+S159,salón,asignada,40,Facultad de Artes,Danza,2025-05-26T16:51:44.159989,2025-05-26T16:51:44.159989
+S160,salón,asignada,40,Facultad de Artes,Danza,2025-05-26T16:51:44.159989,2025-05-26T16:51:44.159989
+S161,salón,asignada,40,Facultad de Artes,Danza,2025-05-26T16:51:44.159989,2025-05-26T16:51:44.159989
+S162,salón,asignada,40,Facultad de Medicina,Medicina General,2025-05-26T16:51:44.393533,2025-05-26T16:51:44.393533
+S163,salón,asignada,40,Facultad de Medicina,Medicina General,2025-05-26T16:51:44.393533,2025-05-26T16:51:44.393533
+S164,salón,asignada,40,Facultad de Medicina,Medicina General,2025-05-26T16:51:44.393533,2025-05-26T16:51:44.393533
+S165,salón,asignada,40,Facultad de Medicina,Medicina General,2025-05-26T16:51:44.393533,2025-05-26T16:51:44.393533
+S166,salón,asignada,40,Facultad de Medicina,Medicina General,2025-05-26T16:51:44.393533,2025-05-26T16:51:44.393533
+S167,salón,asignada,40,Facultad de Medicina,Medicina General,2025-05-26T16:51:44.393533,2025-05-26T16:51:44.393533
+S168,salón,asignada,40,Facultad de Medicina,Medicina General,2025-05-26T16:51:44.393533,2025-05-26T16:51:44.393533
+S169,salón,asignada,40,Facultad de Medicina,Terapia Física,2025-05-26T16:51:44.436892,2025-05-26T16:51:44.436892
+S170,salón,asignada,40,Facultad de Medicina,Terapia Física,2025-05-26T16:51:44.436892,2025-05-26T16:51:44.436892
+S171,salón,asignada,40,Facultad de Medicina,Terapia Física,2025-05-26T16:51:44.436892,2025-05-26T16:51:44.436892
+S172,salón,asignada,40,Facultad de Medicina,Terapia Física,2025-05-26T16:51:44.436892,2025-05-26T16:51:44.436892
+S173,salón,asignada,40,Facultad de Medicina,Terapia Física,2025-05-26T16:51:44.436892,2025-05-26T16:51:44.436892
+S174,salón,asignada,40,Facultad de Medicina,Terapia Física,2025-05-26T16:51:44.436892,2025-05-26T16:51:44.436892
+S175,salón,asignada,40,Facultad de Medicina,Terapia Física,2025-05-26T16:51:44.436892,2025-05-26T16:51:44.436892
+S176,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:52:31.486456,2025-05-26T16:52:31.486456
+S177,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:52:31.486456,2025-05-26T16:52:31.486456
+S178,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:52:31.486456,2025-05-26T16:52:31.486456
+S179,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:52:31.486456,2025-05-26T16:52:31.486456
+S180,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:52:31.486456,2025-05-26T16:52:31.486456
+S181,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:52:31.486456,2025-05-26T16:52:31.486456
+S182,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:52:31.486456,2025-05-26T16:52:31.486456
+S183,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:52:31.486456,2025-05-26T16:52:31.486456
+S184,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:52:31.486456,2025-05-26T16:52:31.486456
+S185,salón,asignada,40,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:52:31.486456,2025-05-26T16:52:31.486456
+S186,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:52:31.496062,2025-05-26T16:52:31.496062
+S187,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:52:31.496062,2025-05-26T16:52:31.496062
+S188,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:52:31.496062,2025-05-26T16:52:31.496062
+S189,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:52:31.496062,2025-05-26T16:52:31.496062
+S190,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:52:31.496062,2025-05-26T16:52:31.496062
+S191,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:52:31.496062,2025-05-26T16:52:31.496062
+S192,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:52:31.496062,2025-05-26T16:52:31.496062
+S193,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:52:31.496062,2025-05-26T16:52:31.496062
+S194,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:52:31.496062,2025-05-26T16:52:31.496062
+S195,salón,asignada,40,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:52:31.496062,2025-05-26T16:52:31.496062
+S196,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:52:31.608249,2025-05-26T16:52:31.608249
+S197,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:52:31.608249,2025-05-26T16:52:31.608249
+S198,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:52:31.608249,2025-05-26T16:52:31.608249
+S199,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:52:31.608249,2025-05-26T16:52:31.608249
+S200,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:52:31.608249,2025-05-26T16:52:31.608249
+S201,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:52:31.608249,2025-05-26T16:52:31.608249
+S202,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:52:31.608249,2025-05-26T16:52:31.608249
+S203,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:52:31.608249,2025-05-26T16:52:31.608249
+S204,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:52:31.608249,2025-05-26T16:52:31.608249
+S205,salón,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:52:31.608249,2025-05-26T16:52:31.608249
+S206,aula móvil,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:52:31.608249,2025-05-26T16:52:31.608249
+S207,aula móvil,asignada,40,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:52:31.608249,2025-05-26T16:52:31.608249
+S208,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:52:31.655003,2025-05-26T16:52:31.655003
+S209,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:52:31.655003,2025-05-26T16:52:31.655003
+S210,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:52:31.655003,2025-05-26T16:52:31.655003
+S211,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:52:31.655003,2025-05-26T16:52:31.655003
+S212,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:52:31.655003,2025-05-26T16:52:31.655003
+S213,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:52:31.655003,2025-05-26T16:52:31.655003
+S214,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:52:31.655003,2025-05-26T16:52:31.655003
+S215,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:52:31.655003,2025-05-26T16:52:31.655003
+S216,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:52:31.655003,2025-05-26T16:52:31.655003
+S217,salón,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:52:31.655003,2025-05-26T16:52:31.655003
+S218,aula móvil,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:52:31.655003,2025-05-26T16:52:31.655003
+S219,aula móvil,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:52:31.655003,2025-05-26T16:52:31.655003
+S220,aula móvil,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:52:31.655003,2025-05-26T16:52:31.655003
+S221,aula móvil,asignada,40,Facultad de Derecho,Derecho Internacional,2025-05-26T16:52:31.655003,2025-05-26T16:52:31.655003
+S222,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:52:31.670109,2025-05-26T16:52:31.670109
+S223,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:52:31.670109,2025-05-26T16:52:31.670109
+S224,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:52:31.670109,2025-05-26T16:52:31.670109
+S225,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:52:31.670109,2025-05-26T16:52:31.670109
+S226,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:52:31.670109,2025-05-26T16:52:31.670109
+S227,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:52:31.670109,2025-05-26T16:52:31.670109
+S228,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:52:31.670109,2025-05-26T16:52:31.670109
+S229,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:52:31.670109,2025-05-26T16:52:31.670109
+S230,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:52:31.670109,2025-05-26T16:52:31.670109
+S231,salón,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:52:31.670109,2025-05-26T16:52:31.670109
+S232,aula móvil,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:52:31.670109,2025-05-26T16:52:31.670109
+S233,aula móvil,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:52:31.670109,2025-05-26T16:52:31.670109
+S234,aula móvil,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:52:31.670109,2025-05-26T16:52:31.670109
+S235,aula móvil,asignada,40,Facultad de Artes,Teatro,2025-05-26T16:52:31.670109,2025-05-26T16:52:31.670109
+S236,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:52:31.673488,2025-05-26T16:52:31.673488
+S237,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:52:31.673488,2025-05-26T16:52:31.673488
+S238,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:52:31.673488,2025-05-26T16:52:31.673488
+S239,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:52:31.673488,2025-05-26T16:52:31.673488
+S240,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:52:31.673488,2025-05-26T16:52:31.673488
+S241,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:52:31.673488,2025-05-26T16:52:31.673488
+S242,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:52:31.673488,2025-05-26T16:52:31.673488
+S243,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:52:31.673488,2025-05-26T16:52:31.673488
+S244,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:52:31.673488,2025-05-26T16:52:31.673488
+S245,salón,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:52:31.673488,2025-05-26T16:52:31.673488
+S246,aula móvil,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:52:31.673488,2025-05-26T16:52:31.673488
+S247,aula móvil,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:52:31.673488,2025-05-26T16:52:31.673488
+S248,aula móvil,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:52:31.673488,2025-05-26T16:52:31.673488
+S249,aula móvil,asignada,40,Facultad de Artes,Diseño Gráfico,2025-05-26T16:52:31.673488,2025-05-26T16:52:31.673488
+S250,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:52:31.773534,2025-05-26T16:52:31.773534
+S251,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:52:31.773534,2025-05-26T16:52:31.773534
+S252,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:52:31.773534,2025-05-26T16:52:31.773534
+S253,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:52:31.773534,2025-05-26T16:52:31.773534
+S254,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:52:31.773534,2025-05-26T16:52:31.773534
+S255,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:52:31.773534,2025-05-26T16:52:31.773534
+S256,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:52:31.773534,2025-05-26T16:52:31.773534
+S257,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:52:31.773534,2025-05-26T16:52:31.773534
+S258,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:52:31.773534,2025-05-26T16:52:31.773534
+S259,salón,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:52:31.773534,2025-05-26T16:52:31.773534
+S260,aula móvil,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:52:31.773534,2025-05-26T16:52:31.773534
+S261,aula móvil,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:52:31.773534,2025-05-26T16:52:31.773534
+S262,aula móvil,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:52:31.773534,2025-05-26T16:52:31.773534
+S263,aula móvil,asignada,40,Facultad de Derecho,Derecho Laboral,2025-05-26T16:52:31.773534,2025-05-26T16:52:31.773534
+S264,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:52:31.789045,2025-05-26T16:52:31.789045
+S265,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:52:31.789045,2025-05-26T16:52:31.789045
+S266,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:52:31.789045,2025-05-26T16:52:31.789045
+S267,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:52:31.789045,2025-05-26T16:52:31.789045
+S268,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:52:31.789045,2025-05-26T16:52:31.789045
+S269,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:52:31.789045,2025-05-26T16:52:31.789045
+S270,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:52:31.789045,2025-05-26T16:52:31.789045
+S271,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:52:31.789045,2025-05-26T16:52:31.789045
+S272,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:52:31.789045,2025-05-26T16:52:31.789045
+S273,salón,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:52:31.789045,2025-05-26T16:52:31.789045
+S274,aula móvil,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:52:31.789045,2025-05-26T16:52:31.789045
+S275,aula móvil,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:52:31.789045,2025-05-26T16:52:31.789045
+S276,aula móvil,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:52:31.789045,2025-05-26T16:52:31.789045
+S277,aula móvil,asignada,40,Facultad de Tecnología,Redes y Telecomunicaciones,2025-05-26T16:52:31.789045,2025-05-26T16:52:31.789045
+S278,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:52:31.904509,2025-05-26T16:52:31.904509
+S279,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:52:31.904509,2025-05-26T16:52:31.904509
+S280,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:52:31.904509,2025-05-26T16:52:31.904509
+S281,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:52:31.904509,2025-05-26T16:52:31.904509
+S282,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:52:31.904509,2025-05-26T16:52:31.904509
+S283,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:52:31.904509,2025-05-26T16:52:31.904509
+S284,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:52:31.904509,2025-05-26T16:52:31.904509
+S285,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:52:31.904509,2025-05-26T16:52:31.904509
+S286,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:52:31.904509,2025-05-26T16:52:31.904509
+S287,salón,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:52:31.904509,2025-05-26T16:52:31.904509
+S288,aula móvil,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:52:31.904509,2025-05-26T16:52:31.904509
+S289,aula móvil,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:52:31.904509,2025-05-26T16:52:31.904509
+S290,aula móvil,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:52:31.904509,2025-05-26T16:52:31.904509
+S291,aula móvil,asignada,40,Facultad de Derecho,Derecho Civil,2025-05-26T16:52:31.904509,2025-05-26T16:52:31.904509
+S292,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:52:31.959235,2025-05-26T16:52:31.959235
+S293,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:52:31.959235,2025-05-26T16:52:31.959235
+S294,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:52:31.959235,2025-05-26T16:52:31.959235
+S295,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:52:31.959235,2025-05-26T16:52:31.959235
+S296,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:52:31.959235,2025-05-26T16:52:31.959235
+S297,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:52:31.959235,2025-05-26T16:52:31.959235
+S298,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:52:31.959235,2025-05-26T16:52:31.959235
+S299,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:52:31.959235,2025-05-26T16:52:31.959235
+S300,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:52:31.959235,2025-05-26T16:52:31.959235
+S301,salón,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:52:31.959235,2025-05-26T16:52:31.959235
+S302,aula móvil,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:52:31.959235,2025-05-26T16:52:31.959235
+S303,aula móvil,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:52:31.959235,2025-05-26T16:52:31.959235
+S304,aula móvil,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:52:31.959235,2025-05-26T16:52:31.959235
+S305,aula móvil,asignada,40,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:52:31.959235,2025-05-26T16:52:31.959235
+S306,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:52:31.964609,2025-05-26T16:52:31.964609
+S307,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:52:31.964609,2025-05-26T16:52:31.964609
+S308,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:52:31.964609,2025-05-26T16:52:31.964609
+S309,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:52:31.964609,2025-05-26T16:52:31.964609
+S310,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:52:31.964609,2025-05-26T16:52:31.964609
+S311,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:52:31.964609,2025-05-26T16:52:31.964609
+S312,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:52:31.964609,2025-05-26T16:52:31.964609
+S313,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:52:31.964609,2025-05-26T16:52:31.964609
+S314,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:52:31.964609,2025-05-26T16:52:31.964609
+S315,salón,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:52:31.964609,2025-05-26T16:52:31.964609
+S316,aula móvil,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:52:31.964609,2025-05-26T16:52:31.964609
+S317,aula móvil,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:52:31.964609,2025-05-26T16:52:31.964609
+S318,aula móvil,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:52:31.964609,2025-05-26T16:52:31.964609
+S319,aula móvil,asignada,40,Facultad de Ciencias Económicas,Finanzas,2025-05-26T16:52:31.964609,2025-05-26T16:52:31.964609
+S320,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:52:32.253795,2025-05-26T16:52:32.253795
+S321,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:52:32.253795,2025-05-26T16:52:32.253795
+S322,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:52:32.253795,2025-05-26T16:52:32.253795
+S323,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:52:32.253795,2025-05-26T16:52:32.253795
+S324,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:52:32.253795,2025-05-26T16:52:32.253795
+S325,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:52:32.253795,2025-05-26T16:52:32.253795
+S326,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:52:32.253795,2025-05-26T16:52:32.253795
+S327,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:52:32.253795,2025-05-26T16:52:32.253795
+S328,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:52:32.253795,2025-05-26T16:52:32.253795
+S329,salón,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:52:32.253795,2025-05-26T16:52:32.253795
+S330,aula móvil,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:52:32.253795,2025-05-26T16:52:32.253795
+S331,aula móvil,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:52:32.253795,2025-05-26T16:52:32.253795
+S332,aula móvil,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:52:32.253795,2025-05-26T16:52:32.253795
+S333,aula móvil,asignada,40,Facultad de Tecnología,Big Data,2025-05-26T16:52:32.253795,2025-05-26T16:52:32.253795
+S334,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:52:32.277808,2025-05-26T16:52:32.277808
+S335,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:52:32.277808,2025-05-26T16:52:32.277808
+S336,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:52:32.277808,2025-05-26T16:52:32.277808
+S337,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:52:32.277808,2025-05-26T16:52:32.277808
+S338,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:52:32.277808,2025-05-26T16:52:32.277808
+S339,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:52:32.277808,2025-05-26T16:52:32.277808
+S340,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:52:32.277808,2025-05-26T16:52:32.277808
+S341,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:52:32.277808,2025-05-26T16:52:32.277808
+S342,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:52:32.277808,2025-05-26T16:52:32.277808
+S343,salón,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:52:32.277808,2025-05-26T16:52:32.277808
+S344,aula móvil,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:52:32.277808,2025-05-26T16:52:32.277808
+S345,aula móvil,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:52:32.277808,2025-05-26T16:52:32.277808
+S346,aula móvil,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:52:32.277808,2025-05-26T16:52:32.277808
+S347,aula móvil,asignada,40,Facultad de Ciencias Económicas,Economía,2025-05-26T16:52:32.277808,2025-05-26T16:52:32.277808
+S348,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:52:32.384637,2025-05-26T16:52:32.384637
+S349,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:52:32.384637,2025-05-26T16:52:32.384637
+S350,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:52:32.384637,2025-05-26T16:52:32.384637
+S351,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:52:32.384637,2025-05-26T16:52:32.384637
+S352,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:52:32.384637,2025-05-26T16:52:32.384637
+S353,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:52:32.384637,2025-05-26T16:52:32.384637
+S354,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:52:32.384637,2025-05-26T16:52:32.384637
+S355,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:52:32.384637,2025-05-26T16:52:32.384637
+S356,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:52:32.384637,2025-05-26T16:52:32.384637
+S357,salón,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:52:32.384637,2025-05-26T16:52:32.384637
+S358,aula móvil,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:52:32.384637,2025-05-26T16:52:32.384637
+S359,aula móvil,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:52:32.384637,2025-05-26T16:52:32.384637
+S360,aula móvil,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:52:32.384637,2025-05-26T16:52:32.384637
+S361,aula móvil,asignada,40,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:52:32.384637,2025-05-26T16:52:32.384637
+S362,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:52:32.479392,2025-05-26T16:52:32.479392
+S363,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:52:32.479392,2025-05-26T16:52:32.479392
+S364,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:52:32.479392,2025-05-26T16:52:32.479392
+S365,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:52:32.479392,2025-05-26T16:52:32.479392
+S366,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:52:32.479392,2025-05-26T16:52:32.479392
+S367,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:52:32.479392,2025-05-26T16:52:32.479392
+S368,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:52:32.479392,2025-05-26T16:52:32.479392
+S369,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:52:32.479392,2025-05-26T16:52:32.479392
+S370,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:52:32.479392,2025-05-26T16:52:32.479392
+S371,salón,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:52:32.479392,2025-05-26T16:52:32.479392
+S372,aula móvil,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:52:32.479392,2025-05-26T16:52:32.479392
+S373,aula móvil,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:52:32.479392,2025-05-26T16:52:32.479392
+S374,aula móvil,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:52:32.479392,2025-05-26T16:52:32.479392
+S375,aula móvil,asignada,40,Facultad de Derecho,Derecho Penal,2025-05-26T16:52:32.479392,2025-05-26T16:52:32.479392
 S376,salón,disponible,40,,,,
 S377,salón,disponible,40,,,,
 S378,salón,disponible,40,,,,
 S379,salón,disponible,40,,,,
 S380,salón,disponible,40,,,,
-L001,laboratorio,asignada,30,Facultad de Ciencias Sociales,Psicología,2025-05-26T16:19:00.604478,2025-05-26T16:19:00.604478
-L002,laboratorio,asignada,30,Facultad de Ciencias Sociales,Psicología,2025-05-26T16:19:00.604478,2025-05-26T16:19:00.604478
-L003,laboratorio,asignada,30,Facultad de Ciencias Sociales,Psicología,2025-05-26T16:19:00.604478,2025-05-26T16:19:00.604478
-L004,laboratorio,asignada,30,Facultad de Ciencias Sociales,Psicología,2025-05-26T16:19:00.604478,2025-05-26T16:19:00.604478
-L005,laboratorio,asignada,30,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:19:00.683532,2025-05-26T16:19:00.683532
-L006,laboratorio,asignada,30,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:19:00.683532,2025-05-26T16:19:00.683532
-L007,laboratorio,asignada,30,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:19:00.683532,2025-05-26T16:19:00.683532
-L008,laboratorio,asignada,30,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:19:00.683532,2025-05-26T16:19:00.683532
-L009,laboratorio,asignada,30,Facultad de Derecho,Derecho Internacional,2025-05-26T16:19:00.768689,2025-05-26T16:19:00.768689
-L010,laboratorio,asignada,30,Facultad de Derecho,Derecho Internacional,2025-05-26T16:19:00.768689,2025-05-26T16:19:00.768689
-L011,laboratorio,asignada,30,Facultad de Derecho,Derecho Internacional,2025-05-26T16:19:00.768689,2025-05-26T16:19:00.768689
-L012,laboratorio,asignada,30,Facultad de Derecho,Derecho Internacional,2025-05-26T16:19:00.768689,2025-05-26T16:19:00.768689
-L013,laboratorio,asignada,30,Facultad de Artes,Música,2025-05-26T16:19:00.795608,2025-05-26T16:19:00.795608
-L014,laboratorio,asignada,30,Facultad de Artes,Música,2025-05-26T16:19:00.795608,2025-05-26T16:19:00.795608
-L015,laboratorio,asignada,30,Facultad de Artes,Música,2025-05-26T16:19:00.795608,2025-05-26T16:19:00.795608
-L016,laboratorio,asignada,30,Facultad de Artes,Música,2025-05-26T16:19:00.795608,2025-05-26T16:19:00.795608
-L017,laboratorio,asignada,30,Facultad de Ciencias Sociales,Sociología,2025-05-26T16:19:00.834896,2025-05-26T16:19:00.834896
-L018,laboratorio,asignada,30,Facultad de Ciencias Sociales,Sociología,2025-05-26T16:19:00.834896,2025-05-26T16:19:00.834896
-L019,laboratorio,asignada,30,Facultad de Ciencias Sociales,Sociología,2025-05-26T16:19:00.834896,2025-05-26T16:19:00.834896
-L020,laboratorio,asignada,30,Facultad de Ciencias Sociales,Sociología,2025-05-26T16:19:00.834896,2025-05-26T16:19:00.834896
-L021,laboratorio,asignada,30,Facultad de Derecho,Derecho Penal,2025-05-26T16:19:00.957075,2025-05-26T16:19:00.957075
-L022,laboratorio,asignada,30,Facultad de Derecho,Derecho Penal,2025-05-26T16:19:00.957075,2025-05-26T16:19:00.957075
-L023,laboratorio,asignada,30,Facultad de Derecho,Derecho Penal,2025-05-26T16:19:00.957075,2025-05-26T16:19:00.957075
-L024,laboratorio,asignada,30,Facultad de Derecho,Derecho Penal,2025-05-26T16:19:00.957075,2025-05-26T16:19:00.957075
-L025,laboratorio,asignada,30,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:19:00.961447,2025-05-26T16:19:00.961447
-L026,laboratorio,asignada,30,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:19:00.961447,2025-05-26T16:19:00.961447
-L027,laboratorio,asignada,30,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:19:00.961447,2025-05-26T16:19:00.961447
-L028,laboratorio,asignada,30,Facultad de Tecnología,Desarrollo de Software,2025-05-26T16:19:00.961447,2025-05-26T16:19:00.961447
-L029,laboratorio,asignada,30,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:19:01.097472,2025-05-26T16:19:01.097472
-L030,laboratorio,asignada,30,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:19:01.097472,2025-05-26T16:19:01.097472
-L031,laboratorio,asignada,30,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:19:01.097472,2025-05-26T16:19:01.097472
-L032,laboratorio,asignada,30,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:19:01.097472,2025-05-26T16:19:01.097472
-L033,laboratorio,asignada,30,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:19:01.173352,2025-05-26T16:19:01.173352
-L034,laboratorio,asignada,30,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:19:01.173352,2025-05-26T16:19:01.173352
-L035,laboratorio,asignada,30,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:19:01.173352,2025-05-26T16:19:01.173352
-L036,laboratorio,asignada,30,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:19:01.173352,2025-05-26T16:19:01.173352
-L037,laboratorio,asignada,30,Facultad de Ciencias Económicas,Economía,2025-05-26T16:19:01.178469,2025-05-26T16:19:01.178469
-L038,laboratorio,asignada,30,Facultad de Ciencias Económicas,Economía,2025-05-26T16:19:01.178469,2025-05-26T16:19:01.178469
-L039,laboratorio,asignada,30,Facultad de Ciencias Económicas,Economía,2025-05-26T16:19:01.178469,2025-05-26T16:19:01.178469
-L040,laboratorio,asignada,30,Facultad de Ciencias Económicas,Economía,2025-05-26T16:19:01.178469,2025-05-26T16:19:01.178469
-L041,laboratorio,asignada,30,Facultad de Tecnología,Inteligencia Artificial,2025-05-26T16:19:01.183046,2025-05-26T16:19:01.183046
-L042,laboratorio,asignada,30,Facultad de Tecnología,Inteligencia Artificial,2025-05-26T16:19:01.183046,2025-05-26T16:19:01.183046
-L043,laboratorio,asignada,30,Facultad de Tecnología,Inteligencia Artificial,2025-05-26T16:19:01.183046,2025-05-26T16:19:01.183046
-L044,laboratorio,asignada,30,Facultad de Tecnología,Inteligencia Artificial,2025-05-26T16:19:01.183046,2025-05-26T16:19:01.183046
-L045,laboratorio,asignada,30,Facultad de Derecho,Derecho Civil,2025-05-26T16:19:01.249541,2025-05-26T16:19:01.249541
-L046,laboratorio,asignada,30,Facultad de Derecho,Derecho Civil,2025-05-26T16:19:01.249541,2025-05-26T16:19:01.249541
-L047,laboratorio,asignada,30,Facultad de Derecho,Derecho Civil,2025-05-26T16:19:01.249541,2025-05-26T16:19:01.249541
-L048,laboratorio,asignada,30,Facultad de Derecho,Derecho Civil,2025-05-26T16:19:01.249541,2025-05-26T16:19:01.249541
-L049,laboratorio,asignada,30,Facultad de Artes,Teatro,2025-05-26T16:19:01.292039,2025-05-26T16:19:01.292039
-L050,laboratorio,asignada,30,Facultad de Artes,Teatro,2025-05-26T16:19:01.292039,2025-05-26T16:19:01.292039
-L051,laboratorio,asignada,30,Facultad de Artes,Teatro,2025-05-26T16:19:01.292039,2025-05-26T16:19:01.292039
-L052,laboratorio,asignada,30,Facultad de Artes,Teatro,2025-05-26T16:19:01.292039,2025-05-26T16:19:01.292039
-L053,laboratorio,asignada,30,Facultad de Artes,Bellas Artes,2025-05-26T16:19:01.530792,2025-05-26T16:19:01.530792
-L054,laboratorio,asignada,30,Facultad de Artes,Bellas Artes,2025-05-26T16:19:01.530792,2025-05-26T16:19:01.530792
-L055,laboratorio,asignada,30,Facultad de Artes,Bellas Artes,2025-05-26T16:19:01.530792,2025-05-26T16:19:01.530792
-L056,laboratorio,asignada,30,Facultad de Artes,Bellas Artes,2025-05-26T16:19:01.530792,2025-05-26T16:19:01.530792
-L057,laboratorio,asignada,30,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:19:01.682391,2025-05-26T16:19:01.682391
-L058,laboratorio,asignada,30,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:19:01.682391,2025-05-26T16:19:01.682391
-L059,laboratorio,asignada,30,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:19:01.682391,2025-05-26T16:19:01.682391
-L060,laboratorio,asignada,30,Facultad de Ciencias Sociales,Antropología,2025-05-26T16:19:01.682391,2025-05-26T16:19:01.682391
+L001,laboratorio,asignada,30,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:51:42.597597,2025-05-26T16:51:42.597597
+L002,laboratorio,asignada,30,Facultad de Derecho,Derecho Constitucional,2025-05-26T16:51:42.597597,2025-05-26T16:51:42.597597
+L003,laboratorio,asignada,30,Facultad de Educación,Psicopedagogía,2025-05-26T16:51:42.615433,2025-05-26T16:51:42.615433
+L004,laboratorio,asignada,30,Facultad de Educación,Psicopedagogía,2025-05-26T16:51:42.615433,2025-05-26T16:51:42.615433
+L005,laboratorio,asignada,30,Facultad de Derecho,Derecho Civil,2025-05-26T16:51:42.846390,2025-05-26T16:51:42.846390
+L006,laboratorio,asignada,30,Facultad de Derecho,Derecho Civil,2025-05-26T16:51:42.846390,2025-05-26T16:51:42.846390
+L007,laboratorio,asignada,30,Facultad de Medicina,Enfermería,2025-05-26T16:51:42.963129,2025-05-26T16:51:42.963129
+L008,laboratorio,asignada,30,Facultad de Medicina,Enfermería,2025-05-26T16:51:42.963129,2025-05-26T16:51:42.963129
+L009,laboratorio,asignada,30,Facultad de Derecho,Derecho Internacional,2025-05-26T16:51:43.283872,2025-05-26T16:51:43.283872
+L010,laboratorio,asignada,30,Facultad de Derecho,Derecho Internacional,2025-05-26T16:51:43.283872,2025-05-26T16:51:43.283872
+L011,laboratorio,asignada,30,Facultad de Arquitectura,Restauración de Patrimonio,2025-05-26T16:51:43.350203,2025-05-26T16:51:43.350203
+L012,laboratorio,asignada,30,Facultad de Arquitectura,Restauración de Patrimonio,2025-05-26T16:51:43.350203,2025-05-26T16:51:43.350203
+L013,laboratorio,asignada,30,Facultad de Artes,Teatro,2025-05-26T16:51:43.469225,2025-05-26T16:51:43.469225
+L014,laboratorio,asignada,30,Facultad de Artes,Teatro,2025-05-26T16:51:43.469225,2025-05-26T16:51:43.469225
+L015,laboratorio,asignada,30,Facultad de Arquitectura,Paisajismo,2025-05-26T16:51:43.619147,2025-05-26T16:51:43.619147
+L016,laboratorio,asignada,30,Facultad de Arquitectura,Paisajismo,2025-05-26T16:51:43.619147,2025-05-26T16:51:43.619147
+L017,laboratorio,asignada,30,Facultad de Derecho,Derecho Laboral,2025-05-26T16:51:43.624320,2025-05-26T16:51:43.624320
+L018,laboratorio,asignada,30,Facultad de Derecho,Derecho Laboral,2025-05-26T16:51:43.624320,2025-05-26T16:51:43.624320
+L019,laboratorio,asignada,30,Facultad de Medicina,Odontología,2025-05-26T16:51:43.651357,2025-05-26T16:51:43.651357
+L020,laboratorio,asignada,30,Facultad de Medicina,Odontología,2025-05-26T16:51:43.651357,2025-05-26T16:51:43.651357
+L021,laboratorio,asignada,30,Facultad de Medicina,Farmacia,2025-05-26T16:51:43.663101,2025-05-26T16:51:43.663101
+L022,laboratorio,asignada,30,Facultad de Medicina,Farmacia,2025-05-26T16:51:43.663101,2025-05-26T16:51:43.663101
+L023,laboratorio,asignada,30,Facultad de Artes,Bellas Artes,2025-05-26T16:51:43.704039,2025-05-26T16:51:43.704039
+L024,laboratorio,asignada,30,Facultad de Artes,Bellas Artes,2025-05-26T16:51:43.704039,2025-05-26T16:51:43.704039
+L025,laboratorio,asignada,30,Facultad de Artes,Diseño Gráfico,2025-05-26T16:51:43.707498,2025-05-26T16:51:43.707498
+L026,laboratorio,asignada,30,Facultad de Artes,Diseño Gráfico,2025-05-26T16:51:43.707498,2025-05-26T16:51:43.707498
+L027,laboratorio,asignada,30,Facultad de Educación,Educación Especial,2025-05-26T16:51:43.741664,2025-05-26T16:51:43.741664
+L028,laboratorio,asignada,30,Facultad de Educación,Educación Especial,2025-05-26T16:51:43.741664,2025-05-26T16:51:43.741664
+L029,laboratorio,asignada,30,Facultad de Arquitectura,Diseño de Interiores,2025-05-26T16:51:43.757569,2025-05-26T16:51:43.757569
+L030,laboratorio,asignada,30,Facultad de Arquitectura,Diseño de Interiores,2025-05-26T16:51:43.757569,2025-05-26T16:51:43.757569
+L031,laboratorio,asignada,30,Facultad de Educación,Administración Educativa,2025-05-26T16:51:43.824046,2025-05-26T16:51:43.824046
+L032,laboratorio,asignada,30,Facultad de Educación,Administración Educativa,2025-05-26T16:51:43.824046,2025-05-26T16:51:43.824046
+L033,laboratorio,asignada,30,Facultad de Artes,Música,2025-05-26T16:51:43.875658,2025-05-26T16:51:43.875658
+L034,laboratorio,asignada,30,Facultad de Artes,Música,2025-05-26T16:51:43.875658,2025-05-26T16:51:43.875658
+L035,laboratorio,asignada,30,Facultad de Arquitectura,Arquitectura,2025-05-26T16:51:43.879106,2025-05-26T16:51:43.879106
+L036,laboratorio,asignada,30,Facultad de Arquitectura,Arquitectura,2025-05-26T16:51:43.879106,2025-05-26T16:51:43.879106
+L037,laboratorio,asignada,30,Facultad de Educación,Educación Secundaria,2025-05-26T16:51:43.882592,2025-05-26T16:51:43.882592
+L038,laboratorio,asignada,30,Facultad de Educación,Educación Secundaria,2025-05-26T16:51:43.882592,2025-05-26T16:51:43.882592
+L039,laboratorio,asignada,30,Facultad de Arquitectura,Urbanismo,2025-05-26T16:51:43.907789,2025-05-26T16:51:43.907789
+L040,laboratorio,asignada,30,Facultad de Arquitectura,Urbanismo,2025-05-26T16:51:43.907789,2025-05-26T16:51:43.907789
+L041,laboratorio,asignada,30,Facultad de Educación,Educación Primaria,2025-05-26T16:51:43.909817,2025-05-26T16:51:43.909817
+L042,laboratorio,asignada,30,Facultad de Educación,Educación Primaria,2025-05-26T16:51:43.909817,2025-05-26T16:51:43.909817
+L043,laboratorio,asignada,30,Facultad de Derecho,Derecho Penal,2025-05-26T16:51:43.973907,2025-05-26T16:51:43.973907
+L044,laboratorio,asignada,30,Facultad de Derecho,Derecho Penal,2025-05-26T16:51:43.973907,2025-05-26T16:51:43.973907
+L045,laboratorio,asignada,30,Facultad de Artes,Danza,2025-05-26T16:51:44.159989,2025-05-26T16:51:44.159989
+L046,laboratorio,asignada,30,Facultad de Artes,Danza,2025-05-26T16:51:44.159989,2025-05-26T16:51:44.159989
+L047,laboratorio,asignada,30,Facultad de Medicina,Medicina General,2025-05-26T16:51:44.393533,2025-05-26T16:51:44.393533
+L048,laboratorio,asignada,30,Facultad de Medicina,Medicina General,2025-05-26T16:51:44.393533,2025-05-26T16:51:44.393533
+L049,laboratorio,asignada,30,Facultad de Medicina,Terapia Física,2025-05-26T16:51:44.436892,2025-05-26T16:51:44.436892
+L050,laboratorio,asignada,30,Facultad de Medicina,Terapia Física,2025-05-26T16:51:44.436892,2025-05-26T16:51:44.436892
+L051,laboratorio,asignada,30,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:52:31.486456,2025-05-26T16:52:31.486456
+L052,laboratorio,asignada,30,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:52:31.486456,2025-05-26T16:52:31.486456
+L053,laboratorio,asignada,30,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:52:31.486456,2025-05-26T16:52:31.486456
+L054,laboratorio,asignada,30,Facultad de Ciencias Económicas,Contabilidad,2025-05-26T16:52:31.486456,2025-05-26T16:52:31.486456
+L055,laboratorio,asignada,30,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:52:31.496062,2025-05-26T16:52:31.496062
+L056,laboratorio,asignada,30,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:52:31.496062,2025-05-26T16:52:31.496062
+L057,laboratorio,asignada,30,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:52:31.496062,2025-05-26T16:52:31.496062
+L058,laboratorio,asignada,30,Facultad de Ciencias Sociales,Trabajo Social,2025-05-26T16:52:31.496062,2025-05-26T16:52:31.496062
+L059,laboratorio,asignada,30,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:52:31.608249,2025-05-26T16:52:31.608249
+L060,laboratorio,asignada,30,Facultad de Tecnología,Ciberseguridad,2025-05-26T16:52:31.608249,2025-05-26T16:52:31.608249
