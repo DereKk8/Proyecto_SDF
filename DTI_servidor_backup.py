@@ -138,7 +138,6 @@ class ServidorDTIRespaldo:
         socket.setsockopt_string(zmq.SUBSCRIBE, "")
         
         logging.info(f"Monitoreo de latidos iniciado en {HEARTBEAT_URL}")
-        print(f"📡 Monitoreo de latidos iniciado en {HEARTBEAT_URL}")
         
         while True:
             try:
@@ -148,13 +147,13 @@ class ServidorDTIRespaldo:
                     self.ultimo_latido = time.time()
                     if not self.servidor_principal_vivo:
                         logging.info("Servidor principal restaurado")
-                        print("✅ Servidor principal restaurado")
+                        print("RESTAURADO: Servidor principal restaurado")
                         self.servidor_principal_vivo = True
                 else:
                     # No se recibió latido dentro del tiempo de espera
                     if self.servidor_principal_vivo:
                         logging.warning("Servidor principal no responde")
-                        print("❌ Servidor principal no responde")
+                        print("ALERTA: Servidor principal no responde")
                         self.servidor_principal_vivo = False
                         # Activar este servidor como principal
                         if not self.servidor_activo:
@@ -170,7 +169,6 @@ class ServidorDTIRespaldo:
         socket.setsockopt_string(zmq.SUBSCRIBE, "")
         
         logging.info(f"Receptor de sincronización iniciado en {SYNC_URL}")
-        print(f"📡 Receptor de sincronización iniciado en {SYNC_URL}")
         
         while True:
             try:
@@ -263,7 +261,12 @@ class ServidorDTIRespaldo:
         """Activa este servidor como principal en caso de fallo."""
         try:
             logging.info("¡ACTIVANDO SERVIDOR DE RESPALDO!")
-            print("\n⚠️ ¡ALERTA! Servidor principal caído. Activando servidor de respaldo...")
+            print("\n" + "="*60)
+            print("                ACTIVANDO SERVIDOR DE RESPALDO")
+            print("="*60)
+            print("| ALERTA: Servidor principal caído")
+            print("| ACCION: Activando servidor de respaldo")
+            print("-"*60)
             
             # Crear la instancia de ServidorDTI
             self.servidor = ServidorDTI()
@@ -276,14 +279,14 @@ class ServidorDTIRespaldo:
             
             # Registrarse como worker en el broker - esto es crítico para la tolerancia a fallos
             logging.info("Registrando servidor de respaldo en el broker")
-            print("🔄 Registrando servidor de respaldo en el broker...")
+            print("| PROCESO: Registrando servidor de respaldo en el broker")
             self.registrar_en_broker()
-            print("✅ Servidor de respaldo completamente activado y operativo")
+            print("| ESTADO: Servidor de respaldo completamente activado")
+            print("="*60)
             logging.info("Servidor de respaldo activado correctamente")
-            print("✅ Servidor de respaldo activado correctamente")
         except Exception as e:
             logging.error(f"Error activando servidor de respaldo: {e}")
-            print(f"❌ Error activando servidor de respaldo: {e}")
+            print(f"ERROR: Activando servidor de respaldo: {e}")
     
     def registrar_en_broker(self):
         """Registra este servidor como worker en el Load Balancing Broker."""
@@ -297,8 +300,8 @@ class ServidorDTIRespaldo:
             socket.connect(BROKER_BACKEND_URL)
             
             logging.info(f"Conectando al broker como worker en {BROKER_BACKEND_URL}")
-            print(f"📡 Conectando al broker como worker en {BROKER_BACKEND_URL}")
-            print(f"🆔 ID del Worker (respaldo): {id_worker.decode()}")
+            print(f"| CONEXION: Broker worker en {BROKER_BACKEND_URL}")
+            print(f"| WORKER ID: {id_worker.decode()}")
             
             # Ya no enviamos el READY aquí, lo haremos en el hilo worker
             # para asegurarnos de que el hilo esté listo para recibir respuestas
@@ -307,10 +310,10 @@ class ServidorDTIRespaldo:
             threading.Thread(target=self.hilo_worker, args=(socket,), daemon=True).start()
             
             logging.info(f"Registrado correctamente en el broker con ID: {id_worker.decode()}")
-            print("✅ Registrado correctamente en el broker")
+            print("| REGISTRO: Correctamente en el broker")
         except Exception as e:
             logging.error(f"Error registrando en broker: {e}")
-            print(f"❌ Error registrando en broker: {e}")
+            print(f"ERROR: Registrando en broker: {e}")
     
     def hilo_worker(self, socket):
         """Hilo dedicado a procesar solicitudes como worker."""
@@ -320,7 +323,7 @@ class ServidorDTIRespaldo:
             # Enviar mensaje inicial READY para registrarse con el broker
             socket.send(b"READY")
             logging.info("Enviado mensaje READY inicial al broker (registro)")
-            print("📡 Worker de respaldo listo para recibir solicitudes")
+            print("| WORKER: Respaldo listo para recibir solicitudes")
             
             # Lista para hacer seguimiento a hilos activos
             processing_threads = []
@@ -376,7 +379,7 @@ class ServidorDTIRespaldo:
                     elif comando == "salir":
                         break
                     elif comando == "status" or comando == "estado":
-                        print(f"ℹ️ Servidor de respaldo - Solicitudes activas: {self.active_requests}")
+                        print(f"INFO: Servidor de respaldo - Solicitudes activas: {self.active_requests}")
                 
                 # Si hemos adquirido un semáforo pero no había mensajes, liberarlo
                 if can_accept_more and not socket.poll(0) == zmq.POLLIN:
@@ -433,7 +436,7 @@ class ServidorDTIRespaldo:
             programa = solicitud.get('programa', 'desconocido')
             
             logging.info(f"[{request_id}] Procesando solicitud de {facultad} - {programa}")
-            print(f"\n📩 Solicitud [{request_id}] de {facultad} - {programa}")
+            print(f"\nSOLICITUD [{request_id}]: {facultad} - {programa}")
             
             # Medir el tiempo de procesamiento
             inicio = time.time()
@@ -446,7 +449,7 @@ class ServidorDTIRespaldo:
             
             # Mostrar estadísticas
             estadisticas = self.servidor.obtener_estadisticas()
-            print(f"\n📊 Estadísticas [{request_id}] tras asignar aulas a {facultad} - {programa}")
+            print(f"ESTADISTICAS [{request_id}]: {facultad} - {programa}")
             print(json.dumps(estadisticas, indent=2))
             
             # Enviar respuesta al broker
@@ -458,7 +461,7 @@ class ServidorDTIRespaldo:
             ])
             
             logging.info(f"[{request_id}] Respuesta enviada a {facultad} - {programa} (procesado en {tiempo_proc:.2f}s)")
-            print(f"✅ Respuesta [{request_id}] enviada a {facultad} - {programa}")
+            print(f"RESPUESTA [{request_id}]: Enviada a {facultad} - {programa}")
             
             # Guardar el estado actualizado
             self.guardar_estado_respaldo()
@@ -523,18 +526,30 @@ class ServidorDTIRespaldo:
     
     def iniciar(self):
         """Inicia el servidor de respaldo."""
-        print("✅ Iniciando Servidor de Respaldo DTI...")
-        print("📡 Modo escucha: esperando señales del servidor principal")
+        # Mostrar información en formato tabla
+        print("\n" + "="*80)
+        print("                    SERVIDOR DE RESPALDO DTI - ESTADO INICIAL")
+        print("="*80)
+        print(f"| {'COMPONENTE':<25} | {'ESTADO':<15} | {'DETALLES':<30} |")
+        print("-"*80)
+        print(f"| {'Servidor Respaldo DTI':<25} | {'INICIANDO':<15} | {'Modo Standby':<30} |")
+        print(f"| {'Monitor Latidos':<25} | {'ACTIVO':<15} | {HEARTBEAT_URL:<30} |")
+        print(f"| {'Receptor Sincronización':<25} | {'ACTIVO':<15} | {SYNC_URL:<30} |")
+        print(f"| {'Estado Operacional':<25} | {'EN ESPERA':<15} | {'Monitoreo Activo':<30} |")
+        print("-"*80)
+        print("| COMANDOS DISPONIBLES:")
+        print("| 'limpiar' - Reinicia el sistema (solo cuando activo)")
+        print("| 'status'  - Muestra estado actual del servidor")
+        print("| 'salir'   - Termina el servidor de respaldo")
+        print("-"*80)
+        print("| NOTA: Se activará automáticamente si falla el servidor principal")
+        print("="*80)
         
         # Iniciar el hilo de monitoreo de latidos
         threading.Thread(target=self.iniciar_monitor_latidos, daemon=True).start()
         
         # Iniciar el hilo de sincronización
         threading.Thread(target=self.iniciar_receptor_sincronizacion, daemon=True).start()
-        
-        print("💡 Servidor de respaldo listo y monitoreando servidor principal")
-        print("💡 Estado: En espera (se activará automáticamente si falla el servidor principal)")
-        print("💡 Escriba 'limpiar' para reiniciar el sistema o 'salir' para terminar")
         
         # Loop principal para comandos
         try:
@@ -547,15 +562,20 @@ class ServidorDTIRespaldo:
                     self.guardar_estado_respaldo()
                 elif comando == "status" or comando == "estado":
                     estado = self.reportar_estado()
-                    print("\n📊 Estado del servidor de respaldo:")
+                    print("\n" + "-"*60)
+                    print("ESTADO DEL SERVIDOR DE RESPALDO:")
+                    print("-"*60)
                     print(json.dumps(estado, indent=2))
-                    print(f"Servidor {'✅ ACTIVO' if self.servidor_activo else '⏸️ EN ESPERA'}")
+                    print(f"Servidor: {'ACTIVO' if self.servidor_activo else 'EN ESPERA'}")
                     if self.servidor_activo:
                         print(f"Solicitudes activas: {estado['solicitudes_activas']}/{estado['capacidad_maxima']}")
                         print(f"Semáforo disponible: {estado['semaforo_disponible']}")
                     print(f"Último latido hace: {estado['ultimo_latido']:.1f} segundos")
+                    print("-"*60)
         except KeyboardInterrupt:
-            print("\n🛑 Deteniendo servidor de respaldo...")
+            print("\n" + "="*50)
+            print("           DETENIENDO SERVIDOR DE RESPALDO")
+            print("="*50)
         finally:
             self.contexto.term()
             logging.info("Servidor de respaldo detenido")

@@ -70,14 +70,22 @@ class LoadBalancerBroker:
         
     def start(self):
         """Start the broker's main loop"""
-        print("✅ Load Balancer Broker iniciado")
-        print(f"📡 Frontend escuchando en {BROKER_FRONTEND_URL}")
-        print(f"📡 Backend escuchando en {BROKER_BACKEND_URL}")
-        print("💡 Comandos disponibles:")
-        print("   - 'salir'    : Termina el broker")
-        print("   - 'limpiar'  : Elimina workers duplicados")
-        print("   - 'status'   : Muestra información del estado actual")
-        print("   - 'metricas' : Genera reporte de métricas inmediato")
+        # Mostrar información en formato tabla
+        print("\n" + "="*80)
+        print("                    LOAD BALANCER BROKER - ESTADO INICIAL")
+        print("="*80)
+        print(f"| {'COMPONENTE':<25} | {'ESTADO':<15} | {'DETALLES':<30} |")
+        print("-"*80)
+        print(f"| {'Load Balancer Broker':<25} | {'INICIADO':<15} | {'Patrón Router-Router':<30} |")
+        print(f"| {'Frontend Socket':<25} | {'ESCUCHANDO':<15} | {BROKER_FRONTEND_URL:<30} |")
+        print(f"| {'Backend Socket':<25} | {'ESCUCHANDO':<15} | {BROKER_BACKEND_URL:<30} |")
+        print("-"*80)
+        print("| COMANDOS DISPONIBLES:")
+        print("| 'salir'    - Termina el broker")
+        print("| 'limpiar'  - Elimina workers duplicados") 
+        print("| 'status'   - Muestra información del estado actual")
+        print("| 'metricas' - Genera reporte de métricas inmediato")
+        print("="*80)
         
         # Start the monitoring thread
         self.monitor_thread = threading.Thread(target=self.monitor_function, daemon=True)
@@ -94,7 +102,9 @@ class LoadBalancerBroker:
         try:
             self.broker_loop()
         except KeyboardInterrupt:
-            print("\n🛑 Deteniendo Broker...")
+            print("\n" + "="*50)
+            print("           DETENIENDO BROKER")
+            print("="*50)
         finally:
             self.cleanup()
     
@@ -107,22 +117,24 @@ class LoadBalancerBroker:
                 break
             elif cmd =="limpiar" or cmd == "clean":
                 duplicates = self.cleanup_worker_list()
-                print(f"✅ Lista de workers limpiada - Eliminados {duplicates} duplicados")
-                print(f"ℹ️ Workers disponibles: {len(self.available_workers)}/{len(self.workers)}")
+                print(f"\nLIMPIEZA: Lista de workers limpiada - Eliminados {duplicates} duplicados")
+                print(f"INFO: Workers disponibles: {len(self.available_workers)}/{len(self.workers)}")
             elif cmd == "status" or cmd == "estado":
-                print(f"ℹ️ Estado del broker:")
-                print(f"   - Workers registrados: {len(self.workers)}")
-                print(f"   - Workers disponibles: {len(self.available_workers)}")
-                print(f"   - Clientes conectados: {len(self.clients)}")
-                print(f"   - Solicitudes pendientes: {self.client_requests_count}")
+                print(f"\n" + "-"*50)
+                print(f"ESTADO DEL BROKER:")
+                print(f"- Workers registrados: {len(self.workers)}")
+                print(f"- Workers disponibles: {len(self.available_workers)}")
+                print(f"- Clientes conectados: {len(self.clients)}")
+                print(f"- Solicitudes pendientes: {self.client_requests_count}")
+                print("-"*50)
             elif cmd == "metricas" or cmd == "metrics":
                 try:
                     reporte = self.monitor_metricas.generar_reporte_servidor_facultad(self.total_solicitudes_procesadas_broker)
-                    print(f"📈 Reporte SERVIDOR-FACULTAD generado: {reporte['timestamp']}")
-                    print(f"📊 Total solicitudes procesadas: {reporte['total_solicitudes_procesadas']}")
-                    print(f"📊 Métricas servidor-facultad: {reporte['metricas_servidor_facultad']['total_mediciones']}")
+                    print(f"\nREPORTE: SERVIDOR-FACULTAD generado: {reporte['timestamp']}")
+                    print(f"TOTAL: Solicitudes procesadas: {reporte['total_solicitudes_procesadas']}")
+                    print(f"METRICAS: Servidor-facultad: {reporte['metricas_servidor_facultad']['total_mediciones']}")
                 except Exception as e:
-                    print(f"❌ Error generando reporte: {e}")
+                    print(f"ERROR: Generando reporte: {e}")
                 
     def broker_loop(self):
         """Main broker loop using zmq polling"""
@@ -179,7 +191,7 @@ class LoadBalancerBroker:
             if is_new_worker:
                 self.workers.add(worker_address)
                 logging.info(f"Nuevo trabajador registrado: {worker_id_short}")
-                print(f"✅ Nuevo trabajador registrado: {worker_id_short}")
+                print(f"\nNUEVO WORKER: Trabajador registrado: {worker_id_short}")
             else:
                 logging.info(f"Trabajador ya registrado listo: {worker_id_short}")
             return
@@ -326,7 +338,7 @@ class LoadBalancerBroker:
     def monitor_function(self):
         """Monitor function to display system status"""
         while self.running:
-            sys.stdout.write(f"\r📊 Clientes activos: {len(self.clients)} | "
+            sys.stdout.write(f"\rESTADO: Clientes activos: {len(self.clients)} | "
                            f"Trabajadores disponibles: {len(self.available_workers)}/{len(self.workers)} | "
                            f"Solicitudes pendientes: {self.client_requests_count}")
             sys.stdout.flush()
@@ -362,7 +374,7 @@ class LoadBalancerBroker:
                 time.sleep(300)  # Generar reporte cada 5 minutos
                 if self.running:  # Verificar que aún estemos ejecutándose
                     reporte = self.monitor_metricas.generar_reporte_servidor_facultad(self.total_solicitudes_procesadas_broker)
-                    print(f"\n📈 [BROKER] Reporte SERVIDOR-FACULTAD generado: {reporte['timestamp']}")
+                    print(f"\nREPORTE PERIODICO: [BROKER] SERVIDOR-FACULTAD generado: {reporte['timestamp']}")
                     logging.info(f"Reporte servidor-facultad generado desde broker: {reporte['timestamp']}")
             except Exception as e:
                 logging.error(f"Error generando reporte periódico desde broker: {e}")
