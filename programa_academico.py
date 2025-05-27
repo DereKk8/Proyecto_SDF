@@ -8,6 +8,11 @@ import random
 import time
 import threading
 
+# Importar sistema de métricas
+from decoradores_metricas import medir_tiempo_respuesta_completo
+from recolector_metricas import recolector_global
+from generador_reportes import generador_global
+
 # =============================================================================
 # Funciones de carga y validación de datos
 # =============================================================================
@@ -29,7 +34,6 @@ def cargar_facultades():
             for line in file:
                 data = line.strip().split(", ")
                 if len(data) < 2:
-                    print(f"\n⚠️ Advertencia: Línea mal formada en '{FACULTADES_FILE}': {line.strip()}")
                     continue
                 facultad = data[0]
                 programas = data[1:]
@@ -92,7 +96,7 @@ def seleccionar_facultades_y_programas(facultades):
             facultad = list(facultades.keys())[int(i) - 1]
             seleccionadas.append((facultad, facultades[facultad]))
         except (ValueError, IndexError):
-            print(f"\n⚠️ Advertencia: Número inválido ({i}).")
+            print(f"\n⚠️ Número inválido: {i}")
     
     return seleccionadas
 
@@ -206,6 +210,7 @@ def mostrar_error_amigable(codigo_error):
     }
     print(f"\n❌ {mensajes.get(codigo_error, 'Error desconocido')}")
 
+@medir_tiempo_respuesta_completo
 def enviar_solicitudes(solicitudes, sockets):
     """
     Envía las solicitudes a los servidores y procesa las respuestas.
@@ -249,7 +254,7 @@ def enviar_solicitudes(solicitudes, sockets):
             # Intentar reconectar el socket
             try:
                 socket.close()
-                socket = context.socket(zmq.REQ)
+                socket = context.socket(zmq.REQ) # type: ignore
                 socket.connect(FACULTAD_SERVERS[server_index])
                 sockets[server_index] = socket
             except:
@@ -257,6 +262,68 @@ def enviar_solicitudes(solicitudes, sockets):
         
         # Rotar al siguiente servidor
         server_index = (server_index + 1) % len(sockets)
+
+@medir_tiempo_respuesta_completo
+def enviar_solicitud_simulacion(solicitud):
+    """
+    Función específica para envío de solicitudes en simulación.
+    Usa los decoradores de métricas y maneja su propia conexión ZMQ.
+    """
+    context = zmq.Context()
+    server_url = random.choice(FACULTAD_SERVERS)
+    socket = context.socket(zmq.REQ)
+    
+    tiempo_inicio = time.time()
+    
+    try:
+        socket.connect(server_url)
+        socket.setsockopt(zmq.RCVTIMEO, 5000)
+        socket.setsockopt(zmq.SNDTIMEO, 5000)
+        
+        # Enviar solicitud y medir tiempo
+        socket.send_string(json.dumps(solicitud))
+        respuesta = socket.recv_string()
+        
+        tiempo_respuesta = time.time() - tiempo_inicio
+        
+        # Registrar métricas manualmente en el recolector global
+        recolector_global.estadisticas_servidor.agregar_metrica(tiempo_respuesta, True)
+        
+        # Registrar métrica por programa
+        facultad = solicitud['facultad']
+        programa = solicitud['programa']
+        
+        try:
+            asignacion = json.loads(respuesta)
+            if "error" in asignacion:
+                resultado = "rechazado_servidor"
+                logging.error(f"Error del servidor: {asignacion['error']}")
+                print(f"\n❌ Error en la solicitud para {programa}")
+            elif "noDisponible" in asignacion:
+                resultado = "rechazado_servidor"
+                print(f"\n⚠️ No hay aulas disponibles para {programa}")
+            else:
+                resultado = "exitoso"
+                mostrar_asignacion(asignacion)
+                
+            # Registrar métrica por programa
+            recolector_global.registrar_solicitud_programa(facultad, programa, resultado)
+            
+        except json.JSONDecodeError:
+            resultado = "error_comunicacion"
+            recolector_global.registrar_solicitud_programa(facultad, programa, resultado)
+            print(f"\n❌ Error de comunicación con {programa}")
+            
+    except zmq.ZMQError as e:
+        tiempo_respuesta = time.time() - tiempo_inicio
+        recolector_global.estadisticas_servidor.agregar_metrica(tiempo_respuesta, False)
+        recolector_global.registrar_solicitud_programa(
+            solicitud['facultad'], solicitud['programa'], "error_comunicacion", str(e)
+        )
+        print(f"\n❌ Error de comunicación para {solicitud['programa']}")
+    finally:
+        socket.close()
+        context.term()
 
 def simulacion_mock(patron):
     """
@@ -266,7 +333,6 @@ def simulacion_mock(patron):
     if len(facultades_dict) < 5:
         print("\n❌ Se requieren al menos 5 facultades para la simulación.")
         return
-    
 
     # Seleccionar 5 facultades aleatoriamente
     facultades_seleccionadas = random.sample(list(facultades_dict.keys()), 5)
@@ -286,37 +352,32 @@ def simulacion_mock(patron):
                 'capacidad_min': 30
             })
 
-    def proceso_programa(solicitud):
+    def proceso_programa_individual(solicitud):
+        """Procesa una solicitud individual usando la función decorada."""
         # Retardo aleatorio entre 0.1 y 2 segundos
         time.sleep(random.uniform(0.1, 2.0))
-        context = zmq.Context()
-        # Round-robin entre servidores de facultad
-        server_url = random.choice(FACULTAD_SERVERS)
-        socket = context.socket(zmq.REQ)
-        socket.connect(server_url)
-        try:
-            socket.setsockopt(zmq.RCVTIMEO, 5000)
-            socket.setsockopt(zmq.SNDTIMEO, 5000)
-            socket.send_string(json.dumps(solicitud))
-            respuesta = socket.recv_string()
-            try:
-                asignacion = json.loads(respuesta)
-                mostrar_asignacion(asignacion)
-            except json.JSONDecodeError:
-                print(f"\n❌ Respuesta malformada para {solicitud['facultad']} - {solicitud['programa']}: {respuesta}")
-        except zmq.ZMQError as e:
-            print(f"\n❌ Error de comunicación para {solicitud['facultad']} - {solicitud['programa']}: {str(e)}")
-        finally:
-            socket.close()
-            context.term()
+        
+        # Usar la función decorada específica para simulación
+        # Esto asegura que las métricas se registren correctamente
+        enviar_solicitud_simulacion(solicitud)
 
+    # Ejecutar simulación con hilos para simular concurrencia
     hilos = []
     for solicitud in solicitudes:
-        t = threading.Thread(target=proceso_programa, args=(solicitud,))
+        t = threading.Thread(target=proceso_programa_individual, args=(solicitud,))
         t.start()
         hilos.append(t)
+    
+    # Esperar a que todos los hilos terminen
     for t in hilos:
         t.join()
+    
+    print("\n🎯 Simulación completada.")
+    # Esperar un momento para que todas las métricas se registren
+    time.sleep(1)
+    
+    # Generar reportes de métricas (sin mostrar mensaje al usuario)
+    generador_global.generar_reportes_completos()
 
 def main():
     """Función principal que coordina el flujo del programa."""
@@ -368,6 +429,9 @@ def main():
                 break
     
     finally:
+        # Generar reportes finales de métricas (sin mostrar mensaje al usuario)
+        generador_global.generar_reportes_completos()
+        
         # Cerrar todas las conexiones
         for socket in sockets:
             socket.close()

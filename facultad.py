@@ -22,6 +22,10 @@ import json     # Para serialización de mensajes
 import sys      # Para argumentos de línea de comandos
 from config import FACULTAD_1_URL, FACULTAD_2_URL, FACULTADES_FILE, DTI_URL
 
+# Importar sistema de métricas
+from decoradores_metricas import registrar_solicitud_programa
+from recolector_metricas import recolector_global
+
 def leer_facultades():
     """
     Lee el archivo de facultades y crea un diccionario de facultades y sus programas.
@@ -132,12 +136,8 @@ def iniciar_servidor(url_servidor):
                 solicitud = json.loads(socket.recv_string())
                 print(f"\nSolicitud recibida: {solicitud}")
                 
-                # Validar facultad
-                if solicitud.get("facultad") not in facultades:
-                    respuesta = {"error": "Facultad no válida"}
-                else:
-                    # Reenviar a DTI
-                    respuesta = enviar_a_dti(solicitud)
+                # Procesar solicitud usando función decorada para métricas
+                respuesta = procesar_solicitud_facultad(solicitud, facultades)
                 
                 # Enviar respuesta
                 socket.send_string(json.dumps(respuesta))
@@ -153,6 +153,25 @@ def iniciar_servidor(url_servidor):
     finally:
         socket.close()
         contexto.term()
+
+@registrar_solicitud_programa
+def procesar_solicitud_facultad(solicitud, facultades):
+    """
+    Procesa una solicitud de programa académico en el servidor de facultad.
+    
+    Args:
+        solicitud (dict): Solicitud del programa académico
+        facultades (dict): Diccionario de facultades válidas
+        
+    Returns:
+        dict: Respuesta del DTI o mensaje de error
+    """
+    # Validar facultad
+    if solicitud.get("facultad") not in facultades:
+        return {"error": "Facultad no válida"}
+    else:
+        # Reenviar a DTI
+        return enviar_a_dti(solicitud)
 
 if __name__ == "__main__":
     """

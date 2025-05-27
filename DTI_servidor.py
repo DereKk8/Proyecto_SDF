@@ -12,6 +12,7 @@ Características principales:
 - Persistencia de datos en archivos CSV
 - Comando de limpieza del sistema
 - Estadísticas en tiempo real
+- Sistema de métricas de tiempo de respuesta
 
 """
 
@@ -27,6 +28,11 @@ from config import DTI_URL, AULAS_REGISTRO_FILE, ASIGNACIONES_LOG_FILE
 import select
 import sys
 import threading
+
+# Importar sistema de métricas
+from decoradores_metricas import medir_tiempo_servidor
+from recolector_metricas import recolector_global
+from generador_reportes import generador_global
 
 # =============================================================================
 # Definiciones de clases y enumeraciones
@@ -108,6 +114,7 @@ class ServidorDTI:
             logging.error(f"Error al guardar aulas: {e}")
             raise
 
+    @medir_tiempo_servidor
     def asignar_aulas(self, solicitud: dict) -> dict:
         """Procesa una solicitud de asignación de aulas."""
         thread_id = threading.get_ident()
@@ -207,12 +214,12 @@ class ServidorDTI:
                     )
 
                 logging.info(
-                    f"Asignación exitosa:\n"
-                    f"Facultad: {facultad}\n"
-                    f"Programa: {programa}\n"
-                    f"Salones: {salones_asignados}\n"
-                    f"Laboratorios: {laboratorios_asignados}\n"
-                    f"Aulas móviles: {aulas_moviles}"
+                    f"ASIGNACION EXITOSA - "
+                    f"Facultad: {facultad} | "
+                    f"Programa: {programa} | "
+                    f"Salones: {len(salones_asignados)} | "
+                    f"Laboratorios: {len(laboratorios_asignados)} | "
+                    f"Aulas moviles: {len(aulas_moviles)}"
                 )
 
                 return respuesta
@@ -273,22 +280,70 @@ def limpiar_sistema(servidor):
         servidor.configurar_registro()
         logging.info("Sistema limpiado completamente")
         
-        print("\n✨ Sistema limpiado exitosamente")
-        print("📋 Todas las asignaciones han sido borradas")
-        print("📝 Registros de logs reiniciados")
+        # Limpiar métricas acumuladas
+        recolector_global.limpiar_metricas()
+        generador_global.limpiar_archivos()
+        
+        print("\n" + "=" * 60)
+        print("| SISTEMA LIMPIADO EXITOSAMENTE")
+        print("=" * 60)
+        print("| Operacion                    | Estado")
+        print("-" * 60)
+        print("| Asignaciones borradas        | Completado")
+        print("| Registros de logs            | Reiniciados")
+        print("| Metricas y reportes          | Limpiados")
+        print("=" * 60)
         
         # Mostrar estadísticas después de la limpieza
         estadisticas = servidor.obtener_estadisticas()
-        print("\nEstadísticas actuales:")
-        print(json.dumps(estadisticas, indent=2))
+        print("\n" + "-" * 60)
+        print("| ESTADISTICAS DESPUES DE LIMPIEZA")
+        print("-" * 60)
+        print("| Tipo de Aula      | Total | Disponibles | En Uso")
+        print("-" * 60)
+        print("| Salones           | {:5} | {:11} | {:6}".format(
+            estadisticas["total_salones"], 
+            estadisticas["salones_disponibles"],
+            estadisticas["total_salones"] - estadisticas["salones_disponibles"]
+        ))
+        print("| Laboratorios      | {:5} | {:11} | {:6}".format(
+            estadisticas["total_laboratorios"], 
+            estadisticas["laboratorios_disponibles"],
+            estadisticas["total_laboratorios"] - estadisticas["laboratorios_disponibles"]
+        ))
+        print("| Aulas Moviles     | {:5} | {:11} | {:6}".format(
+            estadisticas["total_aulas_moviles"], 
+            estadisticas["total_aulas_moviles"] - estadisticas["aulas_moviles_en_uso"],
+            estadisticas["aulas_moviles_en_uso"]
+        ))
+        print("-" * 60)
         
     except Exception as e:
-        print(f"\n❌ Error al limpiar el sistema: {str(e)}")
+        print("\n" + "=" * 60)
+        print("| ERROR AL LIMPIAR EL SISTEMA")
+        print("=" * 60)
+        print("| Error: {}".format(str(e)))
+        print("=" * 60)
         logging.error(f"Error durante la limpieza del sistema: {str(e)}")
 
 def main():
     """Función principal del servidor DTI."""
-    print("✅ Iniciando Servidor Central (DTI)...")
+    # Mostrar información del servidor en formato tabla
+    print("\n" + "=" * 80)
+    print("| SERVIDOR CENTRAL DTI - SISTEMA DE ASIGNACION DE AULAS")
+    print("=" * 80)
+    print("| Estado            | Iniciando Servidor Central (DTI)")
+    print("| URL               | {}".format(DTI_URL))
+    print("| Estado Conexion   | Escuchando solicitudes")
+    print("| Servidor          | DTI listo para procesar solicitudes")
+    print("-" * 80)
+    print("| COMANDOS DISPONIBLES")
+    print("-" * 80)
+    print("| Comando           | Descripcion")
+    print("-" * 80)
+    print("| limpiar           | Reinicia el sistema")
+    print("| generar           | Genera reportes de metricas")
+    print("=" * 80)
     
     contexto = zmq.Context()
     servidor = ServidorDTI()
@@ -296,10 +351,6 @@ def main():
     # Socket para recibir solicitudes de las facultades
     socket = contexto.socket(zmq.REP)
     socket.bind(DTI_URL)
-    
-    print(f"📡 Escuchando solicitudes en {DTI_URL}")
-    print("✨ Servidor DTI listo para procesar solicitudes")
-    print("💡 Escriba 'limpiar' para reiniciar el sistema")
     
     
     def atender_solicitud(mensaje):
@@ -311,8 +362,27 @@ def main():
             respuesta = servidor.asignar_aulas(solicitud)
             socket.send_string(json.dumps(respuesta))
             estadisticas = servidor.obtener_estadisticas()
-            print("\nEstadísticas actuales:")
-            print(json.dumps(estadisticas, indent=2))
+            print("\n" + "-" * 60)
+            print("| ESTADISTICAS ACTUALES DEL SISTEMA")
+            print("-" * 60)
+            print("| Tipo de Aula      | Total | Disponibles | En Uso")
+            print("-" * 60)
+            print("| Salones           | {:5} | {:11} | {:6}".format(
+                estadisticas["total_salones"], 
+                estadisticas["salones_disponibles"],
+                estadisticas["total_salones"] - estadisticas["salones_disponibles"]
+            ))
+            print("| Laboratorios      | {:5} | {:11} | {:6}".format(
+                estadisticas["total_laboratorios"], 
+                estadisticas["laboratorios_disponibles"],
+                estadisticas["total_laboratorios"] - estadisticas["laboratorios_disponibles"]
+            ))
+            print("| Aulas Moviles     | {:5} | {:11} | {:6}".format(
+                estadisticas["total_aulas_moviles"], 
+                estadisticas["total_aulas_moviles"] - estadisticas["aulas_moviles_en_uso"],
+                estadisticas["aulas_moviles_en_uso"]
+            ))
+            print("-" * 60)
             logging.info(f"Respuesta enviada a facultad: {solicitud.get('facultad')}")
         except Exception as e:
             logging.error(f"Error procesando solicitud: {e}")
@@ -326,16 +396,32 @@ def main():
                 if comando == "limpiar":
                     limpiar_sistema(servidor)
                     continue
+                elif comando == "generar":
+                    print("\n" + "-" * 60)
+                    print("| GENERANDO REPORTES DE METRICAS")
+                    print("-" * 60)
+                    generador_global.generar_reportes_completos()
+                    print("| Reportes generados exitosamente")
+                    print("-" * 60)
+                    continue
 
             # Esperar mensaje con timeout para poder revisar la entrada estándar
             if socket.poll(100) == zmq.POLLIN:
                 mensaje = socket.recv_string()
-                print(f"\nSolicitud recibida: {mensaje}")
+                print("\n" + "-" * 60)
+                print("| SOLICITUD RECIBIDA")
+                print("-" * 60)
+                print("| Contenido: {}".format(mensaje))
+                print("-" * 60)
                 # Lanzar un hilo para procesar la solicitud y responder
                 t = threading.Thread(target=atender_solicitud, args=(mensaje,))
                 t.start()
     except KeyboardInterrupt:
-        print("\n🛑 Deteniendo servidor DTI...")
+        print("\n" + "=" * 60)
+        print("| DETENIENDO SERVIDOR DTI")
+        print("=" * 60)
+        print("| Estado: Cerrando conexiones...")
+        print("=" * 60)
     finally:
         socket.close()
         contexto.term()
