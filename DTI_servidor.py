@@ -12,7 +12,9 @@ Características principales:
 - Persistencia de datos en archivos CSV
 - Comando de limpieza del sistema
 - Estadísticas en tiempo real
-- Sistema de métricas de tiempo de respuesta
+- Arquitectura de trabajador ZeroMQ bajo el patrón Load Balancing Broker
+- Heartbeat para sistema de tolerancia a fallos
+- Sincronización de estado con servidor de respaldo
 
 """
 
@@ -24,15 +26,18 @@ import csv
 from dataclasses import dataclass
 from enum import Enum
 import os
-from config import DTI_URL, AULAS_REGISTRO_FILE, ASIGNACIONES_LOG_FILE
+from config import BROKER_BACKEND_URL, AULAS_REGISTRO_FILE, ASIGNACIONES_LOG_FILE, HEARTBEAT_URL, SYNC_URL
 import select
 import sys
 import threading
+import time
+import uuid
+from monitor_metricas import obtener_monitor
 
-# Importar sistema de métricas
-from decoradores_metricas import medir_tiempo_servidor
-from recolector_metricas import recolector_global
-from generador_reportes import generador_global
+# Configuración para el latido y sincronización
+INTERVALO_LATIDO = 2.0  # segundos entre cada latido (heartbeat)
+INTERVALO_SINC = 10.0   # intervalo de sincronización de estado
+
 
 # =============================================================================
 # Definiciones de clases y enumeraciones
@@ -63,6 +68,8 @@ class ServidorDTI:
         self.aulas = {}
         self.configurar_registro()
         self.cargar_aulas()
+        self.detenido = False
+        self.monitor_metricas = obtener_monitor()
 
     def configurar_registro(self):
         """Configura el sistema de registro de eventos."""
@@ -114,11 +121,12 @@ class ServidorDTI:
             logging.error(f"Error al guardar aulas: {e}")
             raise
 
-    @medir_tiempo_servidor
     def asignar_aulas(self, solicitud: dict) -> dict:
         """Procesa una solicitud de asignación de aulas."""
         thread_id = threading.get_ident()
         
+        # Registrar inicio del procesamiento para métricas
+        tiempo_inicio_servidor = time.time()
         
         try:
                 facultad = solicitud["facultad"]
@@ -133,6 +141,13 @@ class ServidorDTI:
                                      a.estado == EstadoAula.DISPONIBLE]
                 
                 if len(salones_disponibles) < num_salones:
+                    # Registrar métricas incluso para solicitudes no disponibles
+                    tiempo_respuesta = time.time() - tiempo_inicio_servidor
+                    self.monitor_metricas.registrar_tiempo_respuesta_servidor(
+                        tiempo_respuesta,
+                        facultad,
+                        "no_disponible_salones"
+                    )
                     return {
                         "noDisponible": True,
                         "noDisponible": f"No hay suficientes salones disponibles. Solicitados: {num_salones}, Disponibles: {len(salones_disponibles)}"
@@ -162,6 +177,13 @@ class ServidorDTI:
                 
                 total_disponible = len(laboratorios_disponibles) + len(salones_convertibles)
                 if total_disponible < num_laboratorios:
+                    # Registrar métricas incluso para solicitudes no disponibles
+                    tiempo_respuesta = time.time() - tiempo_inicio_servidor
+                    self.monitor_metricas.registrar_tiempo_respuesta_servidor(
+                        tiempo_respuesta,
+                        facultad,
+                        "no_disponible_laboratorios"
+                    )
                     return {
                         "noDisponible": True,
                         "noDisponible": f"No hay suficientes laboratorios o salones convertibles. Solicitados: {num_laboratorios}, Disponibles: {total_disponible} (Labs: {len(laboratorios_disponibles)}, Convertibles: {len(salones_convertibles)})"
@@ -214,17 +236,34 @@ class ServidorDTI:
                     )
 
                 logging.info(
-                    f"ASIGNACION EXITOSA - "
-                    f"Facultad: {facultad} | "
-                    f"Programa: {programa} | "
-                    f"Salones: {len(salones_asignados)} | "
-                    f"Laboratorios: {len(laboratorios_asignados)} | "
-                    f"Aulas moviles: {len(aulas_moviles)}"
+                    f"Asignación exitosa:\n"
+                    f"Facultad: {facultad}\n"
+                    f"Programa: {programa}\n"
+                    f"Salones: {salones_asignados}\n"
+                    f"Laboratorios: {laboratorios_asignados}\n"
+                    f"Aulas móviles: {aulas_moviles}"
+                )
+
+                # Registrar métricas de tiempo de respuesta del servidor
+                tiempo_respuesta = time.time() - tiempo_inicio_servidor
+                self.monitor_metricas.registrar_tiempo_respuesta_servidor(
+                    tiempo_respuesta,
+                    facultad,
+                    "asignacion_exitosa"
                 )
 
                 return respuesta
 
         except Exception as e:
+            # Registrar métricas incluso en caso de error
+            tiempo_respuesta = time.time() - tiempo_inicio_servidor
+            facultad = solicitud.get("facultad", "Desconocida")
+            self.monitor_metricas.registrar_tiempo_respuesta_servidor(
+                tiempo_respuesta,
+                facultad,
+                "error_asignacion"
+            )
+            
             mensaje_error = f"Error en la asignación: {str(e)}"
             logging.error(mensaje_error)
             return {"error": mensaje_error}
@@ -255,6 +294,28 @@ class ServidorDTI:
                     estadisticas["aulas_moviles_en_uso"] += 1
 
         return estadisticas
+    
+    def enviar_estado_para_sincronizacion(self):
+        """Prepara y envía el estado actual del servidor para sincronización con el backup."""
+        try:
+            # Convertir objetos Aula a diccionarios para poder serializarlos
+            aulas_dict = {}
+            for aula_id, aula in self.aulas.items():
+                aulas_dict[aula_id] = {
+                    "id": aula.id,
+                    "tipo": aula.tipo.value,
+                    "estado": aula.estado.value,
+                    "capacidad": aula.capacidad,
+                    "facultad": aula.facultad,
+                    "programa": aula.programa,
+                    "fecha_solicitud": aula.fecha_solicitud,
+                    "fecha_asignacion": aula.fecha_asignacion
+                }
+            
+            return {"aulas": aulas_dict}
+        except Exception as e:
+            logging.error(f"Error preparando estado para sincronización: {e}")
+            return {"error": str(e)}
 
 def limpiar_sistema(servidor):
     """Limpia todas las asignaciones y registros del sistema."""
@@ -280,114 +341,128 @@ def limpiar_sistema(servidor):
         servidor.configurar_registro()
         logging.info("Sistema limpiado completamente")
         
-        # Limpiar métricas acumuladas
-        recolector_global.limpiar_metricas()
-        generador_global.limpiar_archivos()
-        
-        print("\n" + "=" * 60)
-        print("| SISTEMA LIMPIADO EXITOSAMENTE")
-        print("=" * 60)
-        print("| Operacion                    | Estado")
-        print("-" * 60)
-        print("| Asignaciones borradas        | Completado")
-        print("| Registros de logs            | Reiniciados")
-        print("| Metricas y reportes          | Limpiados")
-        print("=" * 60)
+        print("\n" + "="*60)
+        print("                SISTEMA LIMPIADO EXITOSAMENTE")
+        print("="*60)
+        print("| Todas las asignaciones han sido borradas")
+        print("| Registros de logs reiniciados")
+        print("| Estado del sistema restaurado")
+        print("-"*60)
         
         # Mostrar estadísticas después de la limpieza
         estadisticas = servidor.obtener_estadisticas()
-        print("\n" + "-" * 60)
-        print("| ESTADISTICAS DESPUES DE LIMPIEZA")
-        print("-" * 60)
-        print("| Tipo de Aula      | Total | Disponibles | En Uso")
-        print("-" * 60)
-        print("| Salones           | {:5} | {:11} | {:6}".format(
-            estadisticas["total_salones"], 
-            estadisticas["salones_disponibles"],
-            estadisticas["total_salones"] - estadisticas["salones_disponibles"]
-        ))
-        print("| Laboratorios      | {:5} | {:11} | {:6}".format(
-            estadisticas["total_laboratorios"], 
-            estadisticas["laboratorios_disponibles"],
-            estadisticas["total_laboratorios"] - estadisticas["laboratorios_disponibles"]
-        ))
-        print("| Aulas Moviles     | {:5} | {:11} | {:6}".format(
-            estadisticas["total_aulas_moviles"], 
-            estadisticas["total_aulas_moviles"] - estadisticas["aulas_moviles_en_uso"],
-            estadisticas["aulas_moviles_en_uso"]
-        ))
-        print("-" * 60)
+        print("ESTADISTICAS ACTUALES:")
+        print(json.dumps(estadisticas, indent=2))
+        print("="*60)
         
     except Exception as e:
-        print("\n" + "=" * 60)
-        print("| ERROR AL LIMPIAR EL SISTEMA")
-        print("=" * 60)
-        print("| Error: {}".format(str(e)))
-        print("=" * 60)
+        print(f"\nERROR: No se pudo limpiar el sistema: {str(e)}")
         logging.error(f"Error durante la limpieza del sistema: {str(e)}")
 
+def iniciar_latidos(contexto):
+    """Inicia el servicio de latidos (heartbeat) para indicar que el servidor está vivo."""
+    try:
+        socket = contexto.socket(zmq.PUB)
+        socket.bind(HEARTBEAT_URL)
+        
+        logging.info(f"Servicio de latidos iniciado en {HEARTBEAT_URL}")
+        
+        # Enviar latidos periódicamente
+        while True:
+            socket.send_string(f"LATIDO {datetime.now().isoformat()}")
+            time.sleep(INTERVALO_LATIDO)
+    except Exception as e:
+        logging.error(f"Error en servicio de latidos: {e}")
+
+def iniciar_sincronizacion(contexto, servidor):
+    """Inicia el servicio de sincronización de estado con el servidor de respaldo."""
+    try:
+        socket = contexto.socket(zmq.PUB)
+        socket.bind(SYNC_URL)
+        
+        logging.info(f"Servicio de sincronización iniciado en {SYNC_URL}")
+        
+        # Enviar estado periódicamente
+        while not servidor.detenido:
+            estado = servidor.enviar_estado_para_sincronizacion()
+            socket.send_string(json.dumps(estado))
+            time.sleep(INTERVALO_SINC)
+    except Exception as e:
+        logging.error(f"Error en servicio de sincronización: {e}")
+
 def main():
-    """Función principal del servidor DTI."""
-    # Mostrar información del servidor en formato tabla
-    print("\n" + "=" * 80)
-    print("| SERVIDOR CENTRAL DTI - SISTEMA DE ASIGNACION DE AULAS")
-    print("=" * 80)
-    print("| Estado            | Iniciando Servidor Central (DTI)")
-    print("| URL               | {}".format(DTI_URL))
-    print("| Estado Conexion   | Escuchando solicitudes")
-    print("| Servidor          | DTI listo para procesar solicitudes")
-    print("-" * 80)
-    print("| COMANDOS DISPONIBLES")
-    print("-" * 80)
-    print("| Comando           | Descripcion")
-    print("-" * 80)
-    print("| limpiar           | Reinicia el sistema")
-    print("| generar           | Genera reportes de metricas")
-    print("=" * 80)
+    """Función principal del servidor DTI - Implementado como Worker en el patrón Load Balancing Broker."""
     
     contexto = zmq.Context()
     servidor = ServidorDTI()
     
-    # Socket para recibir solicitudes de las facultades
-    socket = contexto.socket(zmq.REP)
-    socket.bind(DTI_URL)
+    # Iniciar servicios de tolerancia a fallos
+    threading.Thread(target=iniciar_latidos, args=(contexto,), daemon=True).start()
+    threading.Thread(target=iniciar_sincronizacion, args=(contexto, servidor), daemon=True).start()
     
+    # Socket para comunicarse con el broker
+    socket = contexto.socket(zmq.DEALER)
     
-    def atender_solicitud(mensaje):
-        thread_id = threading.get_ident()
+    # Crear una identidad única para este worker
+    worker_id = str(uuid.uuid4()).encode()
+    socket.setsockopt(zmq.IDENTITY, worker_id)
+    
+    # Conectar con el broker (backend)
+    socket.connect(BROKER_BACKEND_URL)
+    
+    # Mostrar información en formato tabla
+    print("\n" + "="*80)
+    print("                    SERVIDOR CENTRAL DTI - ESTADO INICIAL")
+    print("="*80)
+    print(f"| {'COMPONENTE':<25} | {'ESTADO':<15} | {'DETALLES':<30} |")
+    print("-"*80)
+    print(f"| {'Servidor DTI':<25} | {'INICIADO':<15} | {'Worker Mode':<30} |")
+    print(f"| {'Servicio Latidos':<25} | {'ACTIVO':<15} | {HEARTBEAT_URL:<30} |")
+    print(f"| {'Sincronización':<25} | {'ACTIVO':<15} | {SYNC_URL:<30} |")
+    print(f"| {'Conexión Broker':<25} | {'CONECTADO':<15} | {BROKER_BACKEND_URL:<30} |")
+    print(f"| {'Worker ID':<25} | {'ASIGNADO':<15} | {worker_id.decode()[:30]:<30} |")
+    print("-"*80)
+    print("| COMANDOS DISPONIBLES: 'limpiar' para reiniciar | 'salir' para terminar |")
+    print("="*80)
+    
+    # Enviar mensaje inicial para registrarse con el broker
+    socket.send(b"READY")
+    
+    def procesar_solicitud(client_id, mensaje):
+        """Procesa una solicitud y envía la respuesta de vuelta al broker."""
         try:
-            
             solicitud = json.loads(mensaje)
-
+            print(f"\nSolicitud recibida de {solicitud.get('facultad', 'desconocido')}: {mensaje}")
+            
+            # Procesar la solicitud
             respuesta = servidor.asignar_aulas(solicitud)
-            socket.send_string(json.dumps(respuesta))
+            
+            # Mostrar estadísticas
             estadisticas = servidor.obtener_estadisticas()
-            print("\n" + "-" * 60)
-            print("| ESTADISTICAS ACTUALES DEL SISTEMA")
-            print("-" * 60)
-            print("| Tipo de Aula      | Total | Disponibles | En Uso")
-            print("-" * 60)
-            print("| Salones           | {:5} | {:11} | {:6}".format(
-                estadisticas["total_salones"], 
-                estadisticas["salones_disponibles"],
-                estadisticas["total_salones"] - estadisticas["salones_disponibles"]
-            ))
-            print("| Laboratorios      | {:5} | {:11} | {:6}".format(
-                estadisticas["total_laboratorios"], 
-                estadisticas["laboratorios_disponibles"],
-                estadisticas["total_laboratorios"] - estadisticas["laboratorios_disponibles"]
-            ))
-            print("| Aulas Moviles     | {:5} | {:11} | {:6}".format(
-                estadisticas["total_aulas_moviles"], 
-                estadisticas["total_aulas_moviles"] - estadisticas["aulas_moviles_en_uso"],
-                estadisticas["aulas_moviles_en_uso"]
-            ))
-            print("-" * 60)
+            print("\nEstadísticas actuales:")
+            print(json.dumps(estadisticas, indent=2))
+            
+            # Enviar respuesta al broker
+            socket.send_multipart([
+                b"",              # Empty frame
+                client_id,        # Client ID
+                b"",              # Empty delimiter
+                json.dumps(respuesta).encode("utf-8")  # Response
+            ])
+            
             logging.info(f"Respuesta enviada a facultad: {solicitud.get('facultad')}")
+            
         except Exception as e:
-            logging.error(f"Error procesando solicitud: {e}")
-            socket.send_string(json.dumps({"error": str(e)}))
-
+            error_msg = f"Error procesando solicitud: {e}"
+            logging.error(error_msg)
+            # Enviar mensaje de error
+            socket.send_multipart([
+                b"",              # Empty frame
+                client_id,        # Client ID
+                b"",              # Empty delimiter
+                json.dumps({"error": str(e)}).encode("utf-8")
+            ])
+    
     try:
         while True:
             # Verificar si hay comando en la entrada estándar
@@ -396,33 +471,36 @@ def main():
                 if comando == "limpiar":
                     limpiar_sistema(servidor)
                     continue
-                elif comando == "generar":
-                    print("\n" + "-" * 60)
-                    print("| GENERANDO REPORTES DE METRICAS")
-                    print("-" * 60)
-                    generador_global.generar_reportes_completos()
-                    print("| Reportes generados exitosamente")
-                    print("-" * 60)
-                    continue
-
-            # Esperar mensaje con timeout para poder revisar la entrada estándar
-            if socket.poll(100) == zmq.POLLIN:
-                mensaje = socket.recv_string()
-                print("\n" + "-" * 60)
-                print("| SOLICITUD RECIBIDA")
-                print("-" * 60)
-                print("| Contenido: {}".format(mensaje))
-                print("-" * 60)
-                # Lanzar un hilo para procesar la solicitud y responder
-                t = threading.Thread(target=atender_solicitud, args=(mensaje,))
-                t.start()
+                elif comando == "salir":
+                    break
+            
+            # Verificar si hay mensajes del broker con un timeout corto
+            try:
+                if socket.poll(100) == zmq.POLLIN:
+                    # Recibir mensaje del broker
+                    frames = socket.recv_multipart()
+                    if len(frames) >= 4:
+                        empty = frames[0]      # Should be empty
+                        client_id = frames[1]  # ID of client
+                        delimiter = frames[2]  # Should be empty
+                        request = frames[3]    # Request data
+                        
+                        # Procesar en un hilo separado
+                        t = threading.Thread(target=procesar_solicitud, args=(client_id, request.decode("utf-8")))
+                        t.start()
+                    else:
+                        # Recibimos un mensaje que no entendemos, responder como READY
+                        socket.send(b"READY")
+            except zmq.ZMQError as e:
+                logging.error(f"Error ZMQ: {e}")
+                time.sleep(0.1)  # Pequeña pausa para evitar saturar la CPU
+            
     except KeyboardInterrupt:
-        print("\n" + "=" * 60)
-        print("| DETENIENDO SERVIDOR DTI")
-        print("=" * 60)
-        print("| Estado: Cerrando conexiones...")
-        print("=" * 60)
+        print("\n" + "="*50)
+        print("           DETENIENDO SERVIDOR DTI")
+        print("="*50)
     finally:
+        servidor.detenido = True
         socket.close()
         contexto.term()
 
